@@ -8,6 +8,7 @@ import Game.GameStates.State;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.Images;
+import Resources.MusicHandler;
 
 import javax.sound.sampled.*;
 import java.awt.*;
@@ -47,11 +48,8 @@ public class GameSetUp implements Runnable {
     public State pauseState;
 
     //Res.music
-    private InputStream audioFile;
-    private AudioInputStream audioStream;
-    private AudioFormat format;
-    private DataLine.Info info;
-    private Clip audioClip;
+    private MusicHandler musicHandler;
+
 
     private BufferedImage loading;
 
@@ -62,6 +60,7 @@ public class GameSetUp implements Runnable {
         this.title = title;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
+        musicHandler = new MusicHandler(handler);
 
     }
 
@@ -84,23 +83,10 @@ public class GameSetUp implements Runnable {
 
         State.setState(menuState);
 
-        try {
-
-            audioFile = getClass().getResourceAsStream("/music/nature.wav");
-            audioStream = AudioSystem.getAudioInputStream(audioFile);
-            format = audioStream.getFormat();
-            info = new DataLine.Info(Clip.class, format);
-            audioClip = (Clip) AudioSystem.getLine(info);
-            audioClip.open(audioStream);
-            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
+        musicHandler.set_changeMusic("res/music/UTheme.mp3");
+        musicHandler.play();
+        musicHandler.setLoop(true);
+        musicHandler.setVolume(0.25);
     }
 
     public void reStart(){
@@ -199,6 +185,11 @@ public class GameSetUp implements Runnable {
     public KeyManager getKeyManager(){
         return keyManager;
     }
+
+    MusicHandler getMusicHandler() {
+        return musicHandler;
+    }
+
 
     public MouseManager getMouseManager(){
         return mouseManager;
