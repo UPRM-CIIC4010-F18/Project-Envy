@@ -1,6 +1,6 @@
 package Input;
 
-import UI.UIManager;
+import Display.UI.UIManager;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

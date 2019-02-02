@@ -32,8 +32,6 @@ public class GameSetUp implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
 
-
-
     //Input
     private KeyManager keyManager;
     private MouseManager mouseManager;
@@ -48,7 +46,6 @@ public class GameSetUp implements Runnable {
 
     //Res.music
     private MusicHandler musicHandler;
-
 
     private BufferedImage loading;
 

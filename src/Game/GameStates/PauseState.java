@@ -2,8 +2,8 @@ package Game.GameStates;
 
 import Main.Handler;
 import Resources.Images;
-import UI.UIImageButton;
-import UI.UIManager;
+import Display.UI.UIImageButton;
+import Display.UI.UIManager;
 
 import java.awt.*;
 
