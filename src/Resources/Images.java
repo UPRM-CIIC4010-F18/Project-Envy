@@ -19,6 +19,9 @@ public class Images {
     public static BufferedImage[] Options;
     public static ImageIcon icon;
 
+    public static BufferedImage map;
+
+
     public Images() {
 
         butstart = new BufferedImage[3];
@@ -27,6 +30,8 @@ public class Images {
         Options = new BufferedImage[2];
 
         try {
+            map = ImageIO.read(getClass().getResourceAsStream("/Sheets/map.jpg"));
+
 
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));

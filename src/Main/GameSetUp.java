@@ -1,21 +1,15 @@
 package Main;
 
 import Display.DisplayScreen;
-import Game.GameStates.GameState;
-import Game.GameStates.MenuState;
-import Game.GameStates.PauseState;
-import Game.GameStates.State;
+import Game.GameStates.*;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.Images;
 import Resources.MusicHandler;
 
-import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -40,7 +34,8 @@ public class GameSetUp implements Runnable {
     private Handler handler;
 
     //States
-    public State gameState;
+    public State mapState;
+    public State inWorldState;
     public State menuState;
     public State pauseState;
 
@@ -72,11 +67,12 @@ public class GameSetUp implements Runnable {
 
 
 
-        gameState = new GameState(handler);
+        mapState = new MapState(handler);
+        inWorldState = new InWorldState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
 
-        State.setState(menuState);
+        State.setState(mapState);
 
         musicHandler.set_changeMusic("res/music/UTheme.mp3");
         musicHandler.play();
@@ -84,9 +80,6 @@ public class GameSetUp implements Runnable {
         musicHandler.setVolume(0.25);
     }
 
-    public void reStart(){
-        gameState = new GameState(handler);
-    }
 
     public synchronized void start(){
         if(running)
