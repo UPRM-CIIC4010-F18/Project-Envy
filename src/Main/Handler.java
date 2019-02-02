@@ -3,6 +3,8 @@ package Main;
 import Input.KeyManager;
 import Input.MouseManager;
 
+import java.awt.*;
+
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -10,18 +12,27 @@ import Input.MouseManager;
 
 public class Handler {
 
+    GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    int DEFAULTWIDTH = gd.getDisplayMode().getWidth();
+    int DEFAULTHEIGHT = gd.getDisplayMode().getHeight();
+
+    int width,height;
+
     private GameSetUp game;
 
-    public Handler(GameSetUp game){
-        this.game = game;
+    public Handler(){
+
+        height=(DEFAULTHEIGHT/2) +(DEFAULTHEIGHT/4)  ;
+        width =(DEFAULTWIDTH/3);
+
     }
 
     public int getWidth(){
-        return game.getWidth();
+        return width;
     }
 
     public int getHeight(){
-        return game.getHeight();
+        return height;
     }
 
     public GameSetUp getGame() {

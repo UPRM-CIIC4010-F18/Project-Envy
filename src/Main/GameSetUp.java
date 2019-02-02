@@ -24,7 +24,6 @@ import java.io.InputStream;
 
 public class GameSetUp implements Runnable {
     private DisplayScreen display;
-    private int width, height;
     public String title;
 
     private boolean running = false;
@@ -53,10 +52,10 @@ public class GameSetUp implements Runnable {
 
     private BufferedImage loading;
 
-    public GameSetUp(String title, int width, int height){
+    public GameSetUp(String title,Handler handler){
 
-        this.width = width;
-        this.height = height;
+        this.handler = handler;
+
         this.title = title;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
@@ -65,7 +64,7 @@ public class GameSetUp implements Runnable {
     }
 
     private void init(){
-        display = new DisplayScreen(title, width, height);
+        display = new DisplayScreen(title, handler.width, handler.height);
         display.getFrame().addKeyListener(keyManager);
         display.getFrame().addMouseListener(mouseManager);
         display.getFrame().addMouseMotionListener(mouseManager);
@@ -75,7 +74,6 @@ public class GameSetUp implements Runnable {
         Images img = new Images();
 
 
-        handler = new Handler(this);
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
@@ -157,11 +155,11 @@ public class GameSetUp implements Runnable {
         }
         g = bs.getDrawGraphics();
         //Clear Screen
-        g.clearRect(0, 0, width, height);
+        g.clearRect(0, 0,  handler.width, handler.height);
 
         //Draw Here!
 
-        g.drawImage(loading ,0,0,width,height,null);
+        g.drawImage(loading ,0,0, handler.width, handler.height,null);
         if(State.getState() != null)
             State.getState().render(g);
 
@@ -186,7 +184,7 @@ public class GameSetUp implements Runnable {
         return keyManager;
     }
 
-    MusicHandler getMusicHandler() {
+    public MusicHandler getMusicHandler() {
         return musicHandler;
     }
 
@@ -195,12 +193,5 @@ public class GameSetUp implements Runnable {
         return mouseManager;
     }
 
-    public int getWidth(){
-        return width;
-    }
-
-    public int getHeight(){
-        return height;
-    }
 }
 
