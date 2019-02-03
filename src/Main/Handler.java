@@ -5,6 +5,8 @@ import Input.MouseManager;
 
 import java.awt.*;
 
+import Game.Entities.EntityManager;
+import Game.World.WorldManager;
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -12,44 +14,80 @@ import java.awt.*;
 
 public class Handler {
 
-    GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-    int DEFAULTWIDTH = gd.getDisplayMode().getWidth();
-    int DEFAULTHEIGHT = gd.getDisplayMode().getHeight();
+	GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	int DEFAULTWIDTH = gd.getDisplayMode().getWidth();
+	int DEFAULTHEIGHT = gd.getDisplayMode().getHeight();
 
-    int width,height;
+	int width, height;
 
-    private GameSetUp game;
+	private EntityManager entityManager;
+	private WorldManager worldManager;
 
-    public Handler(){
+	int xDisplacement, yDisplacement;
 
-        height=(DEFAULTHEIGHT/2) +(DEFAULTHEIGHT/4)  ;
-        width =(DEFAULTWIDTH/3);
+	private GameSetUp game;
 
-    }
+	public Handler() {
 
-    public int getWidth(){
-        return width;
-    }
+		height = (DEFAULTHEIGHT / 2) + (DEFAULTHEIGHT / 4);
+		width = (DEFAULTWIDTH / 3);
 
-    public int getHeight(){
-        return height;
-    }
+	}
 
-    public GameSetUp getGame() {
-        return game;
-    }
+	public int getWidth() {
+		return width;
+	}
 
-    public void setGame(GameSetUp game) {
-        this.game = game;
-    }
+	public int getHeight() {
+		return height;
+	}
 
-    public KeyManager getKeyManager(){
-        return game.getKeyManager();
-    }
+	public GameSetUp getGame() {
+		return game;
+	}
 
-    public MouseManager getMouseManager(){
-        return game.getMouseManager();
-    }
+	public void setGame(GameSetUp game) {
+		this.game = game;
+	}
 
+	public KeyManager getKeyManager() {
+		return game.getKeyManager();
+	}
+
+	public MouseManager getMouseManager() {
+		return game.getMouseManager();
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+	public void setWorldManager(WorldManager worldManager) {
+		this.worldManager = worldManager;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public WorldManager getWorldManager() {
+		return worldManager;
+	}
+
+	public void setXDisplacement(int xDis) {
+		this.xDisplacement = xDis;
+	}
+
+	public void setYDisplacement(int yDis) {
+		this.yDisplacement = yDis;
+	}
+
+	public int getXDisplacement() {
+		return this.xDisplacement;
+	}
+
+	public int getYDisplacement() {
+		return this.yDisplacement;
+	}
 
 }

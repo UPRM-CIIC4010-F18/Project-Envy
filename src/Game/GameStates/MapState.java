@@ -2,39 +2,62 @@ package Game.GameStates;
 
 import Main.Handler;
 import Resources.Images;
-
 import java.awt.*;
+
+import Game.Entities.EntityManager;
+import Game.Entities.Dynamics.Player;
+import Game.Entities.Statics.Tree;
+import Game.World.WorldManager;
+
 
 public class MapState extends State{
 
-    int x=-500,y=-500;
+	int xDisplacement, yDisplacement;
+	
+	WorldManager worldManager;
+	EntityManager entityManager;
+	Player player;
+	
+    Image map = Images.map.getScaledInstance(4000, 4000, Image.SCALE_SMOOTH);
+	
+    Rectangle background = new Rectangle(3000, 3000);
+    Color backgroundColor = new Color(61, 68, 128);
+    
 
     public MapState(Handler handler) {
         super(handler);
 
+        xDisplacement = -200;
+        yDisplacement = -200;
+        this.handler.setXDisplacement(xDisplacement);
+        this.handler.setYDisplacement(yDisplacement);
+        
+        player = new Player(handler);
+        entityManager = new EntityManager(handler, player);
+        worldManager = new WorldManager(handler, entityManager);
+        this.handler.setWorldManager(worldManager);
+        this.handler.setEntityManager(entityManager);
+        
     }
 
     @Override
     public void tick() {
-
-        if (handler.getKeyManager().down){
-            y-=5;
-        }
-        if (handler.getKeyManager().up){
-            y+=5;
-        }
-        if (handler.getKeyManager().right){
-            x-=5;
-        }
-        if (handler.getKeyManager().left){
-            x+=5;
-        }
+    	worldManager.tick();
+    	entityManager.tick();
     }
 
     @Override
     public void render(Graphics g) {
 
-        g.drawImage(Images.map,x,y,null);
-
+    	Graphics2D g2 = (Graphics2D)g;
+    	
+    	g2.setColor(backgroundColor);
+    	g2.fill(background); 
+    	
+    	// Movement of the Image
+        g2.drawImage(map, handler.getXDisplacement(), handler.getYDisplacement(), null);
+        
+        worldManager.render(g);
+        entityManager.render(g);
     }
 }
