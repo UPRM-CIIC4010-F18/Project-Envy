@@ -77,7 +77,7 @@ public class GameSetUp implements Runnable {
         musicHandler.set_changeMusic("res/music/UTheme.mp3");
         musicHandler.play();
         musicHandler.setLoop(true);
-        musicHandler.setVolume(0.25);
+        musicHandler.setVolume(0);
     }
 
 

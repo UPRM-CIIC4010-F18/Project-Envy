@@ -2,6 +2,9 @@ package Resources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -18,9 +21,10 @@ public class Images {
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
-
+    
+    
     public static BufferedImage map;
-
+    public static BufferedImage tree;
 
     public Images() {
 
@@ -30,9 +34,8 @@ public class Images {
         Options = new BufferedImage[2];
 
         try {
-            map = ImageIO.read(getClass().getResourceAsStream("/Sheets/map.jpg"));
-
-
+            map = ImageIO.read(getClass().getResourceAsStream("/Sheets/map.png"));
+            tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
@@ -53,7 +56,8 @@ public class Images {
     }
 
 
-    }
+    }	
+    
 
     public static BufferedImage loadImage(String path) {
         try {
