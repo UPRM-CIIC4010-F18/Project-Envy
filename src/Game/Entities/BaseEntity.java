@@ -9,7 +9,10 @@ public class BaseEntity {
 
 	protected Handler handler;
 	
-	public BaseEntity(Handler handler) {
+	protected double xPosition;
+	protected double yPosition;
+	
+	public BaseEntity(Handler handler, double xPosition, double yPosition) {
 		this.handler = handler;
 	}
 	
@@ -24,7 +27,18 @@ public class BaseEntity {
 		return new Rectangle(); // Placeholder Rectangle
 	}
 	
-	public int getX() {
-		return 0; // Placeholder value
+	// Getters and Setters of Offsets.
+	public double getXOffset() {
+		return this.xPosition;
 	}
+	public double getYOffset() {
+		return this.yPosition;
+	}
+	public void setXOffset(double xPosition) {
+		this.xPosition = xPosition;
+	}
+	public void setYOffset(double yPosition) {
+		this.yPosition = yPosition;
+	}
+	
 }

@@ -3,8 +3,12 @@ package Game.Entities;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import Game.Entities.Dynamics.BaseHostileEntity;
 import Game.Entities.Dynamics.Player;
+import Game.Entities.Statics.BaseStaticEntity;
 import Game.Entities.Statics.Tree;
+import Game.GameStates.FightState;
+import Game.GameStates.State;
 import Main.Handler;
 
 public class EntityManager {
@@ -26,6 +30,7 @@ public class EntityManager {
 		
 		for (BaseEntity e : entities) {
 			CheckCollisions(e);
+		
 			e.tick();
 		}
 		
@@ -36,13 +41,21 @@ public class EntityManager {
 	
 	private void CheckCollisions(BaseEntity e) {
 		
-		
-		if ( player.GetCollisions().intersects(e.getCollision())) {
-			// TODO: Check if Hostile or A collision
-			player.WallBoundary(e.getX());
+		if ( player.getCollision().intersects(e.getCollision())) {
 			
+			if (e instanceof BaseStaticEntity){
+				player.WallBoundary(e.getXOffset());
+			}
+			else if (e instanceof BaseHostileEntity) {
+				BaseHostileEntity enemy = (BaseHostileEntity)e;
+				System.out.println("Fight!");
+				State.setState(new FightState(handler, player, enemy));
+			}
 		}
-
+		
+		
+		
+		// Make it so it checks if ALL Dynamic entities INTERSECTED with ALL STATIC entities ?
 		
 	}
 

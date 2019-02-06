@@ -1,8 +1,6 @@
 package Game.Entities.Statics;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import Main.Handler;
 import Resources.Images;
@@ -10,15 +8,16 @@ import Resources.Images;
 public class Tree extends BaseStaticEntity {
 	
 	Rectangle collision;
-	int width, height,
-		xOffset, yOffset;
+	int width, height;
 	
-	public Tree(Handler handler) {
-		super(handler);
+	public Tree(Handler handler, int xPosition, int yPosition) {
+		super(handler, xPosition, yPosition);
 		width = 100;
 		height = 100;
-		xOffset = 600;
-		yOffset = 600;
+		
+		this.setXOffset(xPosition);
+		this.setYOffset(yPosition);
+
 		
 		collision = new Rectangle();
 	}
@@ -26,15 +25,8 @@ public class Tree extends BaseStaticEntity {
 	
 	@Override
 	public void render(Graphics g) {
-		
-		Graphics2D g2 = (Graphics2D)g;
-		
-		g.drawImage(Images.tree, handler.getXDisplacement() + xOffset, handler.getYDisplacement() + yOffset, width, height, null);
-		collision = new Rectangle(handler.getXDisplacement() + xOffset + 35, handler.getYDisplacement() + yOffset + 50, width/4, height/2);
-		
-		g2.setColor(Color.black);
-		g2.draw(collision);
-		
+		g.drawImage(Images.tree, (int)(handler.getXDisplacement() + xPosition),(int)( handler.getYDisplacement() + yPosition), width, height, null);
+		collision = new Rectangle((int)(handler.getXDisplacement() + xPosition + 35), (int)(handler.getYDisplacement() + yPosition + 50), width/4, height/2);
 	}
 	
 	@Override
@@ -43,8 +35,8 @@ public class Tree extends BaseStaticEntity {
 	}
 	
 	@Override
-	public int getX() {
-		return xOffset;
+	public double getXOffset() {
+		return xPosition;
 	}
 	
 	
