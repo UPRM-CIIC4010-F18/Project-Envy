@@ -5,9 +5,19 @@ import Main.Handler;
 
 public class BaseDynamicEntity extends BaseEntity {
 
-	public BaseDynamicEntity(Handler handler) {
-		super(handler);
+
+	
+	public BaseDynamicEntity(Handler handler, int xPosition, int yPosition) {
+		super(handler, xPosition, yPosition);
 	}
 	
+	// if it moves and stuff then what methods should it have? 
+
 	
+	
+	// OTHER FUNCTIONALITIES THAT A DYNAMIC ENTITY SHOULD HAVE?
+	
+	
+	
+
 }

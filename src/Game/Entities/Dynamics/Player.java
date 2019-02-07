@@ -11,24 +11,26 @@ public class Player extends BaseDynamicEntity {
 	
 	Rectangle player;
 	
-	public Player(Handler handler) {
-		super(handler);
+	public Player(Handler handler, int xPosition, int yPosition) {
+		super(handler, yPosition, yPosition);
+		
+		this.xPosition = xPosition;
+		this.yPosition = yPosition;
 		
 		player = new Rectangle();
 	}
 	
 	@Override
 	public void tick() {
-
-		PlayerInput();
-			
+		
+		PlayerInput();		
 	}
 
 	@Override
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		
-		player = new Rectangle((int)handler.getWidth() / 2 - 5, (int) handler.getHeight() / 2, 25, 25);
+		player = new Rectangle((int)xPosition, (int)yPosition, 25, 25);
 		
 		g2.setColor(Color.RED);
     	g2.fill(player);
@@ -51,7 +53,9 @@ public class Player extends BaseDynamicEntity {
         }
 	}
 
-	public Rectangle GetCollisions() {
+	
+	@Override
+	public Rectangle getCollision() {
 		return player; 
 	}
 
@@ -61,7 +65,7 @@ public class Player extends BaseDynamicEntity {
 	 * 
 	 * @param collidedXPos the xPosition the static entity is located at.
 	 */
-	public void WallBoundary(int collidedXPos) {
+	public void WallBoundary(double collidedXPos) {
 
 		int playerXPos = Math.abs(handler.getXDisplacement());
 		
@@ -72,4 +76,21 @@ public class Player extends BaseDynamicEntity {
 			handler.setXDisplacement(handler.getXDisplacement() - 2); 
 		}
 	}
+	
+
+	
+	/*
+	 * Although the TRUE Player position is in the middle of the screen,
+	 * these two methods give us the value as if the player was part of the world.
+	 */
+	@Override
+	public double getXOffset() {
+		return -this.handler.getXDisplacement() + xPosition;
+	}
+	
+	@Override
+	public double getYOffset() {
+		return -this.handler.getYDisplacement() + yPosition;
+	}
+
 }

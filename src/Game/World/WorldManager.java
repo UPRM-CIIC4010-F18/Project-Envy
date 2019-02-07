@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Game.Entities.BaseEntity;
 import Game.Entities.EntityManager;
+import Game.Entities.Dynamics.EnemyOne;
 import Game.Entities.Dynamics.Player;
 import Game.Entities.Statics.Tree;
 import Main.Handler;
@@ -18,12 +19,14 @@ public class WorldManager {
 		this.handler = handler;
 		this.entityManager = entityManager;
 		
-		
-		this.entityManager.AddEntity(new Tree(handler));
+		this.entityManager.AddEntity(new Tree(handler, 600, 600));
+		this.entityManager.AddEntity(new EnemyOne(handler, 300, 800));
 	}
 
 	public void tick() {
 
+		
+		
 	}
 
 	public void render(Graphics g) {
