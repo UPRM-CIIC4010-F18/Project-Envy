@@ -20,6 +20,8 @@ public class GameSetUp implements Runnable {
     private DisplayScreen display;
     public String title;
 
+    public static boolean DEBUGMODE = true;
+
     private boolean running = false;
     private Thread thread;
 

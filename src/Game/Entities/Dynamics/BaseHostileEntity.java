@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import Main.GameSetUp;
 import Main.Handler;
 
 public class BaseHostileEntity extends BaseDynamicEntity {
@@ -15,6 +16,7 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 
 	private int count;
 	private int directionMov;
+	double chaseSpeed = 1.4;
 
 	public BaseHostileEntity(Handler handler, int xPosition, int yPosition) {
 		super(handler, xPosition, yPosition);
@@ -62,28 +64,31 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 	
 	@Override
 	public void render(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
 
-		g2.draw(detector);
+		if(GameSetUp.DEBUGMODE){
+			Graphics2D g2 = (Graphics2D) g;
+			g2.draw(detector);
+		}
+
 	}
 
 	private void Chase() {
 		
 		if (this.handler.getEntityManager().getPlayer().getXOffset() > this.getXOffset()) {
 			
-			this.setXOffset(this.getXOffset() + 1.4);
+			this.setXOffset(this.getXOffset() + chaseSpeed);
 		}
 		if (this.handler.getEntityManager().getPlayer().getXOffset() < this.getXOffset()) {
 			
-			this.setXOffset(this.getXOffset() - 1.4);
+			this.setXOffset(this.getXOffset() - chaseSpeed);
 		}
 		
 		if (this.handler.getEntityManager().getPlayer().getYOffset() < this.getYOffset()) {
-			this.setYOffset(this.getYOffset() - 1.4);
+			this.setYOffset(this.getYOffset() - chaseSpeed);
 		}
 
 		if (this.handler.getEntityManager().getPlayer().getYOffset() > this.getYOffset()) {
-			this.setYOffset(this.getYOffset() + 1.4);
+			this.setYOffset(this.getYOffset() + chaseSpeed);
 		}
 
 
@@ -97,19 +102,19 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 		case 0:
 			break;
 		case 1:
-			this.setYOffset(this.getYOffset() + 1);
+			this.setYOffset(this.getYOffset() + speed);
 			break;
 
 		case 2:
-			this.setYOffset(this.getYOffset() - 1);
+			this.setYOffset(this.getYOffset() - speed);
 			break;
 
 		case 3:
-			this.setXOffset(this.getXOffset() - 1);
+			this.setXOffset(this.getXOffset() - speed);
 			break;
 
 		case 4:
-			this.setXOffset(this.getXOffset() + 1);
+			this.setXOffset(this.getXOffset() + speed);
 			break;
 		}
 	}

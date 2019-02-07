@@ -16,7 +16,7 @@ public class EnemyOne extends BaseHostileEntity {
 		super(handler, yPosition, yPosition);
 		width = 30;
 		height = 30;
-		
+		speed = 1;
 		this.setXOffset(xPosition);
 		this.setYOffset(yPosition);
 		
@@ -38,7 +38,6 @@ public class EnemyOne extends BaseHostileEntity {
 		g2.setColor(Color.black);
 		
 		enemyOne = new Rectangle((int) (handler.getXDisplacement()+getXOffset()),(int) (handler.getYDisplacement()+getYOffset()), 30, 30);
-		
 		g2.fill(enemyOne);
 	}
 	

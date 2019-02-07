@@ -6,6 +6,7 @@ import Main.Handler;
 public class BaseDynamicEntity extends BaseEntity {
 
 
+	int speed = 2;
 	
 	public BaseDynamicEntity(Handler handler, int xPosition, int yPosition) {
 		super(handler, xPosition, yPosition);
@@ -16,8 +17,13 @@ public class BaseDynamicEntity extends BaseEntity {
 	
 	
 	// OTHER FUNCTIONALITIES THAT A DYNAMIC ENTITY SHOULD HAVE?
-	
-	
-	
 
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
 }
