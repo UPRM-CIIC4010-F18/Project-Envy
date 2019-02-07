@@ -33,13 +33,19 @@ public class DisplayScreen {
 
     private void createDisplay(){
         frame = new JFrame(title);
+        
+        frame.setUndecorated(true);
         frame.setSize(width, height);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
+//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setResizable(false); // Keep this.
+        frame.setLocationRelativeTo(null); 
         frame.setVisible(true);
-        frame.setBackground(Color.black);
+        frame.setBackground(Color.black);       
+//        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+      
 
+        
+        
         try {
             frame.setIconImage(ImageIO.read(new File("res/Sheets/icon.png")));
         } catch (IOException e) {
