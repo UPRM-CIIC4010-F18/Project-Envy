@@ -5,7 +5,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import Game.GameStates.PauseState;
+import Game.GameStates.State;
 import Main.Handler;
+import javafx.scene.input.KeyCode;
+
+import java.awt.event.KeyEvent;
+
 
 public class Player extends BaseDynamicEntity {
 	
@@ -22,8 +28,16 @@ public class Player extends BaseDynamicEntity {
 	
 	@Override
 	public void tick() {
-		
-		PlayerInput();		
+		if(handler.getKeyManager().runbutt){
+		    speed = 2;
+        }else{
+		    speed =4;
+        }
+		PlayerInput();
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+            PauseState.lastState = State.getState();
+			State.setState(handler.getGame().pauseState);
+		}
 	}
 
 	@Override
@@ -40,16 +54,16 @@ public class Player extends BaseDynamicEntity {
 	
 	private void PlayerInput() {
 		if (handler.getKeyManager().down){
-			handler.setYDisplacement(handler.getYDisplacement() - 2);
+			handler.setYDisplacement(handler.getYDisplacement() - speed);
         }
-        else if (handler.getKeyManager().up){
-        	handler.setYDisplacement(handler.getYDisplacement() + 2);
+        if (handler.getKeyManager().up){
+        	handler.setYDisplacement(handler.getYDisplacement() + speed);
         }
-        else if (handler.getKeyManager().right){
-        	handler.setXDisplacement(handler.getXDisplacement() - 2);
+        if (handler.getKeyManager().right){
+        	handler.setXDisplacement(handler.getXDisplacement() - speed);
         }
-        else if (handler.getKeyManager().left){
-        	handler.setXDisplacement(handler.getXDisplacement() + 2);
+        if (handler.getKeyManager().left){
+        	handler.setXDisplacement(handler.getXDisplacement() + speed);
         }
 	}
 

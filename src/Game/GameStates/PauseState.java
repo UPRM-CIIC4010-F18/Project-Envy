@@ -7,6 +7,7 @@ import Display.UI.UIImageButton;
 import Display.UI.UIManager;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -15,6 +16,7 @@ public class PauseState extends State {
 
 	private UIManager uiManager;
 	int waitTimeForInput;
+	public static State lastState;
 
 
     public PauseState(Handler handler) {
@@ -26,7 +28,7 @@ public class PauseState extends State {
 
         
 
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.butstart, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.Quit, new ClickListlener() {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUimanager(null);
@@ -48,6 +50,9 @@ public class PauseState extends State {
     public void tick() {
         handler.getMouseManager().setUimanager(uiManager);
     	uiManager.tick();
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+            State.setState(lastState);
+        }
 
     }
 
@@ -60,4 +65,5 @@ public class PauseState extends State {
     	
     	uiManager.Render(g);
     }
+
 }
