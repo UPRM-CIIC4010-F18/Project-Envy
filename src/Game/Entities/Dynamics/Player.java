@@ -64,19 +64,19 @@ public class Player extends BaseDynamicEntity {
     private void UpdateNextMove() {
         switch (facing){
             case "Up" :
-                nextArea = new Rectangle((int)xPosition, (int)yPosition-speed, 23, 25);
+                nextArea = new Rectangle((int)xPosition, (int)yPosition-speed, 24, 10);
 
                 break;
             case "Down" :
-                nextArea = new Rectangle((int)xPosition, (int)yPosition+speed, 23, 25);
+                nextArea = new Rectangle((int)xPosition, (int)yPosition+speed, 24, 25);
 
                 break;
             case "Left" :
-                nextArea = new Rectangle((int)xPosition-speed, (int)yPosition, 25, 23);
+                nextArea = new Rectangle((int)xPosition-speed, (int)yPosition, 25, 24);
 
                 break;
             case "Right" :
-                nextArea = new Rectangle((int)xPosition+speed, (int)yPosition, 25, 23);
+                nextArea = new Rectangle((int)xPosition+speed, (int)yPosition, 25, 24);
 
                 break;
         }
