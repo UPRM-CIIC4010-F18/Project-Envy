@@ -25,6 +25,7 @@ public class Images {
     public static Image Scaledmap;
     
     public static BufferedImage map;
+    public static BufferedImage[] battleBackground;
     public static BufferedImage tree;
 
     public Images() {
@@ -34,6 +35,7 @@ public class Images {
         BTitle = new BufferedImage[3];
         Options = new BufferedImage[3];
         Quit = new BufferedImage[3];
+        battleBackground = new BufferedImage[2];
 
         try {
             map = ImageIO.read(getClass().getResourceAsStream("/Sheets/map.png"));
@@ -55,7 +57,9 @@ public class Images {
             Quit[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButton.png"));//normbut
             Quit[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonHover.png"));//hoverbut
             Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut
-
+            battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
+            battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
+            
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 
