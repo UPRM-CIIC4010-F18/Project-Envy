@@ -18,10 +18,11 @@ public class Images {
     public static BufferedImage title;
     public static BufferedImage Pause;
     public static BufferedImage[] Resume;
+    public static BufferedImage[] Quit;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
-    
+    public static Image Scaledmap;
     
     public static BufferedImage map;
     public static BufferedImage tree;
@@ -29,9 +30,10 @@ public class Images {
     public Images() {
 
         butstart = new BufferedImage[3];
-        Resume = new BufferedImage[2];
-        BTitle = new BufferedImage[2];
-        Options = new BufferedImage[2];
+        Resume = new BufferedImage[3];
+        BTitle = new BufferedImage[3];
+        Options = new BufferedImage[3];
+        Quit = new BufferedImage[3];
 
         try {
             map = ImageIO.read(getClass().getResourceAsStream("/Sheets/map.png"));
@@ -40,13 +42,19 @@ public class Images {
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
+            Resume[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
             BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
+            BTitle[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
             Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
             Options[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
+            Options[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverBut.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
+            Quit[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButton.png"));//normbut
+            Quit[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonHover.png"));//hoverbut
+            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
@@ -54,6 +62,8 @@ public class Images {
         }catch (IOException e) {
         e.printStackTrace();
     }
+        Scaledmap = Images.map.getScaledInstance(4000, 4000, Image.SCALE_SMOOTH);
+
 
 
     }	

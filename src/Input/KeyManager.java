@@ -15,6 +15,7 @@ public class KeyManager implements KeyListener {
 	public boolean attbut=false;
 	public boolean fattbut=false;
 	public boolean pbutt=false;
+	public boolean runbutt=false;
 
 
 	public KeyManager(){
@@ -47,6 +48,7 @@ public class KeyManager implements KeyListener {
 		attbut = keys[KeyEvent.VK_E];
 		fattbut = keys[KeyEvent.VK_C];
 		pbutt = keys[KeyEvent.VK_ESCAPE];
+		runbutt = keys[KeyEvent.VK_SHIFT];
 
 	}
 
