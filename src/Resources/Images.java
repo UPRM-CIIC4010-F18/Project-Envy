@@ -62,8 +62,9 @@ public class Images {
         }catch (IOException e) {
         e.printStackTrace();
     }
-        Scaledmap = Images.map.getScaledInstance(4000, 4000, Image.SCALE_SMOOTH);
-
+        Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+        // Find a way to start the image at a specified part.
+        
 
 
     }	

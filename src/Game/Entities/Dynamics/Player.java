@@ -28,10 +28,11 @@ public class Player extends BaseDynamicEntity {
 	
 	@Override
 	public void tick() {
+		
 		if(handler.getKeyManager().runbutt){
 		    speed = 2;
         }else{
-		    speed =4;
+		    speed = 8;
         }
 		PlayerInput();
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
@@ -56,13 +57,13 @@ public class Player extends BaseDynamicEntity {
 		if (handler.getKeyManager().down){
 			handler.setYDisplacement(handler.getYDisplacement() - speed);
         }
-        if (handler.getKeyManager().up){
+		else if (handler.getKeyManager().up){
         	handler.setYDisplacement(handler.getYDisplacement() + speed);
         }
-        if (handler.getKeyManager().right){
+		else if (handler.getKeyManager().right){
         	handler.setXDisplacement(handler.getXDisplacement() - speed);
         }
-        if (handler.getKeyManager().left){
+        else if (handler.getKeyManager().left){
         	handler.setXDisplacement(handler.getXDisplacement() + speed);
         }
 	}
