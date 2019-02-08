@@ -9,7 +9,6 @@ import Game.GameStates.MapState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Game.World.InvisibleWalls;
-import Game.World.WorldManager;
 import Main.GameSetUp;
 import Main.Handler;
 import java.awt.event.KeyEvent;
@@ -55,29 +54,29 @@ public class Player extends BaseDynamicEntity {
         player = new Rectangle((int)xPosition, (int)yPosition, 25, 25);
 
         g2.setColor(Color.RED);
-        g2.draw(player);
+        g2.fill(player);
 
         if(GameSetUp.DEBUGMODE){
-            g2.fill(nextArea);
+            g2.draw(nextArea);
         }
     }
 
     private void UpdateNextMove() {
         switch (facing){
-            case "Down" :
-                nextArea = new Rectangle((int)xPosition, (int)yPosition-speed, 25, 25);
-
-                break;
             case "Up" :
-                nextArea = new Rectangle((int)xPosition, (int)yPosition+speed, 25, 25);
+                nextArea = new Rectangle((int)xPosition, (int)yPosition-speed, 23, 25);
 
                 break;
-            case "Right" :
-                nextArea = new Rectangle((int)xPosition-speed, (int)yPosition, 25, 25);
+            case "Down" :
+                nextArea = new Rectangle((int)xPosition, (int)yPosition+speed, 23, 25);
 
                 break;
             case "Left" :
-                nextArea = new Rectangle((int)xPosition+speed, (int)yPosition, 25, 25);
+                nextArea = new Rectangle((int)xPosition-speed, (int)yPosition, 25, 23);
+
+                break;
+            case "Right" :
+                nextArea = new Rectangle((int)xPosition+speed, (int)yPosition, 25, 23);
 
                 break;
         }
@@ -87,20 +86,20 @@ public class Player extends BaseDynamicEntity {
         boolean canMove = true;
         if(State.getState() instanceof MapState) {
             for (InvisibleWalls iv :((MapState) State.getState()).getInvisibleWalls()) {
-                if(getCollision().intersects(iv)){
+                if(nextArea.intersects(iv)){
                     canMove = false;
                     switch (facing){
                         case "Down" :
-                            handler.setYDisplacement(handler.getYDisplacement() + speed);
+                            handler.setYDisplacement(handler.getYDisplacement() + 1);
                             break;
                         case "Up" :
-                            handler.setYDisplacement(handler.getYDisplacement() - speed);
+                            handler.setYDisplacement(handler.getYDisplacement() - 1);
                             break;
                         case "Right" :
-                            handler.setXDisplacement(handler.getXDisplacement() + speed);
+                            handler.setXDisplacement(handler.getXDisplacement() + 1);
                             break;
                         case "Left" :
-                            handler.setXDisplacement(handler.getXDisplacement() - speed);
+                            handler.setXDisplacement(handler.getXDisplacement() - 1);
                             break;
                     }
                     break;
