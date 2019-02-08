@@ -16,10 +16,11 @@ public class WorldManager {
 		this.entityManager = entityManager;
 		
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
-		this.entityManager.AddEntity(new EnemyOne(handler, 300, 800));
+		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800));
 	}
 
 	public void tick() {
+
 
 		
 		

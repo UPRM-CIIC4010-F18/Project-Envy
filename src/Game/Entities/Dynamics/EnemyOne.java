@@ -25,14 +25,15 @@ public class EnemyOne extends BaseHostileEntity {
 	
 	@Override
 	public void tick() {
-		super.tick();
+        super.tick();
 	}
-	
+
+
+
 	
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		
 		Graphics2D g2 = (Graphics2D)g;
 		
 		g2.setColor(Color.black);

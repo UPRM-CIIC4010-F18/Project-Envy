@@ -1,9 +1,12 @@
 package Game.GameStates;
 
+import Game.World.InvisibleWalls;
 import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
 import java.awt.*;
+import java.util.ArrayList;
+
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.Player;
 import Game.World.WorldManager;
@@ -15,6 +18,12 @@ public class MapState extends State {
 	WorldManager worldManager;
 	EntityManager entityManager;
 	Player player;
+
+	ArrayList<Game.World.InvisibleWalls> InvisibleWalls;
+
+	//changes the initial spawn of the player
+	int initialXMapDisplacement=1450;
+	int initialYMapDisplacement=500;
 
 
 	Rectangle background = new Rectangle(3000, 3000);
@@ -35,10 +44,18 @@ public class MapState extends State {
 		this.handler.setWorldManager(worldManager);
 		this.handler.setEntityManager(entityManager);
 
+		//adds all the invisible walls in game
+		InvisibleWalls = new ArrayList<>();
+        InvisibleWalls.add(new InvisibleWalls(handler,150,0,215,490));
+        InvisibleWalls.add(new InvisibleWalls(handler,150,600,215,495));
+
 	}
 
 	@Override
 	public void tick() {
+        for (InvisibleWalls iv: this.InvisibleWalls) {
+            iv.tick();
+        }
 
 		
 		worldManager.tick();
@@ -56,14 +73,20 @@ public class MapState extends State {
 		g2.fill(background);
 
 		// Movement of the Image
-		g2.drawImage(Images.Scaledmap, handler.getXDisplacement(), handler.getYDisplacement(), null);
+		g2.drawImage(Images.Scaledmap, handler.getXDisplacement()-initialXMapDisplacement, handler.getYDisplacement()-initialYMapDisplacement, null);
 
 		worldManager.render(g);
 		entityManager.render(g);
 
         if(GameSetUp.DEBUGMODE){
-
+            for (InvisibleWalls iv: this.InvisibleWalls) {
+                iv.render(g2);
+            }
         }
 
 	}
+
+    public ArrayList<InvisibleWalls> getInvisibleWalls() {
+        return InvisibleWalls;
+    }
 }
