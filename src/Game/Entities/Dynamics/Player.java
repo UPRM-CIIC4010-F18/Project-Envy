@@ -8,8 +8,6 @@ import java.awt.Rectangle;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Main.Handler;
-import javafx.scene.input.KeyCode;
-
 import java.awt.event.KeyEvent;
 
 

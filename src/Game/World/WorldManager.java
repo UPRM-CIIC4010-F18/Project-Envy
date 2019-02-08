@@ -1,12 +1,8 @@
 package Game.World;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-
-import Game.Entities.BaseEntity;
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
-import Game.Entities.Dynamics.Player;
 import Game.Entities.Statics.Tree;
 import Main.Handler;
 

@@ -1,7 +1,6 @@
 package Game.GameStates;
 
 import Main.Handler;
-
 import java.awt.*;
 
 public class InWorldState extends State{

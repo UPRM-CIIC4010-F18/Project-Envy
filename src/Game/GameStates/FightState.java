@@ -3,7 +3,6 @@ package Game.GameStates;
 import Game.Entities.Dynamics.BaseDynamicEntity;
 import Game.Entities.Dynamics.BaseHostileEntity;
 import Main.Handler;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
