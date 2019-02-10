@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
+import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
 import Main.GameSetUp;
 import Main.Handler;
@@ -23,6 +24,7 @@ public class WorldManager {
 		this.entityManager = entityManager;
 
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
+		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
 		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800));
 
 		AddWalls();
@@ -66,6 +68,7 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 1800, -300, 180, 380 , "Wall"));
 		worldWalls.add(new Walls(handler, 1710, -150, 180, 250, "Wall"));
 		worldWalls.add(new Walls(handler, 1600, 0, 60, 100, "Wall"));
+		worldWalls.add(new Walls(handler, 1662, -60, 50, 80, "Wall"));
 		
 		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Entrance"));
 	}

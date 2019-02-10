@@ -20,6 +20,5 @@ public class BaseArea {
     public void render(Graphics g){
 
 
-
     }
 }
