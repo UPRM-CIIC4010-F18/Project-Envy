@@ -108,7 +108,7 @@ public class Player extends BaseDynamicEntity {
 				else if (w.getType().equals("Entrance")) {
 
 					if (w.getX() == (1662+handler.getXDisplacement()) && w.getY() == (55+handler.getYDisplacement())) {
-					    InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset()-5;
+					    InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset();
 					    InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset()-5;
 					    State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea)); // new InWorldState() orrrr....?
 					}
