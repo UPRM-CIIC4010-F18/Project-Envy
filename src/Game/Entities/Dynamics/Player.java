@@ -5,10 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import Game.GameStates.InWorldState;
 import Game.GameStates.MapState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
-import Game.World.InvisibleWalls;
+import Game.World.Walls;
 import Game.World.WorldManager;
 import Main.GameSetUp;
 import Main.Handler;
@@ -31,11 +32,6 @@ public class Player extends BaseDynamicEntity {
 	public void tick() {
 		super.tick();
 		UpdateNextMove();
-		if (handler.getKeyManager().runbutt) {
-			speed = 2;
-		} else {
-			speed = 8;
-		}
 		PlayerInput();
 
 	}
@@ -81,26 +77,39 @@ public class Player extends BaseDynamicEntity {
 			PauseState.lastState = State.getState();
 			State.setState(handler.getGame().pauseState);
 		}
-		
-		
-		for (InvisibleWalls iv : handler.getWorldManager().getInvisibleWalls()) {
-			if (nextArea.intersects(iv)) {
-				canMove = false;
-				switch (facing) {
-				case "Down":
-					handler.setYDisplacement(handler.getYDisplacement() + 1);
-					break;
-				case "Up":
-					handler.setYDisplacement(handler.getYDisplacement() - 1);
-					break;
-				case "Right":
-					handler.setXDisplacement(handler.getXDisplacement() + 1);
-					break;
-				case "Left":
-					handler.setXDisplacement(handler.getXDisplacement() - 1);
+
+		if (handler.getKeyManager().runbutt) {
+			speed = 2;
+		} else {
+			speed = 8;
+		}
+
+		for (Walls w : handler.getWorldManager().getWalls()) {
+			if (nextArea.intersects(w)){
+
+				if (w.getType().equals("Wall")) {
+
+					canMove = false;
+					switch (facing) {
+					case "Down":
+						handler.setYDisplacement(handler.getYDisplacement() + 1);
+						break;
+					case "Up":
+						handler.setYDisplacement(handler.getYDisplacement() - 1);
+						break;
+					case "Right":
+						handler.setXDisplacement(handler.getXDisplacement() + 1);
+						break;
+					case "Left":
+						handler.setXDisplacement(handler.getXDisplacement() - 1);
+						break;
+					}
 					break;
 				}
-				break;
+				
+				else if (w.getType().equals("Entrance")) {
+					State.setState(new InWorldState(handler)); // new InWorldState() orrrr....?
+				}
 			}
 
 		}
@@ -127,6 +136,9 @@ public class Player extends BaseDynamicEntity {
 	}
 
 	/**
+	 * !!!!!!!!!TO REDESIGN OR DELETE!!!!!!!
+	 * 
+	 * 
 	 * Called when the player has collided with another static entity. Used to push
 	 * the player back from passing through a static entity.
 	 *

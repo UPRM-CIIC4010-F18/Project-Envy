@@ -1,6 +1,5 @@
 package Game.GameStates;
 
-import Game.World.InvisibleWalls;
 import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
@@ -48,9 +47,6 @@ public class MapState extends State {
 
 	@Override
 	public void tick() {
-		
-
-
 		
 		worldManager.tick();
 		entityManager.tick();
