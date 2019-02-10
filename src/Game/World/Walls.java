@@ -4,20 +4,29 @@ import Main.Handler;
 
 import java.awt.*;
 
-public class InvisibleWalls extends Rectangle {
+/**
+ * Two types of walls:
+ * 	. InvisibleWalls
+ * 	. EntranceWalls
+ *
+ */
+public class Walls extends Rectangle {
 
     Handler handler;
     int originalX,originalY;
-
-    public InvisibleWalls(Handler handler, int x, int y, int width, int height) {
+    String wallType;
+    
+    public Walls(Handler handler, int x, int y, int width, int height, String wallType) {
         super(x, y, width, height);
         originalX = x;
         originalY = y;
         this.handler = handler;
+        this.wallType = wallType;
 
     }
 
     public void tick(){
+    	
         this.x = handler.getXDisplacement() + originalX;
         this.y = handler.getYDisplacement() + originalY;
     }
@@ -26,4 +35,10 @@ public class InvisibleWalls extends Rectangle {
         g2.draw(this);
     }
 
+    public String getType() {
+    	
+    	return wallType;
+    }
+    
+    
 }

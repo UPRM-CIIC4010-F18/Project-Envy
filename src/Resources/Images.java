@@ -23,6 +23,8 @@ public class Images {
     public static Image Scaledmap;
     
     public static BufferedImage map;
+    public static BufferedImage InWorldOne;
+    
     public static BufferedImage tree;
 
     public Images() {
@@ -34,7 +36,8 @@ public class Images {
         Quit = new BufferedImage[3];
 
         try {
-            map = ImageIO.read(getClass().getResourceAsStream("/Sheets/map.png"));
+            map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
+            InWorldOne = ImageIO.read(getClass().getResourceAsStream("/Worlds/underConstruction.jpg"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));

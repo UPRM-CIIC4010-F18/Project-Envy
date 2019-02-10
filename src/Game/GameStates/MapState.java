@@ -1,6 +1,5 @@
 package Game.GameStates;
 
-import Game.World.InvisibleWalls;
 import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
@@ -19,7 +18,7 @@ public class MapState extends State {
 	EntityManager entityManager;
 	Player player;
 
-	ArrayList<Game.World.InvisibleWalls> InvisibleWalls;
+
 
 	//changes the initial spawn of the player
 	int initialXMapDisplacement=1450;
@@ -44,19 +43,10 @@ public class MapState extends State {
 		this.handler.setWorldManager(worldManager);
 		this.handler.setEntityManager(entityManager);
 
-		//adds all the invisible walls in game
-		InvisibleWalls = new ArrayList<>();
-        InvisibleWalls.add(new InvisibleWalls(handler,150,0,215,490));
-        InvisibleWalls.add(new InvisibleWalls(handler,150,600,215,495));
-
 	}
 
 	@Override
 	public void tick() {
-        for (InvisibleWalls iv: this.InvisibleWalls) {
-            iv.tick();
-        }
-
 		
 		worldManager.tick();
 		entityManager.tick();
@@ -78,15 +68,6 @@ public class MapState extends State {
 		worldManager.render(g);
 		entityManager.render(g);
 
-        if(GameSetUp.DEBUGMODE){
-            for (InvisibleWalls iv: this.InvisibleWalls) {
-                iv.render(g2);
-            }
-        }
-
 	}
 
-    public ArrayList<InvisibleWalls> getInvisibleWalls() {
-        return InvisibleWalls;
-    }
 }
