@@ -37,7 +37,7 @@ public class GameSetUp implements Runnable {
 
     //States
     public State mapState;
-    public State inWorldState;
+    public InWorldState inWorldState;
     public State menuState;
     public State pauseState;
 

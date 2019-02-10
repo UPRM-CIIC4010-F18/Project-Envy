@@ -6,11 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import Game.GameStates.InWorldState;
-import Game.GameStates.MapState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Game.World.Walls;
-import Game.World.WorldManager;
 import Main.GameSetUp;
 import Main.Handler;
 import java.awt.event.KeyEvent;
@@ -108,7 +106,13 @@ public class Player extends BaseDynamicEntity {
 				}
 				
 				else if (w.getType().equals("Entrance")) {
-					State.setState(new InWorldState(handler)); // new InWorldState() orrrr....?
+
+					if (w.getX() == (1662+handler.getXDisplacement()) && w.getY() == (55+handler.getYDisplacement())) {
+					    InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset()-5;
+					    InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset()-5;
+					    State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea)); // new InWorldState() orrrr....?
+					}
+
 				}
 			}
 
