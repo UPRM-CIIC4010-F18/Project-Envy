@@ -23,6 +23,10 @@ public class Images {
     public static Image Scaledmap;
     
     public static BufferedImage map;
+    public static SpriteSheet smokeHouseSheet;
+    public static BufferedImage[] smokeHouse;
+    
+    
     public static BufferedImage InWorldOne;
     
     public static BufferedImage tree;
@@ -34,9 +38,12 @@ public class Images {
         BTitle = new BufferedImage[3];
         Options = new BufferedImage[3];
         Quit = new BufferedImage[3];
+        smokeHouse = new BufferedImage[7];
 
         try {
             map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
+            smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
+            
             InWorldOne = ImageIO.read(getClass().getResourceAsStream("/Worlds/underConstruction.jpg"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
@@ -55,7 +62,15 @@ public class Images {
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
             Quit[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButton.png"));//normbut
             Quit[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonHover.png"));//hoverbut
-            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut
+            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut\
+            
+            smokeHouse[0] = smokeHouseSheet.crop(20, 7, 19, 20);
+            smokeHouse[1] = smokeHouseSheet.crop(68, 7, 19, 20); 
+            smokeHouse[2] = smokeHouseSheet.crop(116, 7, 19, 20); 
+            smokeHouse[3] = smokeHouseSheet.crop(164, 7, 19, 20); 
+            smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20); 
+            smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20); 
+            smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20); 
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
@@ -64,7 +79,8 @@ public class Images {
         e.printStackTrace();
     }
         Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
-        // Find a way to start the image at a specified part.
+
+        
         
 
 

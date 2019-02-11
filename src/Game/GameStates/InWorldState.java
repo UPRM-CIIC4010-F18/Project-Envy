@@ -29,6 +29,7 @@ public class InWorldState extends State{
             State.setState(handler.getGame().pauseState);
         }
         /////////////////////////////
+        
         if(currentArea!=null) {
             currentArea.tick();
         }
