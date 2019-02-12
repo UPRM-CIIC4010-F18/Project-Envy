@@ -2,13 +2,8 @@ package Game.World.InWorldAreas;
 
 import Main.Handler;
 import Resources.Images;
-
 import java.awt.*;
-
-import Game.Entities.BaseEntity;
 import Game.Entities.EntityManager;
-import Game.Entities.Dynamics.EnemyOne;
-import Game.Entities.Dynamics.Player;
 
 public class CaveArea extends BaseArea {
 

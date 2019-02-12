@@ -1,11 +1,8 @@
 package Game.GameStates;
 
-import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
 import java.awt.*;
-import java.util.ArrayList;
-
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.Player;
 import Game.World.WorldManager;

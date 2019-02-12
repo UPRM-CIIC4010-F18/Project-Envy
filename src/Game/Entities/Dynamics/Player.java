@@ -9,7 +9,6 @@ import Game.GameStates.InWorldState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Game.World.Walls;
-import Game.World.InWorldAreas.BaseArea;
 import Main.GameSetUp;
 import Main.Handler;
 import java.awt.event.KeyEvent;
