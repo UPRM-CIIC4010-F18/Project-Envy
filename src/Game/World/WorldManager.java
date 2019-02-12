@@ -29,9 +29,6 @@ public class WorldManager {
 
 		AddWalls();
 
-
-	
-
 	}
 
 	public void tick() {

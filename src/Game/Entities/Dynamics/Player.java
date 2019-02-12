@@ -9,13 +9,15 @@ import Game.GameStates.InWorldState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Game.World.Walls;
+import Game.World.InWorldAreas.BaseArea;
 import Main.GameSetUp;
 import Main.Handler;
 import java.awt.event.KeyEvent;
 
 public class Player extends BaseDynamicEntity {
 
-	Rectangle player;
+	private Rectangle player;
+	public boolean checkInWorld;
 
 	public Player(Handler handler, int xPosition, int yPosition) {
 		super(handler, yPosition, yPosition);
@@ -24,6 +26,7 @@ public class Player extends BaseDynamicEntity {
 		this.yPosition = yPosition;
 
 		player = new Rectangle();
+		checkInWorld = false;
 	}
 
 	@Override
@@ -38,7 +41,10 @@ public class Player extends BaseDynamicEntity {
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		player = new Rectangle((int) xPosition, (int) yPosition, 25, 25);
+		if (!checkInWorld)
+			player = new Rectangle((int) xPosition, (int) yPosition, 25, 25);
+		else
+			player = new Rectangle((int) xPosition, (int) yPosition, 70, 70);
 
 		g2.setColor(Color.RED);
 		g2.fill(player);
@@ -70,7 +76,9 @@ public class Player extends BaseDynamicEntity {
 	}
 
 	private void PlayerInput() {
+
 		boolean canMove = true;
+
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
 			PauseState.lastState = State.getState();
 			State.setState(handler.getGame().pauseState);
@@ -83,34 +91,37 @@ public class Player extends BaseDynamicEntity {
 		}
 
 		for (Walls w : handler.getWorldManager().getWalls()) {
-			if (nextArea.intersects(w)){
+			if (nextArea.intersects(w)) {
 
 				if (w.getType().equals("Wall")) {
 
 					canMove = false;
 					switch (facing) {
 					case "Down":
-						handler.setYDisplacement(handler.getYDisplacement() + 1);
+						Move(false, 1);
 						break;
 					case "Up":
-						handler.setYDisplacement(handler.getYDisplacement() - 1);
+						Move(false, -1);
 						break;
 					case "Right":
-						handler.setXDisplacement(handler.getXDisplacement() + 1);
+						Move(true, 1);
 						break;
 					case "Left":
-						handler.setXDisplacement(handler.getXDisplacement() - 1);
+						Move(true, -1);
 						break;
 					}
 					break;
 				}
-				
-				else if (w.getType().equals("Entrance")) {
 
-					if (w.getX() == (1662+handler.getXDisplacement()) && w.getY() == (55+handler.getYDisplacement())) {
-					    InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset();
-					    InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset()-5;
-					    State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea)); // new InWorldState() orrrr....?
+				else if (w.getType().equals("Entrance")) {
+					canMove = true;
+
+					if (w.getX() == (1662 + handler.getXDisplacement())
+							&& w.getY() == (55 + handler.getYDisplacement())) {
+						InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset();
+						InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset() - 5;
+						checkInWorld = true;
+						State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
 					}
 
 				}
@@ -118,18 +129,42 @@ public class Player extends BaseDynamicEntity {
 
 		}
 
-		if (handler.getKeyManager().down && canMove) {
-			handler.setYDisplacement(handler.getYDisplacement() - speed);
+		if (handler.getKeyManager().down & canMove) {
+			Move(false, -speed);
 			facing = "Down";
-		} else if (handler.getKeyManager().up && canMove) {
-			handler.setYDisplacement(handler.getYDisplacement() + speed);
+		} else if (handler.getKeyManager().up & canMove) {
+			Move(false, speed);
 			facing = "Up";
-		} else if (handler.getKeyManager().right && canMove) {
-			handler.setXDisplacement(handler.getXDisplacement() - speed);
+		} else if (handler.getKeyManager().right & canMove) {
+			Move(true, -speed);
 			facing = "Right";
-		} else if (handler.getKeyManager().left && canMove) {
-			handler.setXDisplacement(handler.getXDisplacement() + speed);
+		} else if (handler.getKeyManager().left & canMove) {
+			Move(true, speed);
 			facing = "Left";
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param XorY  where true is X and false is Y
+	 * @param speed
+	 */
+	private void Move(boolean XorY, int speed) {
+
+		if (!checkInWorld) {
+			if (XorY) {
+				handler.setXDisplacement(handler.getXDisplacement() + speed);
+			} else {
+				handler.setYDisplacement(handler.getYDisplacement() + speed);
+			}
+		} else {
+			if (XorY) {
+				handler.setXInWorldDisplacement((handler.getXInWorldDisplacement() + speed));
+			} else {
+				handler.setYInWorldDisplacement(handler.getYInWorldDisplacement() + speed);
+			}
+
 		}
 
 	}

@@ -18,8 +18,6 @@ public class MapState extends State {
 	EntityManager entityManager;
 	Player player;
 
-
-
 	//changes the initial spawn of the player
 	int initialXMapDisplacement=1450;
 	int initialYMapDisplacement=500;

@@ -20,14 +20,15 @@ public class Images {
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
+
+    public static BufferedImage map;
     public static Image Scaledmap;
     
-    public static BufferedImage map;
     public static SpriteSheet smokeHouseSheet;
     public static BufferedImage[] smokeHouse;
     
-    
-    public static BufferedImage InWorldOne;
+    public static BufferedImage CaveMap;
+    public static Image ScaledCave;
     
     public static BufferedImage tree;
 
@@ -44,7 +45,7 @@ public class Images {
             map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
             smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
             
-            InWorldOne = ImageIO.read(getClass().getResourceAsStream("/Worlds/underConstruction.jpg"));
+            CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
@@ -79,10 +80,7 @@ public class Images {
         e.printStackTrace();
     }
         Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
-
-        
-        
-
+        ScaledCave = Images.CaveMap.getScaledInstance(2560, 3360, Image.SCALE_SMOOTH); // 256x336 pixel image
 
     }	
     
