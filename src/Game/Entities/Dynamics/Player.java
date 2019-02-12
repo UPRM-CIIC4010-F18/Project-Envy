@@ -17,6 +17,7 @@ public class Player extends BaseDynamicEntity {
 
 	private Rectangle player;
 	public boolean checkInWorld;
+	int InMapWidth=25, InMapHight=25,InAreaWidth =70,InAreaHeight = 70;
 
 	public Player(Handler handler, int xPosition, int yPosition) {
 		super(handler, yPosition, yPosition);
@@ -40,10 +41,9 @@ public class Player extends BaseDynamicEntity {
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		if (!checkInWorld)
-			player = new Rectangle((int) xPosition, (int) yPosition, 25, 25);
-		else
-			player = new Rectangle((int) xPosition, (int) yPosition, 70, 70);
+
+		player = new Rectangle((int) xPosition, (int) yPosition, this.getWidth(), this.getHeight());
+
 
 		g2.setColor(Color.RED);
 		g2.fill(player);
@@ -53,22 +53,37 @@ public class Player extends BaseDynamicEntity {
 		}
 	}
 
-	private void UpdateNextMove() {
+    public int getWidth() {
+	    if(!checkInWorld){
+	        return this.InMapWidth;
+        }else{
+	        return this.InAreaWidth;
+        }
+    }
+    public int getHeight() {
+	    if(!checkInWorld){
+	        return this.InMapHight;
+        }else{
+	        return this.InAreaHeight;
+        }
+    }
+
+    private void UpdateNextMove() {
 		switch (facing) {
 		case "Up":
-			nextArea = new Rectangle((int) xPosition, (int) yPosition - speed, 24, 10);
+			nextArea = new Rectangle((int) xPosition, (int) yPosition - speed, this.getWidth(), this.getHeight()/2);
 
 			break;
 		case "Down":
-			nextArea = new Rectangle((int) xPosition, (int) yPosition + speed, 24, 25);
+			nextArea = new Rectangle((int) xPosition, (int) yPosition +getHeight(), this.getWidth(), speed);
 
 			break;
 		case "Left":
-			nextArea = new Rectangle((int) xPosition - speed, (int) yPosition, 25, 24);
+			nextArea = new Rectangle((int) xPosition - speed, (int) yPosition, speed, this.getHeight());
 
 			break;
 		case "Right":
-			nextArea = new Rectangle((int) xPosition + speed, (int) yPosition, 25, 24);
+			nextArea = new Rectangle((int) xPosition +this.getWidth(), (int) yPosition, speed, this.getHeight());
 
 			break;
 		}
