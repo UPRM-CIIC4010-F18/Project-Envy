@@ -1,14 +1,10 @@
 package Game.GameStates;
 
-import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
 import java.awt.*;
-import java.util.ArrayList;
-
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.Player;
-import Game.Entities.Statics.Tree;
 import Game.World.WorldManager;
 
 public class MapState extends State {
@@ -19,7 +15,10 @@ public class MapState extends State {
 	EntityManager entityManager;
 	Player player;
 
-//	ArrayList<Polygon> invisibleWalls;
+	//changes the initial spawn of the player
+	int initialXMapDisplacement=1450;
+	int initialYMapDisplacement=500;
+
 
 	Rectangle background = new Rectangle(3000, 3000);
 	Color backgroundColor = new Color(61, 68, 128);
@@ -32,12 +31,6 @@ public class MapState extends State {
 		this.handler.setXDisplacement(xDisplacement);
 		this.handler.setYDisplacement(yDisplacement);
 
-
-//		invisibleWalls = new ArrayList<>();
-//        int xPoly[] = {150, 250, 325, 375, 450, 275, 100};
-//        int yPoly[] = {150, 100, 125, 225, 250, 375, 300};
-//		invisibleWalls.add(new Polygon(xPoly, yPoly, xPoly.length));
-
 		player = new Player(handler, (int) handler.getWidth() / 2 - 5, (int) handler.getHeight() / 2);
 
 		entityManager = new EntityManager(handler, player);
@@ -49,9 +42,6 @@ public class MapState extends State {
 
 	@Override
 	public void tick() {
-
-
-
 		
 		worldManager.tick();
 		entityManager.tick();
@@ -68,24 +58,11 @@ public class MapState extends State {
 		g2.fill(background);
 
 		// Movement of the Image
-		g2.drawImage(Images.Scaledmap, handler.getXDisplacement(), handler.getYDisplacement(), null);
+		g2.drawImage(Images.Scaledmap, handler.getXDisplacement()-initialXMapDisplacement, handler.getYDisplacement()-initialYMapDisplacement, null);
 
 		worldManager.render(g);
 		entityManager.render(g);
 
-//        if(GameSetUp.DEBUGMODE){
-//            for(Polygon p : invisibleWalls){
-//                for(int x: p.xpoints){
-//                    x+=handler.getXDisplacement();
-//                }
-//                for(int y: p.ypoints){
-//                    y+=handler.getYDisplacement();
-//
-//                }
-//                g2.setColor(Color.RED);
-//                g2.drawPolygon(p);
-//            }
-//        }
-
 	}
+
 }

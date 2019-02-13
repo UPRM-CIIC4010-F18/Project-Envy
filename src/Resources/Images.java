@@ -2,8 +2,6 @@ package Resources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,9 +20,16 @@ public class Images {
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
+
+    public static BufferedImage map;
     public static Image Scaledmap;
     
-    public static BufferedImage map;
+    public static SpriteSheet smokeHouseSheet;
+    public static BufferedImage[] smokeHouse;
+    
+    public static BufferedImage CaveMap;
+    public static Image ScaledCave;
+    
     public static BufferedImage tree;
 
     public Images() {
@@ -34,9 +39,13 @@ public class Images {
         BTitle = new BufferedImage[3];
         Options = new BufferedImage[3];
         Quit = new BufferedImage[3];
+        smokeHouse = new BufferedImage[7];
 
         try {
-            map = ImageIO.read(getClass().getResourceAsStream("/Sheets/map.png"));
+            map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
+            smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
+            
+            CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
@@ -54,7 +63,15 @@ public class Images {
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
             Quit[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButton.png"));//normbut
             Quit[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonHover.png"));//hoverbut
-            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut
+            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut\
+            
+            smokeHouse[0] = smokeHouseSheet.crop(20, 7, 19, 20);
+            smokeHouse[1] = smokeHouseSheet.crop(68, 7, 19, 20); 
+            smokeHouse[2] = smokeHouseSheet.crop(116, 7, 19, 20); 
+            smokeHouse[3] = smokeHouseSheet.crop(164, 7, 19, 20); 
+            smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20); 
+            smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20); 
+            smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20); 
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
@@ -62,9 +79,8 @@ public class Images {
         }catch (IOException e) {
         e.printStackTrace();
     }
-        Scaledmap = Images.map.getScaledInstance(4000, 4000, Image.SCALE_SMOOTH);
-
-
+        Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+        ScaledCave = Images.CaveMap.getScaledInstance(2560, 3360, Image.SCALE_SMOOTH); // 256x336 pixel image
 
     }	
     

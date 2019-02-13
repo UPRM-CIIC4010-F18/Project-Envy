@@ -23,18 +23,21 @@ public class Handler {
 	private EntityManager entityManager;
 	private WorldManager worldManager;
 
-	int xDisplacement, yDisplacement;
+	int xOverWorldDisplacement, yOverWorldDisplacement,
+		xInWorldDisplacement, yInWorldDisplacement;
 
 	private GameSetUp game;
 
 	public Handler() {
 
 //		height = (DEFAULTHEIGHT / 2) + (DEFAULTHEIGHT / 4);
-		height = DEFAULTHEIGHT;
 //		width = (DEFAULTWIDTH / 3);
+
+		height = DEFAULTHEIGHT;
 		width = DEFAULTWIDTH;
 
 	}
+
 
 	public int getWidth() {
 		return width;
@@ -75,21 +78,40 @@ public class Handler {
 	public WorldManager getWorldManager() {
 		return worldManager;
 	}
-
+	
+	// For OverWorld Map Movement
 	public void setXDisplacement(int xDis) {
-		this.xDisplacement = xDis;
+		this.xOverWorldDisplacement = xDis;
 	}
 
 	public void setYDisplacement(int yDis) {
-		this.yDisplacement = yDis;
+		this.yOverWorldDisplacement = yDis;
 	}
 
 	public int getXDisplacement() {
-		return this.xDisplacement;
+		return this.xOverWorldDisplacement;
 	}
 
 	public int getYDisplacement() {
-		return this.yDisplacement;
+		return this.yOverWorldDisplacement;
+	}
+	
+	
+	// For InWorld Map Movement
+	public int getXInWorldDisplacement() {
+		return xInWorldDisplacement;
+	}
+	//
+	public void setXInWorldDisplacement(int xInWorldDisplacement) {
+		this.xInWorldDisplacement = xInWorldDisplacement;
+	}
+	//
+	public int getYInWorldDisplacement() {
+		return yInWorldDisplacement;
+	}
+	//
+	public void setYInWorldDisplacement(int yInWorldDisplacement) {
+		this.yInWorldDisplacement = yInWorldDisplacement;
 	}
 
 }
