@@ -9,6 +9,7 @@ import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import com.sun.deploy.uitoolkit.impl.fx.ui.UITextArea;
 
@@ -22,6 +23,7 @@ public class FightState extends State{
 	EntityManager entityManager;
 	Player player;
 	BaseHostileEntity enemy;
+	private int optionSelect;
 
 
 
@@ -35,6 +37,7 @@ public class FightState extends State{
         entityManager = new EntityManager(handler, (Player) player);
 		this.handler.setEntityManager(entityManager);
         setUiManager();
+        optionSelect = 0;
         
 
     }
@@ -47,7 +50,7 @@ public class FightState extends State{
     @Override
     public void tick() {
     	PlayerInput();
-    	uiManager.tick();
+    	//uiManager.tick();
         ///TEMP CODE TO EXIT FIGHT///
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             PauseState.lastState = State.getState();
@@ -90,27 +93,52 @@ public class FightState extends State{
     
     
     private void PlayerInput() {
-		if (handler.getKeyManager().down || handler.getKeyManager().up)
-        if (handler.getKeyManager().right){
-        	// choose options to the right;
+    	boolean action = false;
+		if (handler.getKeyManager().down || handler.getKeyManager().up) {}
+        if (handler.getKeyManager().right && !action){
+//        	choose options to the right
+        	if(optionSelect < uiManager.getObjects().size()-1) {
+        		optionSelect++;
+        		System.out.println(optionSelect);
+        	}
+        	action = true;
         }
-        if (handler.getKeyManager().left){
-//        	choose options to the left;
+        if (handler.getKeyManager().left && !action){
+//        	choose options to the left
+        	if(optionSelect > 0){
+        		optionSelect--;
+        		System.out.println(optionSelect);
+        	
+        	}
+        	action = true;
         }
+        
+        uiManager.getObjects().get(optionSelect);
+        
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !action)
+        	uiManager.getObjects().get(optionSelect).onClick();
+        action = true;
+        
 	}
+    
+ 
     
     private void setUiManager() {
     	uiManager = new UIManager(handler);
+    	
+    	
+    	
 
-
+    	//Attack
         uiManager.addObjects(new UIImageButton(handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
             @Override
             public void onClick() {
-                handler.getMouseManager().setUimanager(null);
+                System.out.println("First option");
                 
             }
         }));
-        
+       
+        //Defend
         uiManager.addObjects(new UIImageButton(2*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
             @Override
             public void onClick() {
@@ -119,6 +147,7 @@ public class FightState extends State{
             }
         }));
         
+        //Skills
         uiManager.addObjects(new UIImageButton(3*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
             @Override
             public void onClick() {
@@ -127,10 +156,11 @@ public class FightState extends State{
             }
         }));
         
-        uiManager.addObjects(new UIImageButton(4*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
+        //Run?
+        uiManager.addObjects(new UIImageButton(4*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Quit, new ClickListlener() {
             @Override
             public void onClick() {
-                handler.getMouseManager().setUimanager(null);
+            	System.out.println("It works");
                 
             }
         }));
