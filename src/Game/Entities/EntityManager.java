@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import Game.Entities.Dynamics.BaseHostileEntity;
 import Game.Entities.Dynamics.Player;
 import Game.Entities.Statics.BaseStaticEntity;
-import Game.Entities.Statics.Tree;
 import Game.GameStates.FightState;
 import Game.GameStates.State;
 import Main.Handler;
@@ -49,7 +48,7 @@ public class EntityManager {
 			else if (e instanceof BaseHostileEntity) {
 				BaseHostileEntity enemy = (BaseHostileEntity)e;
 				System.out.println("Fight!");
-				State.setState(new FightState(handler, player, enemy));
+				State.setState(new FightState(handler, player, enemy, State.getState()));
 			}
 		}
 		
