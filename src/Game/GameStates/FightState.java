@@ -7,9 +7,11 @@ import Game.Entities.Dynamics.Player;
 import Main.Handler;
 
 import Resources.Images;
+import sun.font.CreatedFontTracker;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.ColorModel;
 
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
@@ -28,6 +30,8 @@ public class FightState extends State{
 
     public FightState(Handler handler, BaseDynamicEntity player ,BaseHostileEntity enemy, State prev) {
         super(handler);
+        handler.getMouseManager().setUimanager(uiManager);
+        
         this.player = new Player(handler, (int) handler.getWidth() / 5, (int) handler.getHeight() * 2/3);
         entityManager = new EntityManager(handler, (Player) player);
 		this.handler.setEntityManager(entityManager);
@@ -63,15 +67,21 @@ public class FightState extends State{
     public void render(Graphics g) {
     	
     	Graphics2D g2 = (Graphics2D)g;
-    	g2.setBackground(new Color(61, 68, 128));
+    	
+    	
+    	
+    	g2.setBackground(new Color(61,68,128));
     	g2.drawImage(background, 0, 0, null);
     	g2.setColor(new Color(35, 65, 79));
+    	g2.setComposite(AlphaComposite.SrcOver.derive(0.8f));
     	g2.fillRoundRect(handler.getWidth() * 1/10, handler.getHeight()* 4/5, handler.getWidth() * 8/10, handler.getHeight()/7, 50, 50);
     	g2.setColor(new Color(52, 58, 61));
     	g2.fillRoundRect((handler.getWidth() * 1/10) + 10, (handler.getHeight()* 4/5) + 10, handler.getWidth() * 1/11, handler.getHeight()/7 -20, 50, 50);
+    	g2.setComposite(AlphaComposite.SrcOver);
     	g2.setFont(new Font("Bank Gothic",3,15));
     	g2.setColor(Color.white);
     	g2.drawString("Character Info", (handler.getWidth() * 1/10) + 35, (handler.getHeight()* 4/5) + 28);
+    	
     	
     	
     	
@@ -103,7 +113,7 @@ public class FightState extends State{
         if (handler.getKeyManager().left && !action){
 //        	choose options to the left
         	if(optionSelect > 0){
-        		optionSelect--;
+        		optionSelect -= 1;
         		System.out.println(optionSelect);
         	
         	}
@@ -137,7 +147,7 @@ public class FightState extends State{
         uiManager.addObjects(new UIImageButton(2*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
             @Override
             public void onClick() {
-                
+            	System.out.println("Second option");
             }
         }));
         
@@ -145,6 +155,7 @@ public class FightState extends State{
         uiManager.addObjects(new UIImageButton(3*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
             @Override
             public void onClick() {
+            	System.out.println("Third option");
             	
                 
             }
@@ -156,6 +167,7 @@ public class FightState extends State{
             public void onClick() {
             	//for testing
             	System.out.println("It works");
+            	System.exit(1);
                 
             }
         }));
@@ -165,7 +177,7 @@ public class FightState extends State{
     
     
     //Sets the background according to the previous state
-    //Current backgrouns where only added for testing purposes
+    //Current backgrounds where only added for testing purposes
     private void backgroundSelect(State prev) {
 
         if(prev.equals(handler.getGame().mapState))
