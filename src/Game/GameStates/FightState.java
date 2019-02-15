@@ -45,37 +45,28 @@ public class FightState extends InWorldState{
         //enemy info square coordinate
         entityInfoX[1] = handler.getWidth() * 14/20 + 4;
         
+        //get's the info from the player and enemy (Will be used for taking their info)
         this.player = new Player(handler, (int) handler.getWidth() / 5, entityY);
         this.enemy = new BaseHostileEntity(handler, (int) handler.getWidth() * 4/ 5,entityY);
-       
         entityManager = new EntityManager(handler, this.player);
         entityManager.AddEntity(this.enemy);
         this.handler.setEntityManager(entityManager);
         
         playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 70, 70);
         enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5,entityY, 70, 70);
-        
-        
-        this.player.checkInWorld = true;
-        
-      
-        
-		
+
         setUiManager();
-        handler.getMouseManager().setUimanager(uiManager);
         backgroundSelect(prev);
+
         optionSelect = 0;
-        inputCoolDown = 0;
+        inputCoolDown = 0;  
         
+//        Possibly need to add the more of the same image on the attack image array for the mouse to work with the UIManager
+//        Since it only has one image and crashes when the mouse is hovered over it.
         
-        
+//        handler.getMouseManager().setUimanager(uiManager);
 
     }
-
-//    public FightState(Handler handler, BaseDynamicEntity player,BaseDynamicEntity[] enemie) {
-//        super(handler);
-//
-//    }
 
     @Override
     public void tick() {
@@ -140,7 +131,7 @@ public class FightState extends InWorldState{
     		g2.drawString("Health:", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 40 );
     		g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight()* 4/5) + 60 );
     		
-    		//Draws MP Infor
+    		//Draws MP Information
     		g2.setColor(Color.BLUE);
     		g2.fillRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 86, handler.getWidth() * 2/20 , 17);
     		g2.setColor(Color.WHITE);
@@ -250,23 +241,9 @@ public class FightState extends InWorldState{
     }
     
     
-    //doesn't work rn.
+    //doesn't work rn
     private void attack() {
-    	while(playerRect.getMaxX() < enemyRect.getMinX() - 40) { 
-    		playerRect.setLocation((int) (playerRect.getMinX() + 2), entityY);
-    	}
-    	
-    	playerRect.setLocation((int) (playerRect.getMinX() + 40), entityY);;
-    	int wait = 0;
-    	while(wait < 5)
-    		wait++;
-    	playerRect.setLocation((int) (playerRect.getMinX() -40), entityY);
-    	while(playerRect.getMinX() > (int) handler.getWidth() / 5) 
-    		playerRect.setLocation((int) (playerRect.getMinX() - 3), entityY);
-   
-    	playerRect.x = (int) handler.getWidth() / 5;
-    	
-    	System.out.println("Is executing attack, not doing shit");
+
     	}
     
 
