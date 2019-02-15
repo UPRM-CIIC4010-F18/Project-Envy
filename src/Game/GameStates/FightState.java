@@ -3,51 +3,79 @@ package Game.GameStates;
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.BaseDynamicEntity;
 import Game.Entities.Dynamics.BaseHostileEntity;
+import Game.Entities.Dynamics.EnemyOne;
 import Game.Entities.Dynamics.Player;
 import Main.Handler;
 
 import Resources.Images;
-import sun.font.CreatedFontTracker;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.ColorModel;
 
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
 import Display.UI.UIManager;
 
-public class FightState extends State{
+
+public class FightState extends InWorldState{
 	private UIManager uiManager;
 	EntityManager entityManager;
+	private int entityY;
+	
 	Player player;
 	BaseHostileEntity enemy;
-	private int optionSelect;
+	Rectangle enemyRect, playerRect;
+	
+	
+	
+	private int optionSelect, inputCoolDown;
+	private int[] entityInfoX;
 	Image background;
-
+	
 
 
 
     public FightState(Handler handler, BaseDynamicEntity player ,BaseHostileEntity enemy, State prev) {
         super(handler);
-        handler.getMouseManager().setUimanager(uiManager);
         
-        this.player = new Player(handler, (int) handler.getWidth() / 5, (int) handler.getHeight() * 2/3);
-        entityManager = new EntityManager(handler, (Player) player);
-		this.handler.setEntityManager(entityManager);
+        entityY = (int) handler.getHeight() * 2/3;
+        entityInfoX = new int[2];
+        //player info square coordinate
+        entityInfoX[0] = handler.getWidth() * 3/20;
+        //enemy info square coordinate
+        entityInfoX[1] = handler.getWidth() * 14/20 + 4;
+        
+        this.player = new Player(handler, (int) handler.getWidth() / 5, entityY);
+        this.enemy = new BaseHostileEntity(handler, (int) handler.getWidth() * 4/ 5,entityY);
+       
+        entityManager = new EntityManager(handler, this.player);
+        entityManager.AddEntity(this.enemy);
+        this.handler.setEntityManager(entityManager);
+        
+        playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 70, 70);
+        enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5,entityY, 70, 70);
+        
+        
+        this.player.checkInWorld = true;
+        
+      
+        
 		
         setUiManager();
+        handler.getMouseManager().setUimanager(uiManager);
         backgroundSelect(prev);
         optionSelect = 0;
+        inputCoolDown = 0;
+        
         
         
 
     }
 
-    public FightState(Handler handler, BaseDynamicEntity player,BaseDynamicEntity[] enemie) {
-        super(handler);
-
-    }
+//    public FightState(Handler handler, BaseDynamicEntity player,BaseDynamicEntity[] enemie) {
+//        super(handler);
+//
+//    }
 
     @Override
     public void tick() {
@@ -67,64 +95,104 @@ public class FightState extends State{
     public void render(Graphics g) {
     	
     	Graphics2D g2 = (Graphics2D)g;
-    	
-    	
-    	
+
     	g2.setBackground(new Color(61,68,128));
     	g2.drawImage(background, 0, 0, null);
-    	g2.setColor(new Color(35, 65, 79));
+    	
+    	g2.setColor(new Color(51, 96, 178));
     	g2.setComposite(AlphaComposite.SrcOver.derive(0.8f));
-    	g2.fillRoundRect(handler.getWidth() * 1/10, handler.getHeight()* 4/5, handler.getWidth() * 8/10, handler.getHeight()/7, 50, 50);
-    	g2.setColor(new Color(52, 58, 61));
-    	g2.fillRoundRect((handler.getWidth() * 1/10) + 10, (handler.getHeight()* 4/5) + 10, handler.getWidth() * 1/11, handler.getHeight()/7 -20, 50, 50);
+    	
+    	//Draws info rectangles
+    	g2.fillRect(entityInfoX[0], handler.getHeight()* 4/5, handler.getWidth() * 3/20 - 4, handler.getHeight()/7);
+    	g2.fillRect(handler.getWidth() * 6/20 + 4, handler.getHeight()* 4/5, handler.getWidth() * 8/20 - 8, handler.getHeight()/7);
+    	g2.fillRect(entityInfoX[1], handler.getHeight()* 4/5, handler.getWidth() * 3/20- 8, handler.getHeight()/7);
+    	g2.setColor(new Color(84, 91, 104));
+    	g2.setStroke(new BasicStroke(4));
+    	//Draws info rectangles borders
+    	g2.drawRect(entityInfoX[0], handler.getHeight()* 4/5, handler.getWidth() * 3/20 - 4, handler.getHeight()/7);
+    	g2.drawRect(handler.getWidth() * 6/20 + 4, handler.getHeight()* 4/5, handler.getWidth() * 8/20 - 8, handler.getHeight()/7);
+    	g2.drawRect(entityInfoX[1], handler.getHeight()* 4/5, handler.getWidth() * 3/20- 8, handler.getHeight()/7);
     	g2.setComposite(AlphaComposite.SrcOver);
-    	g2.setFont(new Font("Bank Gothic",3,15));
-    	g2.setColor(Color.white);
-    	g2.drawString("Character Info", (handler.getWidth() * 1/10) + 35, (handler.getHeight()* 4/5) + 28);
     	
-    	
-    	
-    	
-    	entityManager.render(g2);
+    	//Draws the options
     	uiManager.Render(g2);
-    	player.render(g2);
+    	g2.setColor(Color.white);
+    	//Draws the rectangle around the current option
+    	g2.drawRect((int) uiManager.getObjects().get(optionSelect).getX(), 5*handler.getHeight()/6 + 10, 128, 44);
     	
-
+    	g2.setFont(new Font("Bank Gothic",3,15));
+    	g2.setStroke(new BasicStroke(1));
     	
     	
+    	/* 
+    	 * used for drawing the info of the player and the Enemy.
+    	 * When the entities have their own health, mp, name, etc.  it will be updated as to reflect the info of the
+    	 * respective entity entity
+    	 */
+    	for(int i = 0; i < 2;i++) {
+    		g2.drawString("Name:" + "Waluigi", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 20);
+    		
+    		//draws health info
+    		g2.setColor(Color.GREEN);
+    		g2.fillRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 46, handler.getWidth() * 2/20, 17);
+    		g2.setColor(Color.WHITE);
+    		g2.drawRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 46, handler.getWidth() * 2/20, 17);
+    		g2.drawString("Health:", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 40 );
+    		g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight()* 4/5) + 60 );
+    		
+    		//Draws MP Infor
+    		g2.setColor(Color.BLUE);
+    		g2.fillRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 86, handler.getWidth() * 2/20 , 17);
+    		g2.setColor(Color.WHITE);
+    		g2.drawRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 86, handler.getWidth() * 2/20, 17);
+    		g2.drawString("Mana:", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 80 );
+    		g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight()* 4/5) + 100 );
+    		
+    		g2.drawString("Skill:" + "ThunderStorm", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 120 );
+    		g2.drawString("Mana Cost:" + "25 MP", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 140 );
+    		
+    	}    	
     	
-    	
+    	//Draws entities
+    	g2.setColor(Color.RED);
+    	g2.fill(playerRect);
+    	g2.setColor(Color.BLACK);
+    	g2.fill(enemyRect);
+	
     }
     
     /*
      * Disables player movement.  W and S no longer do anything, A and D move between the options
      */
     private void PlayerInput() {
-    	boolean action = false;
+    	  
+		if(inputCoolDown <= 15){
+              inputCoolDown++;
+          }
 		if (handler.getKeyManager().down || handler.getKeyManager().up) {}
-        if (handler.getKeyManager().right && !action){
+        if (handler.getKeyManager().right && inputCoolDown > 15){
 //        	choose options to the right
-        	if(optionSelect < uiManager.getObjects().size()-1) {
+        	if(optionSelect < uiManager.getObjects().size()-1 ) {
         		optionSelect++;
-        		System.out.println(optionSelect);
+        		inputCoolDown = 0;
         	}
-        	action = true;
+        	
         }
-        if (handler.getKeyManager().left && !action){
+        if (handler.getKeyManager().left && inputCoolDown > 15){
 //        	choose options to the left
         	if(optionSelect > 0){
         		optionSelect -= 1;
         		System.out.println(optionSelect);
-        	
+        		inputCoolDown = 0;
         	}
-        	action = true;
+        	
         }
         
         uiManager.getObjects().get(optionSelect);
         
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !action)
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER))
         	uiManager.getObjects().get(optionSelect).onClick();
-        action = true;
+        
         
 	}
     
@@ -134,43 +202,36 @@ public class FightState extends State{
     	uiManager = new UIManager(handler);
 
     	//Attack
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth() * 22/60 - 128/2, 5*handler.getHeight()/6, 128, 64, Images.Attack, new ClickListlener() {
             @Override
             public void onClick() {
             	//for testing purposes
-                System.out.println("First option");
+                System.out.println("Attack");
+                attack();
                 
             }
         }));
+        
+        
        
         //Defend
-        uiManager.addObjects(new UIImageButton(2*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth() * 30/60 - 128/2, 5*handler.getHeight()/6, 128, 64, Images.Defend, new ClickListlener() {
             @Override
             public void onClick() {
-            	System.out.println("Second option");
+            	System.out.println("Defend");
             }
         }));
         
         //Skills
-        uiManager.addObjects(new UIImageButton(3*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Resume, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth() * 38/60 - 128/2, 5*handler.getHeight()/6, 128, 64, Images.Skill, new ClickListlener() {
             @Override
             public void onClick() {
-            	System.out.println("Third option");
+            	System.out.println("Skill");
             	
                 
             }
         }));
         
-        //Run?
-        uiManager.addObjects(new UIImageButton(4*handler.getWidth()/5, 5*handler.getHeight()/6, 128, 64, Images.Quit, new ClickListlener() {
-            @Override
-            public void onClick() {
-            	//for testing
-            	System.out.println("It works");
-            	System.exit(1);
-                
-            }
-        }));
       
     	
     }
@@ -182,9 +243,32 @@ public class FightState extends State{
 
         if(prev.equals(handler.getGame().mapState))
         	background = Images.battleBackground[1];
-        else
+        else if (prev.equals(handler.getGame().inWorldState))
         	background = Images.battleBackground[0];
       
     	
     }
+    
+    
+    //doesn't work rn.
+    private void attack() {
+    	while(playerRect.getMaxX() < enemyRect.getMinX() - 40) { 
+    		playerRect.setLocation((int) (playerRect.getMinX() + 2), entityY);
+    	}
+    	
+    	playerRect.setLocation((int) (playerRect.getMinX() + 40), entityY);;
+    	int wait = 0;
+    	while(wait < 5)
+    		wait++;
+    	playerRect.setLocation((int) (playerRect.getMinX() -40), entityY);
+    	while(playerRect.getMinX() > (int) handler.getWidth() / 5) 
+    		playerRect.setLocation((int) (playerRect.getMinX() - 3), entityY);
+   
+    	playerRect.x = (int) handler.getWidth() / 5;
+    	
+    	System.out.println("Is executing attack, not doing shit");
+    	}
+    
+
+
 }

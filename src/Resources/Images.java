@@ -26,6 +26,9 @@ public class Images {
     
 
     public static BufferedImage[] battleBackground;
+    public static BufferedImage[] Attack;
+    public static BufferedImage[] Defend;
+    public static BufferedImage[] Skill;
 
     public static SpriteSheet smokeHouseSheet;
     public static BufferedImage[] smokeHouse;
@@ -44,6 +47,9 @@ public class Images {
         Quit = new BufferedImage[3];
 
         battleBackground = new BufferedImage[2];
+        Attack = new BufferedImage[1];
+        Defend = new BufferedImage[1];
+        Skill = new BufferedImage[1];
 
         smokeHouse = new BufferedImage[7];
         try {
@@ -69,8 +75,13 @@ public class Images {
             Quit[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButton.png"));//normbut
             Quit[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonHover.png"));//hoverbut
             Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut
+            
             battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
             battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
+            
+            Attack[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Attack.png"));
+            Defend[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Defend.png"));
+            Skill[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Skill.png"));
 
             Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut\
             
