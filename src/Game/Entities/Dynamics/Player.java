@@ -96,65 +96,64 @@ public class Player extends BaseDynamicEntity {
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
 			PauseState.lastState = State.getState();
 			State.setState(handler.getGame().pauseState);
-		}
+		}else {
 
-		if (handler.getKeyManager().runbutt) {
-			speed = 2;
-		} else {
-			speed = 8;
-		}
-
-		for (Walls w : handler.getWorldManager().getWalls()) {
-			if (nextArea.intersects(w)) {
-
-				if (w.getType().equals("Wall")) {
-
-					canMove = false;
-					switch (facing) {
-					case "Down":
-						Move(false, 1);
-						break;
-					case "Up":
-						Move(false, -1);
-						break;
-					case "Right":
-						Move(true, 1);
-						break;
-					case "Left":
-						Move(true, -1);
-						break;
-					}
-					break;
-				}
-
-				else if (w.getType().equals("Entrance")) {
-					canMove = true;
-
-					if (w.getX() == (1662 + handler.getXDisplacement())
-							&& w.getY() == (55 + handler.getYDisplacement())) {
-						InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset();
-						InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset() - 5;
-						checkInWorld = true;
-						State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
-					}
-
-				}
+			if (handler.getKeyManager().runbutt) {
+				speed = 2;
+			} else {
+				speed = 8;
 			}
 
-		}
+			for (Walls w : handler.getWorldManager().getWalls()) {
+				if (nextArea.intersects(w)) {
 
-		if (handler.getKeyManager().down & canMove) {
-			Move(false, -speed);
-			facing = "Down";
-		} else if (handler.getKeyManager().up & canMove) {
-			Move(false, speed);
-			facing = "Up";
-		} else if (handler.getKeyManager().right & canMove) {
-			Move(true, -speed);
-			facing = "Right";
-		} else if (handler.getKeyManager().left & canMove) {
-			Move(true, speed);
-			facing = "Left";
+					if (w.getType().equals("Wall")) {
+
+						canMove = false;
+						switch (facing) {
+							case "Down":
+								Move(false, 1);
+								break;
+							case "Up":
+								Move(false, -1);
+								break;
+							case "Right":
+								Move(true, 1);
+								break;
+							case "Left":
+								Move(true, -1);
+								break;
+						}
+						break;
+					} else if (w.getType().equals("Entrance")) {
+						canMove = true;
+
+						if (w.getX() == (1662 + handler.getXDisplacement())
+								&& w.getY() == (55 + handler.getYDisplacement())) {
+							InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset();
+							InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset() - 5;
+							checkInWorld = true;
+							State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
+						}
+
+					}
+				}
+
+			}
+
+			if (handler.getKeyManager().down & canMove) {
+				Move(false, -speed);
+				facing = "Down";
+			} else if (handler.getKeyManager().up & canMove) {
+				Move(false, speed);
+				facing = "Up";
+			} else if (handler.getKeyManager().right & canMove) {
+				Move(true, -speed);
+				facing = "Right";
+			} else if (handler.getKeyManager().left & canMove) {
+				Move(true, speed);
+				facing = "Left";
+			}
 		}
 
 	}
