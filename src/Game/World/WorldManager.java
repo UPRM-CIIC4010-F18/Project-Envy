@@ -33,8 +33,8 @@ public class WorldManager {
 
 	public void tick() {
 
-        for (Walls iv: this.worldWalls) {
-            iv.tick();
+        for (Walls w: this.worldWalls) {
+            w.tick();
         }
         
 	}
@@ -67,7 +67,7 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 1600, 0, 60, 100, "Wall"));
 		worldWalls.add(new Walls(handler, 1662, -60, 50, 80, "Wall"));
 		
-		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Entrance"));
+		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Door"));
 	}
 	
     public ArrayList<Walls> getWalls() {

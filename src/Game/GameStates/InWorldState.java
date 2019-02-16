@@ -20,6 +20,7 @@ public class InWorldState extends State{
         entityManager = new EntityManager(handler, handler.getEntityManager().getPlayer());
         
         caveArea = new CaveArea(handler, entityManager);
+
     }
 
     @Override

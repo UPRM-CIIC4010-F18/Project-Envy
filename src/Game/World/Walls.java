@@ -4,6 +4,8 @@ import Main.Handler;
 
 import java.awt.*;
 
+import Game.GameStates.State;
+
 /**
  * Two types of walls:
  * 	. InvisibleWalls
@@ -12,12 +14,13 @@ import java.awt.*;
  */
 public class Walls extends Rectangle {
 
-    Handler handler;
-    int originalX,originalY;
-    String wallType;
+    protected Handler handler;
+    protected int originalX,originalY;
+    protected String wallType;
     
     public Walls(Handler handler, int x, int y, int width, int height, String wallType) {
         super(x, y, width, height);
+        
         originalX = x;
         originalY = y;
         this.handler = handler;
@@ -26,7 +29,6 @@ public class Walls extends Rectangle {
     }
 
     public void tick(){
-    	
         this.x = handler.getXDisplacement() + originalX;
         this.y = handler.getYDisplacement() + originalY;
     }
@@ -39,6 +41,9 @@ public class Walls extends Rectangle {
     	
     	return wallType;
     }
+    
+    
+    
     
     
 }
