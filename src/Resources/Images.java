@@ -24,12 +24,18 @@ public class Images {
     public static BufferedImage map;
     public static Image Scaledmap;
     
+
+    public static BufferedImage[] battleBackground;
+    public static BufferedImage[] Attack;
+    public static BufferedImage[] Defend;
+    public static BufferedImage[] Skill;
+
     public static SpriteSheet smokeHouseSheet;
     public static BufferedImage[] smokeHouse;
     
     public static BufferedImage CaveMap;
     public static Image ScaledCave;
-    
+
     public static BufferedImage tree;
 
     public Images() {
@@ -39,8 +45,13 @@ public class Images {
         BTitle = new BufferedImage[3];
         Options = new BufferedImage[3];
         Quit = new BufferedImage[3];
-        smokeHouse = new BufferedImage[7];
 
+        battleBackground = new BufferedImage[2];
+        Attack = new BufferedImage[1];
+        Defend = new BufferedImage[1];
+        Skill = new BufferedImage[1];
+
+        smokeHouse = new BufferedImage[7];
         try {
             map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
             smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
@@ -63,6 +74,15 @@ public class Images {
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
             Quit[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButton.png"));//normbut
             Quit[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonHover.png"));//hoverbut
+            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut
+            
+            battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
+            battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
+            
+            Attack[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Attack.png"));
+            Defend[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Defend.png"));
+            Skill[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Skill.png"));
+
             Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut\
             
             smokeHouse[0] = smokeHouseSheet.crop(20, 7, 19, 20);
