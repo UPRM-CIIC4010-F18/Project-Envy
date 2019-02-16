@@ -3,6 +3,8 @@ package Game.GameStates;
 import Main.Handler;
 import Resources.Images;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.Player;
 import Game.World.WorldManager;
@@ -42,9 +44,15 @@ public class MapState extends State {
 
 	@Override
 	public void tick() {
-		
-		worldManager.tick();
-		entityManager.tick();
+
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+			PauseState.lastState = State.getState();
+			State.setState(handler.getGame().pauseState);
+		} else {
+
+			worldManager.tick();
+			entityManager.tick();
+		}
 	}
 
 	@Override

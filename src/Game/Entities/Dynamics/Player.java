@@ -94,8 +94,8 @@ public class Player extends BaseDynamicEntity {
 		boolean canMove = true;
 
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-			PauseState.lastState = State.getState();
-			State.setState(handler.getGame().pauseState);
+//			PauseState.lastState = State.getState();
+//			State.setState(handler.getGame().pauseState);
 		}else {
 
 			if (handler.getKeyManager().runbutt) {
