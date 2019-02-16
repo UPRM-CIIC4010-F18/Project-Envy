@@ -20,20 +20,14 @@ public class InWorldState extends State{
         entityManager = new EntityManager(handler, handler.getEntityManager().getPlayer());
         
         caveArea = new CaveArea(handler, entityManager);
+
     }
 
     @Override
     public void tick() {
-
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            PauseState.lastState = State.getState();
-            State.setState(handler.getGame().pauseState);
-        }else {
-
-            if (currentArea != null) {
-                currentArea.tick();
-                entityManager.tick();
-            }
+        
+        if(currentArea!=null) {
+            currentArea.tick();
         }
     	
     }

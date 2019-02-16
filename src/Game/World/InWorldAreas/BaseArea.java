@@ -3,6 +3,9 @@ package Game.World.InWorldAreas;
 import Main.Handler;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+import Game.Entities.EntityManager;
 
 public class BaseArea {
 
@@ -11,9 +14,8 @@ public class BaseArea {
 	public int oldPlayerXCoord,oldPlayerYCoord;
     public int inWorldX, inWorldY;
 
-    public BaseArea(Handler handler) {
+    public BaseArea(Handler handler, EntityManager entityManager) {
         this.handler = handler;
-
     }
 
     public void tick(){
@@ -23,6 +25,10 @@ public class BaseArea {
     public void render(Graphics g){
 
 
+    }
+    
+    public ArrayList<InWorldWalls> getWalls() {
+    	return null;
     }
 
 }

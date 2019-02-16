@@ -21,12 +21,8 @@ public class PauseState extends State {
 
     public PauseState(Handler handler) {
         super(handler);
-
-
         
         uiManager = new UIManager(handler);
-
-        
 
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.Quit, new ClickListlener() {
             @Override

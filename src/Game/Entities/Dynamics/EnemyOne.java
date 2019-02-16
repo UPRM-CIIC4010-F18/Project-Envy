@@ -34,8 +34,14 @@ public class EnemyOne extends BaseHostileEntity {
 
 		g2.setColor(Color.black);
 
-		enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
-								 (int) (handler.getYDisplacement() + getYOffset()), 30, 30);
+		if (!Player.checkInWorld) {
+			enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
+					(int) (handler.getYDisplacement() + getYOffset()), 30, 30);
+		} else {
+			enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
+					(int) (handler.getYInWorldDisplacement() + getYOffset()), 70, 70);
+
+		}
 
 		g2.fill(enemyOne);
 	}
