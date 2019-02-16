@@ -39,7 +39,7 @@ public class CaveArea extends BaseArea {
 		g.drawImage(Images.ScaledCave, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
 
 		g2.setColor(Color.red);
-		
+
 		entityManager.render(g);
 //		g2.fill(playerRect);
 	}

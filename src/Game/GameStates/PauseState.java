@@ -58,6 +58,7 @@ public class PauseState extends State {
     public void tick() {
         handler.getMouseManager().setUimanager(uiManager);
     	uiManager.tick();
+
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             State.setState(lastState);
         }

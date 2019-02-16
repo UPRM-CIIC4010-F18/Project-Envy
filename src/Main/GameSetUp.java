@@ -185,5 +185,9 @@ public class GameSetUp implements Runnable {
         return mouseManager;
     }
 
+    public void reStart() {
+        this.mapState = new MapState(handler);
+        this.inWorldState  = new InWorldState(handler);
+    }
 }
 
