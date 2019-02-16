@@ -40,7 +40,9 @@ public class Player extends BaseDynamicEntity {
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
+
 		player = new Rectangle((int) xPosition, (int) yPosition, this.getWidth(), this.getHeight());
+
 
 		g2.setColor(Color.RED);
 		g2.fill(player);
