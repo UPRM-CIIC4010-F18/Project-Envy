@@ -25,16 +25,15 @@ public class InWorldState extends State{
     @Override
     public void tick() {
 
-        ///TEMP CODE TO EXIT STATE///
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            PauseState.lastState = State.getState();
-            State.setState(handler.getGame().pauseState);
-        }
-        /////////////////////////////
+//        ///TEMP CODE TO EXIT STATE///
+//        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+//            PauseState.lastState = State.getState();
+//            State.setState(handler.getGame().pauseState);
+//        }
+//        /////////////////////////////
         
         if(currentArea!=null) {
             currentArea.tick();
-            entityManager.tick();
         }
     	
     }

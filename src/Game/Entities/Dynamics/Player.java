@@ -17,7 +17,7 @@ public class Player extends BaseDynamicEntity {
 
 	private Rectangle player;
 	public boolean checkInWorld;
-	int InMapWidth=25, InMapHight=25,InAreaWidth =70,InAreaHeight = 70;
+	int InMapWidth = 25, InMapHight = 25, InAreaWidth = 70, InAreaHeight = 70;
 
 	public Player(Handler handler, int xPosition, int yPosition) {
 		super(handler, yPosition, yPosition);
@@ -34,16 +34,13 @@ public class Player extends BaseDynamicEntity {
 		super.tick();
 		UpdateNextMove();
 		PlayerInput();
-
 	}
 
 	@Override
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-
 		player = new Rectangle((int) xPosition, (int) yPosition, this.getWidth(), this.getHeight());
-
 
 		g2.setColor(Color.RED);
 		g2.fill(player);
@@ -53,29 +50,29 @@ public class Player extends BaseDynamicEntity {
 		}
 	}
 
-    public int getWidth() {
-	    if(!checkInWorld){
-	        return this.InMapWidth;
-        }else{
-	        return this.InAreaWidth;
-        }
-    }
-    public int getHeight() {
-	    if(!checkInWorld){
-	        return this.InMapHight;
-        }else{
-	        return this.InAreaHeight;
-        }
-    }
+	public int getWidth() {
+		if (!checkInWorld) {
+			return this.InMapWidth;
+		} else {
+			return this.InAreaWidth;
+		}
+	}
 
-    private void UpdateNextMove() {
+	public int getHeight() {
+		if (!checkInWorld) {
+			return this.InMapHight;
+		} else {
+			return this.InAreaHeight;
+		}
+	}
+
+	private void UpdateNextMove() {
 		switch (facing) {
 		case "Up":
-			nextArea = new Rectangle((int) xPosition, (int) yPosition - speed, this.getWidth(), this.getHeight()/2);
-
+			nextArea = new Rectangle((int) xPosition, (int) yPosition - speed, this.getWidth(), this.getHeight() / 2);
 			break;
 		case "Down":
-			nextArea = new Rectangle((int) xPosition, (int) yPosition +getHeight(), this.getWidth(), speed);
+			nextArea = new Rectangle((int) xPosition, (int) yPosition + getHeight(), this.getWidth(), speed);
 
 			break;
 		case "Left":
@@ -83,7 +80,7 @@ public class Player extends BaseDynamicEntity {
 
 			break;
 		case "Right":
-			nextArea = new Rectangle((int) xPosition +this.getWidth(), (int) yPosition, speed, this.getHeight());
+			nextArea = new Rectangle((int) xPosition + this.getWidth(), (int) yPosition, speed, this.getHeight());
 
 			break;
 		}
@@ -94,67 +91,68 @@ public class Player extends BaseDynamicEntity {
 		boolean canMove = true;
 
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-			PauseState.lastState = State.getState();
+			PauseState.lastState = State.getState(); // Saves the current State to later go back to it.
 			State.setState(handler.getGame().pauseState);
-		}
-
-		if (handler.getKeyManager().runbutt) {
-			speed = 2;
 		} else {
-			speed = 8;
-		}
-
-		for (Walls w : handler.getWorldManager().getWalls()) {
-			if (nextArea.intersects(w)) {
-
-				if (w.getType().equals("Wall")) {
-
-					canMove = false;
-					switch (facing) {
-					case "Down":
-						Move(false, 1);
-						break;
-					case "Up":
-						Move(false, -1);
-						break;
-					case "Right":
-						Move(true, 1);
-						break;
-					case "Left":
-						Move(true, -1);
-						break;
-					}
-					break;
-				}
-
-				else if (w.getType().equals("Entrance")) {
-					canMove = true;
-
-					if (w.getX() == (1662 + handler.getXDisplacement())
-							&& w.getY() == (55 + handler.getYDisplacement())) {
-						InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset();
-						InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset() - 5;
-						checkInWorld = true;
-						State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
-					}
-
-				}
+			if (handler.getKeyManager().runbutt) {
+				speed = 2;
+			} else {
+				speed = 8;
 			}
 
-		}
+			for (Walls w : handler.getWorldManager().getWalls()) {
 
-		if (handler.getKeyManager().down & canMove) {
-			Move(false, -speed);
-			facing = "Down";
-		} else if (handler.getKeyManager().up & canMove) {
-			Move(false, speed);
-			facing = "Up";
-		} else if (handler.getKeyManager().right & canMove) {
-			Move(true, -speed);
-			facing = "Right";
-		} else if (handler.getKeyManager().left & canMove) {
-			Move(true, speed);
-			facing = "Left";
+				if (nextArea.intersects(w)) {
+
+					if (w.getType().equals("Wall")) {
+
+						canMove = false;
+						switch (facing) {
+						case "Down":
+							Move(false, 1);
+							break;
+						case "Up":
+							Move(false, -1);
+							break;
+						case "Right":
+							Move(true, 1);
+							break;
+						case "Left":
+							Move(true, -1);
+							break;
+						}
+						break;
+					}
+
+					else if (w.getType().equals("Entrance")) {
+						canMove = true;
+
+						if (w.getX() == (1662 + handler.getXDisplacement())
+								&& w.getY() == (55 + handler.getYDisplacement())) {
+							InWorldState.caveArea.oldPlayerXCoord = (int) getXOffset();
+							InWorldState.caveArea.oldPlayerYCoord = (int) getYOffset() - 5;
+							checkInWorld = true;
+							State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
+						}
+
+					}
+				}
+
+			}
+
+			if (handler.getKeyManager().down & canMove) {
+				Move(false, -speed);
+				facing = "Down";
+			} else if (handler.getKeyManager().up & canMove) {
+				Move(false, speed);
+				facing = "Up";
+			} else if (handler.getKeyManager().right & canMove) {
+				Move(true, -speed);
+				facing = "Right";
+			} else if (handler.getKeyManager().left & canMove) {
+				Move(true, speed);
+				facing = "Left";
+			}
 		}
 
 	}

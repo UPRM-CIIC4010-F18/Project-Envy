@@ -12,7 +12,7 @@ public class CaveArea extends BaseArea {
 	EntityManager entityManager;
 
 	public CaveArea(Handler handler, EntityManager entityManager) {
-		super(handler);
+		super(handler, entityManager);
 
 		playerRect = new Rectangle((int) handler.getWidth() / 2 - 5, (int) (handler.getHeight() / 2) + 300, 70, 70);
 
@@ -26,7 +26,6 @@ public class CaveArea extends BaseArea {
 
 	public void tick() {
 		super.tick();
-		entityManager.tick();
 	
 	}
 

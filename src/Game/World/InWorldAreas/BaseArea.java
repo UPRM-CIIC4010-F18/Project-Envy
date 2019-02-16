@@ -4,6 +4,8 @@ import Main.Handler;
 
 import java.awt.*;
 
+import Game.Entities.EntityManager;
+
 public class BaseArea {
 
     Handler handler;
@@ -11,13 +13,15 @@ public class BaseArea {
 	public int oldPlayerXCoord,oldPlayerYCoord;
     public int inWorldX, inWorldY;
 
-    public BaseArea(Handler handler) {
-        this.handler = handler;
+	private EntityManager entityManager;
 
+    public BaseArea(Handler handler, EntityManager entityManager) {
+        this.handler = handler;
+        this.entityManager = entityManager;
     }
 
     public void tick(){
-
+    	this.entityManager.tick();
     }
 
     public void render(Graphics g){

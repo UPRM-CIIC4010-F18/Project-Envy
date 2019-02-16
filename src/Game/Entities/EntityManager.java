@@ -29,7 +29,6 @@ public class EntityManager {
 		
 		for (BaseEntity e : entities) {
 			CheckCollisions(e);
-		
 			e.tick();
 		}
 		
