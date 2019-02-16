@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import Game.Entities.EntityManager;
+import Game.Entities.Dynamics.EnemyOne;
 import Game.World.Walls;
 
 public class CaveArea extends BaseArea {
@@ -27,10 +28,13 @@ public class CaveArea extends BaseArea {
 
 		playerRect = new Rectangle((int) handler.getWidth() / 2 - 5, (int) (handler.getHeight() / 2) + 300, 70, 70);
 
-		handler.setXInWorldDisplacement(-100);
-		handler.setYInWorldDisplacement(-1500);
+		// Original player x and y location relative to the image displacement.
+		handler.setXInWorldDisplacement(-390);
+		handler.setYInWorldDisplacement(-2670);
 
 		this.entityManager = entityManager;
+		
+		this.entityManager.AddEntity(new EnemyOne(handler, 300, 1000));
 
 		caveWalls = new ArrayList<>();
 		AddWalls();
@@ -43,6 +47,8 @@ public class CaveArea extends BaseArea {
 		for (Walls w : caveWalls) {
 			w.tick();
 		}
+		
+		entityManager.tick();
 
 	}
 
@@ -57,10 +63,6 @@ public class CaveArea extends BaseArea {
 
 		g.drawImage(Images.ScaledCave, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
 
-		g2.setColor(Color.red);
-
-		entityManager.render(g);
-
 		if (GameSetUp.DEBUGMODE) {
 			for (Walls w : caveWalls) {
 
@@ -72,6 +74,8 @@ public class CaveArea extends BaseArea {
 				w.render(g2);
 			}
 		}
+		
+		entityManager.render(g);
 	}
 
 	private void AddWalls() {

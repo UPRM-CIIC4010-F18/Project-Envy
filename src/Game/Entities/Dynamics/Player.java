@@ -19,7 +19,7 @@ public class Player extends BaseDynamicEntity {
 
 	private Rectangle player;
 	private boolean canMove;
-	public boolean checkInWorld;
+	public static boolean checkInWorld;
 	public static final int InMapWidth = 25, InMapHeight = 25, InAreaWidth = 70, InAreaHeight = 70;
 	private int currentWidth, currentHeight;
 
@@ -169,9 +169,12 @@ public class Player extends BaseDynamicEntity {
 			for (InWorldWalls iw : CaveArea.caveWalls) {
 				if (iw.intersects(player)) {
 					if (iw.getType().equals("Wall"))
-					PushPlayerBack();
+						PushPlayerBack();
 					else {
-						handler.setXDisplacement(handler.getXDisplacement() - 450);
+						handler.setXInWorldDisplacement(-390); // Resets player x/y in Cave
+						handler.setYInWorldDisplacement(-2670);
+						handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
+																					// Cave
 						handler.setYDisplacement(handler.getYDisplacement() + 380);
 						setWidthAndHeight(InMapWidth, InMapHeight);
 						State.setState(handler.getGame().mapState);
@@ -240,7 +243,7 @@ public class Player extends BaseDynamicEntity {
 	@Override
 	public double getXOffset() {
 
-		if (checkInWorld)
+		if (!checkInWorld)
 			return -this.handler.getXDisplacement() + xPosition;
 		else
 			return -this.handler.getXInWorldDisplacement() + xPosition;
@@ -249,7 +252,7 @@ public class Player extends BaseDynamicEntity {
 	@Override
 	public double getYOffset() {
 
-		if (State.getState().equals(handler.getGame().mapState))
+		if (!checkInWorld)
 			return -this.handler.getYDisplacement() + yPosition;
 		else
 			return -this.handler.getYInWorldDisplacement() + yPosition;

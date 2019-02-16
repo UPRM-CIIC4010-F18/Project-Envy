@@ -14,17 +14,12 @@ public class BaseArea {
 	public int oldPlayerXCoord,oldPlayerYCoord;
     public int inWorldX, inWorldY;
 
-	private EntityManager entityManager;
-
     public BaseArea(Handler handler, EntityManager entityManager) {
         this.handler = handler;
-        this.entityManager = entityManager;
-        
-        
     }
 
     public void tick(){
-    	this.entityManager.tick();
+
     }
 
     public void render(Graphics g){

@@ -21,7 +21,6 @@ public class EntityManager {
 		this.handler = handler;
 		this.player = player;
 		
-
 		entities = new ArrayList<>();
 	}
 	
