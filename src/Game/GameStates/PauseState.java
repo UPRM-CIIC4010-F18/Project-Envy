@@ -35,12 +35,20 @@ public class PauseState extends State {
                 System.exit(0);
             }
         }));
-        
+
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-300, handler.getHeight()/3, 128, 64, Images.Options, new ClickListlener() {
+            @Override
+            public void onClick() {
+                handler.getMouseManager().setUimanager(null);
+                State.setState(handler.getGame().menuState);
+            }
+        }));
+
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2-300, handler.getHeight()/2-32, 128, 64, Images.Resume, new ClickListlener() {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUimanager(null);
-        		State.setState(handler.getGame().mapState);
+                State.setState(handler.getGame().mapState);
             }
         }));
 
