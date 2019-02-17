@@ -100,7 +100,7 @@ public class Images {
         e.printStackTrace();
     }
         Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
-        ScaledCave = Images.CaveMap.getScaledInstance(2560, 3360, Image.SCALE_SMOOTH); // 256x336 pixel image
+        ScaledCave = Images.CaveMap.getScaledInstance(3680, 4000, Image.SCALE_SMOOTH); // 368x400 pixel image
 
     }	
     
