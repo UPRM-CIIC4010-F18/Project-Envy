@@ -47,6 +47,8 @@ public class Player extends BaseDynamicEntity {
 		} else {
 			checkInWorld = false;
 		}
+		
+		if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_L)) System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
 	}
 
 	@Override
