@@ -50,6 +50,8 @@ public class CaveArea extends BaseArea {
 		}
 		
 		entityManager.tick();
+		System.out.println("X: " + handler.getEntityManager().getPlayer().getXOffset());
+		System.out.println("Y: " + handler.getEntityManager().getPlayer().getYOffset());
 
 	}
 
@@ -118,7 +120,8 @@ public class CaveArea extends BaseArea {
 		caveWalls.add(new InWorldWalls(handler, 2744, 140, 200, 300, "Wall"));									// Left wall relative to Exit
 		caveWalls.add(new InWorldWalls(handler, 3288, 140, 200, 300, "Wall"));									// Right wall relative to Exit
 		
-		caveWalls.add(new InWorldWalls(handler, 3000, 320, 300, 100, "Door"));									// Exit
+		caveWalls.add(new InWorldWalls(handler, 2950, 340, 320, 100, "Door"));	//backexit							// Exit
+		caveWalls.add(new InWorldWalls(handler, 1230, 3900, 280, 100, "Door"));//front exitExit
 		caveWalls.add(new InWorldWalls(handler, imageWidth/3, imageHeight, 300, 50, "Wall"));					// Entrance
 		
 
