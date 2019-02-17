@@ -79,16 +79,6 @@ public class CaveArea extends BaseArea {
 		entityManager.render(g);
 	}
 
-	/*
-	 * Quick tip if you want to add walls.
-	 * 		- Use stuff like this:
-	 * 
-	 * 					System.out.println("X: " + handler.getEntityManager().getPlayer().getXOffset());
-	 *					System.out.println("Y: " + handler.getEntityManager().getPlayer().getYOffset());
-	 *					
-	 *			Inside the tick method or render, and then you'll receive data that can be useful!
-	 *			I used the previous example to move the player around the coordinates I wanted to add walls.
-	 */
 	private void AddWalls() {
 
 
@@ -143,4 +133,3 @@ public class CaveArea extends BaseArea {
 
 
 
-// https://www.youtube.com/watch?v=OUypHVSBbqs
