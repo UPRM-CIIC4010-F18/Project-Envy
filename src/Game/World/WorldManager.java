@@ -60,8 +60,27 @@ public class WorldManager {
 	// adds all the walls in game
 	private void AddWalls() {
 		worldWalls = new ArrayList<>();
-		worldWalls.add(new Walls(handler, 150, 0, 215, 490, "Wall"));
-		worldWalls.add(new Walls(handler, 150, 600, 215, 495, "Wall"));
+		worldWalls.add(new Walls(handler, 150, 120, 210, 360, "Wall"));
+		worldWalls.add(new Walls(handler, 150, 600, 210, 495, "Wall"));
+		
+		worldWalls.add(new Walls(handler, 0, 450, 150, 200, "Wall"));
+		worldWalls.add(new Walls(handler, 360,950, 480,5,"Wall" ));
+		worldWalls.add(new Walls(handler, 845, 950, 5, 250, "Wall"));
+		worldWalls.add(new Walls(handler, 850, 1200, 670, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 1520, 850, 5, 350, "Wall"));
+		worldWalls.add(new Walls(handler, 1520, 840, 480, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 2000, 490, 5, 350, "Wall"));
+		worldWalls.add(new Walls(handler, 2000, 460, 430, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 2450, 50, 5, 400, "Wall"));
+		worldWalls.add(new Walls(handler, 2450, 50, 580, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 3020, -400, 5, 450, "Wall"));
+		worldWalls.add(new Walls(handler, 1350, -400, 1620, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 1350, -400, 5, 250, "Wall"));
+		worldWalls.add(new Walls(handler, 650, -150, 700, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 650, -150, 5, 270, "Wall"));
+		worldWalls.add(new Walls(handler, 360, 120, 290, 5, "Wall"));
+		
+		
 		worldWalls.add(new Walls(handler, 1800, -300, 180, 380 , "Wall"));
 		worldWalls.add(new Walls(handler, 1710, -150, 180, 250, "Wall"));
 		worldWalls.add(new Walls(handler, 1600, 0, 60, 100, "Wall"));
