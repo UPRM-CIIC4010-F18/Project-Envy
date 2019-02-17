@@ -15,6 +15,7 @@ public class CaveArea extends BaseArea {
 	Rectangle exit;
 	Rectangle playerRect;
 	EntityManager entityManager;
+	public static boolean isInCave = false;
 
 	private int imageWidth = 3680, imageHeight = 4000;
 	public final static int playerXSpawn = -380, playerYSpawn = -3270;

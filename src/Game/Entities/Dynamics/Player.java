@@ -14,14 +14,13 @@ import Game.World.InWorldAreas.InWorldWalls;
 import Main.GameSetUp;
 import Main.Handler;
 import java.awt.event.KeyEvent;
-
 public class Player extends BaseDynamicEntity {
 
 	private Rectangle player;
 	private boolean canMove;
 	public static boolean checkInWorld;
 	public static final int InMapWidth = 25, InMapHeight = 25, InAreaWidth = 70, InAreaHeight = 70;
-	private int currentWidth, currentHeight;
+	private int currentWidth, currentHeight; public static  boolean isinArea = false;
 
 	public Player(Handler handler, int xPosition, int yPosition) {
 		super(handler, yPosition, yPosition);
@@ -157,37 +156,67 @@ public class Player extends BaseDynamicEntity {
 								&& w.getY() == (55 + handler.getYDisplacement())) {
 							InWorldState.caveArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
 							InWorldState.caveArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
-
+							CaveArea.isInCave = true;
 							setWidthAndHeight(InAreaWidth, InAreaHeight);
 							State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
 						}
 					}
+
+					else if (w.getType().equals("SDoor")) {
+						canMove = true;
+
+						if (w.getX() == (5627 + handler.getXDisplacement())
+								&& w.getY() == (380 + handler.getYDisplacement())) {
+							InWorldState.SArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
+							InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
+							this.isinArea = true;
+							setWidthAndHeight(InMapWidth, InMapHeight);
+							State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
+						}
+					}
 				}
 			}
-		} else {
+		} 
+		else {
+			if(CaveArea.isInCave) {
+				for (InWorldWalls iw : CaveArea.caveWalls) {
+					if (iw.intersects(player)) {
+						if (iw.getType().equals("Wall"))
+							PushPlayerBack();
+						else {
+							if(iw.getX() == (2950 + handler.getXInWorldDisplacement())
+									&& iw.getY() == (340 + handler.getYInWorldDisplacement())) {
+								handler.setXInWorldDisplacement(CaveArea.playerXSpawn); // Resets player x/y in Cave
+								handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
+								handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
+								handler.setYDisplacement(handler.getYDisplacement() + 380);// Cave
+								setWidthAndHeight(InMapWidth, InMapHeight);
+								State.setState(handler.getGame().mapState);
+							}else if(iw.getX() == (1230 + handler.getXInWorldDisplacement())
+									&& iw.getY() == (3900 + handler.getYInWorldDisplacement())) {
+								handler.setXInWorldDisplacement(CaveArea.playerXSpawn); // Resets player x/y in Cave
+								handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
+								handler.setXDisplacement(InWorldState.caveArea.oldPlayerXCoord); // Sets the player x/y outside the
+								handler.setYDisplacement(InWorldState.caveArea.oldPlayerYCoord);// Cave
+								setWidthAndHeight(InMapWidth, InMapHeight);
+								State.setState(handler.getGame().mapState);
+							}
 
-			for (InWorldWalls iw : CaveArea.caveWalls) {
-				if (iw.intersects(player)) {
-					if (iw.getType().equals("Wall"))
-						PushPlayerBack();
-					else {
-						if(iw.getX() == (2950 + handler.getXInWorldDisplacement())
-								&& iw.getY() == (340 + handler.getYInWorldDisplacement())) {
-							handler.setXInWorldDisplacement(CaveArea.playerXSpawn); // Resets player x/y in Cave
-							handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
-							handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
-							handler.setYDisplacement(handler.getYDisplacement() + 380);// Cave
-							setWidthAndHeight(InMapWidth, InMapHeight);
-							State.setState(handler.getGame().mapState);
-						}else if(iw.getX() == (1230 + handler.getXInWorldDisplacement())
-								&& iw.getY() == (3900 + handler.getYInWorldDisplacement())) {
-							handler.setXInWorldDisplacement(CaveArea.playerXSpawn); // Resets player x/y in Cave
-							handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
-							handler.setXDisplacement(InWorldState.caveArea.oldPlayerXCoord); // Sets the player x/y outside the
-							handler.setYDisplacement(InWorldState.caveArea.oldPlayerYCoord);// Cave
-							setWidthAndHeight(InMapWidth, InMapHeight);
-							State.setState(handler.getGame().mapState);
+							CaveArea.isInCave = false;
+
 						}
+					}
+				}
+			}
+
+			else if(Player.isinArea) {
+
+				for(InWorldWalls iw : InWorldState.SArea.getWalls()) {
+
+					if (iw.intersects(player)) {
+						if (iw.getType().equals("Wall"))
+							PushPlayerBack();
+
 					}
 				}
 			}

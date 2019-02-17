@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+
+import Game.GameStates.InWorldState;
+import Game.World.InWorldAreas.CaveArea;
 import Main.Handler;
 
 public class EnemyOne extends BaseHostileEntity {
@@ -30,21 +33,25 @@ public class EnemyOne extends BaseHostileEntity {
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		Graphics2D g2 = (Graphics2D) g;
+		Graphics2D g2 = (Graphics2D) g;	
 
-		g2.setColor(Color.black);
 
-		if (!Player.checkInWorld) {
-			enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
-					(int) (handler.getYDisplacement() + getYOffset()), 30, 30);
-		} else {
-			enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
-					(int) (handler.getYInWorldDisplacement() + getYOffset()), 70, 70);
+			if (!Player.checkInWorld) {
+				enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
+						(int) (handler.getYDisplacement() + getYOffset()), 30, 30);
+			} else if(CaveArea.isInCave && Player.checkInWorld) {
+				enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
+						(int) (handler.getYInWorldDisplacement() + getYOffset()), 70, 70);
+
+			}
+
+			g2.setColor(Color.black);
+
+			g2.fill(enemyOne);
 
 		}
 
-		g2.fill(enemyOne);
-	}
+
 
 	@Override
 	public Rectangle getCollision() {
