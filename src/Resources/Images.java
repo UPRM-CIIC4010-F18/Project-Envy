@@ -22,8 +22,7 @@ public class Images {
     public static ImageIcon icon;
 
     public static BufferedImage map;
-    public static Image Scaledmap;
-    
+    public static Image Scaledmap;  
 
     public static BufferedImage[] battleBackground;
     public static BufferedImage[] Attack;
@@ -33,9 +32,10 @@ public class Images {
     public static SpriteSheet smokeHouseSheet;
     public static BufferedImage[] smokeHouse;
     
-    public static BufferedImage CaveMap;
+    public static BufferedImage CaveMap;   
+    public static BufferedImage Area;
     public static Image ScaledCave;
-
+    public static Image ScaledArea;
     public static BufferedImage tree;
 
     public Images() {
@@ -57,6 +57,7 @@ public class Images {
             smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
             
             CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
+            Area =ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
@@ -101,7 +102,8 @@ public class Images {
     }
         Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
         ScaledCave = Images.CaveMap.getScaledInstance(3680, 4000, Image.SCALE_SMOOTH); // 368x400 pixel image
-
+        ScaledArea = Images.Area.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+        
     }	
     
 

@@ -7,12 +7,16 @@ import Main.Handler;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import Display.UI.UIManager;
+
 public class InWorldState extends State{
 
 
 	EntityManager entityManager;	// To manager the entities within the InWorld
+	private UIManager uM = new UIManager(handler);
     public static BaseArea currentArea;
     public static BaseArea caveArea;
+    public static BaseArea SArea;
 
     public InWorldState(Handler handler) {
         super(handler);
@@ -20,6 +24,7 @@ public class InWorldState extends State{
         entityManager = new EntityManager(handler, handler.getEntityManager().getPlayer());
         
         caveArea = new CaveArea(handler, entityManager);
+        SArea = uM.new Area(handler, entityManager);
 
     }
 
@@ -46,6 +51,5 @@ public class InWorldState extends State{
         currentArea = area;
         return this;
     }
-
     
 }

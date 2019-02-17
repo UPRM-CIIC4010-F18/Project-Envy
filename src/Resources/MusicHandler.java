@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Game.Entities.Statics.BaseStaticEntity;
+import Game.GameStates.InWorldState;
+import Game.GameStates.State;
 
 public class MusicHandler {
 
@@ -122,7 +124,6 @@ public class MusicHandler {
     	private int cWidth = 20;
     	private int cHeight = 20;
     	private Handler handler;
-    	private Rectangle cBound;
     	private Random random = new Random();
     	
     	public Circle(int x, int y, Handler handler) {
@@ -131,13 +132,21 @@ public class MusicHandler {
     		this.setXOffset(x);
     		this.setYOffset(y);
     		this.handler = handler;
-    		this.cBound = new Rectangle((int) (this.handler.getXDisplacement() + this.xPosition), (int) (this.handler.getYDisplacement() + this.yPosition), this.getcWidth(), this.getcHeight());
     		
     	}
     	
     	public void tick() {
     		
-    		if(this.handler.getEntityManager().getPlayer().getCollision().intersects(this.cBound));
+    		if(this.handler.getEntityManager().getPlayer().getCollision().intersects(this.getCollision())) {
+    			
+    			InWorldState.SArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
+				InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
+
+				handler.getEntityManager().getPlayer().setWidthAndHeight(25, 25);
+				State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
+    			
+    			
+    		}
     		
     	}
     	
@@ -151,10 +160,6 @@ public class MusicHandler {
     		
     		g2.draw(circle);
     		
-    	}
-
-    	public Rectangle getCollision() {   		
-    		return this.cBound;  		
     	}
 
 		public int getcWidth() {
