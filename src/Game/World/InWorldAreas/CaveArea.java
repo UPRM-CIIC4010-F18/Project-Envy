@@ -102,18 +102,18 @@ public class CaveArea extends BaseArea {
 		caveWalls.add(new InWorldWalls(handler, 2520, 2750, 800, 1, "Wall"));									//
 		caveWalls.add(new InWorldWalls(handler, 3258, 2608, 400, 400, "Wall"));									//
 		
-		caveWalls.add(new InWorldWalls(handler, 216, 428, 1030, 1000, "Wall"));									// Lava Lake
+		caveWalls.add(new InWorldWalls(handler, 216, 500, 1030, 1000, "Wall"));									// Lava Lake
 		caveWalls.add(new InWorldWalls(handler, 1246, 518, 300, 415, "Wall"));									// 
 		caveWalls.add(new InWorldWalls(handler, 222, 1428, 1010, 130, "Wall"));									//
 		caveWalls.add(new InWorldWalls(handler, 184, 1640, 100, 100, "Wall"));									// Lava Hole
 		
 		
 		
-		caveWalls.add(new InWorldWalls(handler, 176, 140, 400, 400, "Wall"));									// TopLeft Side Wall with torch
+		caveWalls.add(new InWorldWalls(handler, 176, 140, 455, 345, "Wall"));									// TopLeft Side Wall with torch
 		caveWalls.add(new InWorldWalls(handler, 661, 205, 120, 100, "Wall"));									// Hole next to TopLeft Side wall with torch
 		
 		
-		caveWalls.add(new InWorldWalls(handler, 1940, 2130, 100, 200, "Wall"));									// Pond next to Statue
+		caveWalls.add(new InWorldWalls(handler, 1940, 2130, 100, 100, "Wall"));									// Pond next to Statue
 		caveWalls.add(new InWorldWalls(handler, 2076, 1850, 150, 330, "Wall"));									// Statue
 		
 		caveWalls.add(new InWorldWalls(handler, 3380, 510, 120, 100, "Wall"));									// Hole next to Exit
