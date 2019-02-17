@@ -171,8 +171,8 @@ public class Player extends BaseDynamicEntity {
 					if (iw.getType().equals("Wall"))
 						PushPlayerBack();
 					else {
-						handler.setXInWorldDisplacement(-390); // Resets player x/y in Cave
-						handler.setYInWorldDisplacement(-2670);
+						handler.setXInWorldDisplacement(CaveArea.playerXSpawn); // Resets player x/y in Cave
+						handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
 						handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
 																					// Cave
 						handler.setYDisplacement(handler.getYDisplacement() + 380);

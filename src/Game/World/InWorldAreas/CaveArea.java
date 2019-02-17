@@ -16,7 +16,8 @@ public class CaveArea extends BaseArea {
 	Rectangle playerRect;
 	EntityManager entityManager;
 
-	private int imageWidth = 2560, imageHeight = 3360;
+	private int imageWidth = 3680, imageHeight = 4000;
+	public final static int playerXSpawn = -380, playerYSpawn = -3270;
 
 	private Rectangle background = new Rectangle(3000, 3000);
 	private Color backgroundColor = Color.BLUE;
@@ -29,8 +30,8 @@ public class CaveArea extends BaseArea {
 		playerRect = new Rectangle((int) handler.getWidth() / 2 - 5, (int) (handler.getHeight() / 2) + 300, 70, 70);
 
 		// Original player x and y location relative to the image displacement.
-		handler.setXInWorldDisplacement(-390);
-		handler.setYInWorldDisplacement(-2670);
+		handler.setXInWorldDisplacement(playerXSpawn);
+		handler.setYInWorldDisplacement(playerYSpawn);
 
 		this.entityManager = entityManager;
 		
@@ -78,23 +79,58 @@ public class CaveArea extends BaseArea {
 		entityManager.render(g);
 	}
 
+	/*
+	 * Quick tip if you want to add walls.
+	 * 		- Use stuff like this:
+	 * 
+	 * 					System.out.println("X: " + handler.getEntityManager().getPlayer().getXOffset());
+	 *					System.out.println("Y: " + handler.getEntityManager().getPlayer().getYOffset());
+	 *					
+	 *			Inside the tick method or render, and then you'll receive data that can be useful!
+	 *			I used the previous example to move the player around the coordinates I wanted to add walls.
+	 */
 	private void AddWalls() {
 
-		// Borders
-		caveWalls.add(new InWorldWalls(handler, 0, 0, 10, imageHeight, "Wall"));
-		caveWalls.add(new InWorldWalls(handler, 0, 130, imageWidth, 10, "Wall"));
-		caveWalls.add(new InWorldWalls(handler, 0, imageHeight - 10, imageWidth, 10, "Wall"));
-		caveWalls.add(new InWorldWalls(handler, imageWidth - 10, 0, 10, imageHeight, "Wall"));
 
-		// Holes
-		caveWalls.add(new InWorldWalls(handler, 190, 2280, 100, 100, "Wall"));
-		caveWalls.add(new InWorldWalls(handler, 500, 200, 100, 100, "Wall"));
-		caveWalls.add(new InWorldWalls(handler, 1310, 520, 100, 100, "Wall"));
+		caveWalls.add(new InWorldWalls(handler, 100, 0, 10, imageHeight, "Wall"));								// Left Border
+		caveWalls.add(new InWorldWalls(handler, 0, imageHeight-100, imageWidth/3, 50, "Wall"));					// Bottom LeftBorder (Left side relative to Entrance)
+		caveWalls.add(new InWorldWalls(handler, imageWidth/2-350, imageHeight-100, imageWidth/4, 50, "Wall"));	// Bottom RightBorder (Right side relative to Entrance)
+		caveWalls.add(new InWorldWalls(handler, 0, 130, imageWidth, 10, "Wall"));								//
+		caveWalls.add(new InWorldWalls(handler, imageWidth - 130, 0, 10, imageHeight, "Wall"));					// Right Border
 
-		// Water/Lava Areas
-		caveWalls.add(new InWorldWalls(handler, 0, 3100, 260, 300, "Wall"));
 
-		caveWalls.add(new InWorldWalls(handler, imageWidth/2 - 350, 330, 250, 100, "Door"));
+		caveWalls.add(new InWorldWalls(handler, 200, 3400, 400, 400, "Wall"));									// Left side Pond
+		caveWalls.add(new InWorldWalls(handler, 500, 3075, 125, 100, "Wall"));									// Left side Water Hole
+		
+		caveWalls.add(new InWorldWalls(handler, 2440, 3355, 1, 500, "Wall"));									// Water Lake
+		caveWalls.add(new InWorldWalls(handler, 1985, 3190, 500, 140, "Wall"));									//
+		caveWalls.add(new InWorldWalls(handler, 1665, 3030, 500, 140, "Wall"));									//
+		caveWalls.add(new InWorldWalls(handler, 1495, 2285, 1040, 700, "Wall"));								//
+		caveWalls.add(new InWorldWalls(handler, 1595, 2985, 100, 100, "Wall"));									//
+		caveWalls.add(new InWorldWalls(handler, 2520, 2750, 800, 1, "Wall"));									//
+		caveWalls.add(new InWorldWalls(handler, 3258, 2608, 400, 400, "Wall"));									//
+		
+		caveWalls.add(new InWorldWalls(handler, 216, 428, 1030, 1000, "Wall"));									// Lava Lake
+		caveWalls.add(new InWorldWalls(handler, 1246, 518, 300, 415, "Wall"));									// 
+		caveWalls.add(new InWorldWalls(handler, 222, 1428, 1010, 130, "Wall"));									//
+		caveWalls.add(new InWorldWalls(handler, 184, 1640, 100, 100, "Wall"));									// Lava Hole
+		
+		
+		
+		caveWalls.add(new InWorldWalls(handler, 176, 140, 400, 400, "Wall"));									// TopLeft Side Wall with torch
+		caveWalls.add(new InWorldWalls(handler, 661, 205, 120, 100, "Wall"));									// Hole next to TopLeft Side wall with torch
+		
+		
+		caveWalls.add(new InWorldWalls(handler, 1940, 2130, 100, 200, "Wall"));									// Pond next to Statue
+		caveWalls.add(new InWorldWalls(handler, 2076, 1850, 150, 330, "Wall"));									// Statue
+		
+		caveWalls.add(new InWorldWalls(handler, 3380, 510, 120, 100, "Wall"));									// Hole next to Exit
+		caveWalls.add(new InWorldWalls(handler, 2744, 140, 200, 300, "Wall"));									// Left wall relative to Exit
+		caveWalls.add(new InWorldWalls(handler, 3288, 140, 200, 300, "Wall"));									// Right wall relative to Exit
+		
+		caveWalls.add(new InWorldWalls(handler, 3000, 320, 300, 100, "Door"));									// Exit
+		caveWalls.add(new InWorldWalls(handler, imageWidth/3, imageHeight, 300, 50, "Wall"));					// Entrance
+		
 
 	}
 
@@ -102,5 +138,9 @@ public class CaveArea extends BaseArea {
 	public ArrayList<InWorldWalls> getWalls() {
 		return caveWalls;
 	}
-
 }
+
+
+
+
+// https://www.youtube.com/watch?v=OUypHVSBbqs
