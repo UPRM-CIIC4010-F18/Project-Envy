@@ -11,21 +11,28 @@ import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
 import Main.GameSetUp;
 import Main.Handler;
+import Resources.MusicHandler;
+import Resources.MusicHandler.Circle;
 
 public class WorldManager {
 
 	protected Handler handler;
+	private MusicHandler mus;
+	private Circle circle;
 	protected EntityManager entityManager;
 
 	ArrayList<Game.World.Walls> worldWalls;
 
 	public WorldManager(Handler handler, EntityManager entityManager) {
 		this.handler = handler;
+		mus = new MusicHandler(handler);
 		this.entityManager = entityManager;
-
+		
+		circle = mus.new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
 		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800));
+		this.entityManager.AddEntity(circle);
 
 		AddWalls();
 

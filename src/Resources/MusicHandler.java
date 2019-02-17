@@ -4,8 +4,17 @@ import Main.Handler;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
+
+import Game.Entities.Statics.BaseStaticEntity;
 
 public class MusicHandler {
 
@@ -106,6 +115,65 @@ public class MusicHandler {
 
     public void setVolume (double volume){
         player.setVolume(volume);
+    }
+    
+    public class Circle extends BaseStaticEntity{
+    	
+    	private int cWidth = 20;
+    	private int cHeight = 20;
+    	private Handler handler;
+    	private Rectangle cBound;
+    	private Random random = new Random();
+    	
+    	public Circle(int x, int y, Handler handler) {
+    		super(handler, x, y);
+    		
+    		this.setXOffset(x);
+    		this.setYOffset(y);
+    		this.handler = handler;
+    		this.cBound = new Rectangle((int) (this.handler.getXDisplacement() + this.xPosition), (int) (this.handler.getYDisplacement() + this.yPosition), this.getcWidth(), this.getcHeight());
+    		
+    	}
+    	
+    	public void tick() {
+    		
+    		if(this.handler.getEntityManager().getPlayer().getCollision().intersects(this.cBound));
+    		
+    	}
+    	
+    	public void render(Graphics g) {
+    		
+    		Graphics2D g2 = (Graphics2D) g;
+    		
+    		Ellipse2D.Double circle = new Ellipse2D.Double((int) (this.handler.getXDisplacement() + this.xPosition), (int) (this.handler.getYDisplacement() + this.yPosition), this.getcWidth(), this.getcHeight());
+    		
+    		g2.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+    		
+    		g2.draw(circle);
+    		
+    	}
+
+    	public Rectangle getCollision() {   		
+    		return this.cBound;  		
+    	}
+
+		public int getcWidth() {
+			return cWidth;
+		}
+
+		public void setcWidth(int cWidth) {
+			this.cWidth = cWidth;
+		}
+
+		public int getcHeight() {
+			return cHeight;
+		}
+
+		public void setcHeight(int cHeight) {
+			this.cHeight = cHeight;
+		}
+    	
+    	
     }
 
 }
