@@ -25,8 +25,12 @@ public class FightState extends InWorldState{
 	Player player;
 	BaseHostileEntity enemy;
 	Rectangle enemyRect, playerRect;
-
-
+	
+	public int fightWordXPos = handler.getWidth()/2 - 250;
+	public int fightWordYPos = 0 - 80;
+	public int wordHeight = 150;
+	public boolean passing = true;
+	public int stringSpeed = 40;
 
 	private int optionSelect, inputCoolDown;
 	private int[] entityInfoX;
@@ -81,6 +85,8 @@ public class FightState extends InWorldState{
 			PlayerInput();
 			uiManager.tick();
 		}
+		
+		this.moveFightString();
 
 	}
 
@@ -88,6 +94,8 @@ public class FightState extends InWorldState{
 	public void render(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D)g;
+		
+		Color color = new Color(0 , 0 , 0 , .5f); // transparentBlack
 
 		g2.setBackground(new Color(61,68,128));
 		g2.drawImage(background, 0, 0, null);
@@ -151,6 +159,21 @@ public class FightState extends InWorldState{
 		g2.fill(playerRect);
 		g2.setColor(Color.BLACK);
 		g2.fill(enemyRect);
+		
+		
+		//Fight string that appears in beginning
+		if(this.isPassing()) {
+
+			g2.setColor(color);
+
+			g2.fillRect(0, 0, this.handler.getWidth(), this.handler.getHeight());
+
+		}
+
+		g2.setFont(new Font("IMPACT", 3, this.wordHeight));
+
+		g2.setColor(Color.RED);
+		g2.drawString("FIGHT!", this.fightWordXPos, this.fightWordYPos);
 
 	}
 
@@ -241,11 +264,64 @@ public class FightState extends InWorldState{
 
 
 	}
+	
+	public void moveFightString() {
+
+		if(this.passing) this.setFightWordYPos(this.getFightWordYPos() + this.stringSpeed);
+
+		if(this.getFightWordYPos() - this.wordHeight * 2 > this.handler.getHeight()) {
+
+			this.setFightWordYPos(0 - this.wordHeight);
+			this.setPassing(false);
+
+		}
+		
+	}
 
 
 	//doesn't work rn
 	private void attack() {
 
+	}
+
+	public int getFightWordXPos() {
+		return fightWordXPos;
+	}
+
+	public void setFightWordXPos(int fightWordXPos) {
+		this.fightWordXPos = fightWordXPos;
+	}
+
+	public int getFightWordYPos() {
+		return fightWordYPos;
+	}
+
+	public void setFightWordYPos(int fightWordYPos) {
+		this.fightWordYPos = fightWordYPos;
+	}
+
+	public int getWordHeight() {
+		return wordHeight;
+	}
+
+	public void setWordHeight(int wordHeight) {
+		this.wordHeight = wordHeight;
+	}
+
+	public boolean isPassing() {
+		return passing;
+	}
+
+	public void setPassing(boolean passing) {
+		this.passing = passing;
+	}
+
+	public int getStringSpeed() {
+		return stringSpeed;
+	}
+
+	public void setStringSpeed(int stringSpeed) {
+		this.stringSpeed = stringSpeed;
 	}
 
 
