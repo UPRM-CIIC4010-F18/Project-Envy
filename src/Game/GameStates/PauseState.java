@@ -16,7 +16,7 @@ public class PauseState extends State {
 
 	private UIManager uiManager;
 	int waitTimeForInput;
-	public static State lastState;
+	public State lastState;
 	public int RXPos = handler.getWidth()/2 - 128 * 2;
 	public int QXPos = handler.getWidth()/2 + 150;
 	public int YPos = handler.getHeight()/2 - 32;
@@ -109,6 +109,7 @@ public class PauseState extends State {
             handler.setArea(InWorldState.currentArea.name);
         }
         System.out.println(lastState);
+        GameSetUp.SWITCHING=true;
         State.setState(lastState);
     }
 

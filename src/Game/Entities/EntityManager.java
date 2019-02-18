@@ -8,6 +8,7 @@ import Game.Entities.Dynamics.Player;
 import Game.Entities.Statics.BaseStaticEntity;
 import Game.GameStates.FightState;
 import Game.GameStates.State;
+import Main.GameSetUp;
 import Main.Handler;
 
 public class EntityManager {
@@ -45,16 +46,12 @@ public class EntityManager {
 	
 	private void CheckCollisions(BaseEntity e) {
 		
-		if ( player.getCollision().intersects(e.getCollision())) {
+		if ( player.getCollision().intersects(e.getCollision())&&!GameSetUp.SWITCHING) {
 			
 			if (e instanceof BaseStaticEntity){
 				player.WallBoundary(e.getXOffset());
 			}
-			else if (e instanceof BaseHostileEntity) {
-				BaseHostileEntity enemy = (BaseHostileEntity)e;
-				player.facing = "Left";
-				State.setState(new FightState(handler, player, enemy, State.getState()));
-			}
+
 		}
 		
 		

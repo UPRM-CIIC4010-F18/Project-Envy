@@ -56,8 +56,9 @@ public class MapState extends State {
         }else {
 
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-                PauseState.lastState = State.getState();
-                State.setState(handler.getGame().pauseState);
+                handler.getGame().pauseState.lastState = State.getState();
+				GameSetUp.SWITCHING=true;
+				State.setState(handler.getGame().pauseState);
             } else {
 
                 worldManager.tick();

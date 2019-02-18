@@ -25,6 +25,8 @@ public class GameSetUp implements Runnable {
 
     public static boolean DEBUGMODE = true;
 
+    public static boolean SWITCHING = false;
+
     private boolean running = false;
     private Thread thread;
 
@@ -42,7 +44,7 @@ public class GameSetUp implements Runnable {
     public State mapState;
     public InWorldState inWorldState;
     public State menuState;
-    public State pauseState;
+    public PauseState pauseState;
 
     //Res.music
     private MusicHandler musicHandler;

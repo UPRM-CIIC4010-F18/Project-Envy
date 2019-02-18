@@ -23,6 +23,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
     public static final int InMapWidth = 25, InMapHeight = 25, InAreaWidth = 70, InAreaHeight = 70;
     private int currentWidth, currentHeight;
     public static boolean isinArea = false;
+    private int switchingCoolDown = 0;
 
     public Player(Handler handler, int xPosition, int yPosition) {
         super(handler, yPosition, yPosition);
@@ -43,6 +44,15 @@ public class Player extends BaseDynamicEntity implements Fighter{
         super.tick();
         UpdateNextMove();
         PlayerInput();
+
+        if(GameSetUp.SWITCHING){
+            switchingCoolDown++;
+        }
+        if(switchingCoolDown>=30){
+            GameSetUp.SWITCHING=false;
+            switchingCoolDown=0;
+
+        }
 
         if (State.getState().equals(handler.getGame().inWorldState)) {
             checkInWorld = true;
@@ -93,33 +103,29 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
         canMove = true;
 
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            PauseState.lastState = State.getState(); // Saves the current State to later go back to it.
-            State.setState(handler.getGame().pauseState);
+
+        if (handler.getKeyManager().runbutt) {
+            speed = 2;
         } else {
-
-            if (handler.getKeyManager().runbutt) {
-                speed = 2;
-            } else {
-                speed = 8;
-            }
-
-            CheckForWalls();
-
-            if (handler.getKeyManager().down & canMove) {
-                Move(false, -speed);
-                facing = "Down";
-            } else if (handler.getKeyManager().up & canMove) {
-                Move(false, speed);
-                facing = "Up";
-            } else if (handler.getKeyManager().right & canMove) {
-                Move(true, -speed);
-                facing = "Right";
-            } else if (handler.getKeyManager().left & canMove) {
-                Move(true, speed);
-                facing = "Left";
-            }
+            speed = 8;
         }
+
+        CheckForWalls();
+
+        if (handler.getKeyManager().down & canMove) {
+            Move(false, -speed);
+            facing = "Down";
+        } else if (handler.getKeyManager().up & canMove) {
+            Move(false, speed);
+            facing = "Up";
+        } else if (handler.getKeyManager().right & canMove) {
+            Move(true, -speed);
+            facing = "Right";
+        } else if (handler.getKeyManager().left & canMove) {
+            Move(true, speed);
+            facing = "Left";
+        }
+
 
     }
 

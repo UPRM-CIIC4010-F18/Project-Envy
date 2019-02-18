@@ -4,63 +4,71 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+
+import Game.GameStates.FightState;
+import Game.GameStates.State;
 import Main.Handler;
 
 public class EnemyOne extends BaseHostileEntity implements Fighter{
 
-	Rectangle enemyOne;
-	int width, height;
+    Rectangle enemyOne;
+    int width, height;
 
-	public EnemyOne(Handler handler, int xPosition, int yPosition, String state,String name,String area) {
-		super(handler, yPosition, yPosition,state,name,area);
-		width = 30;
-		height = 30;
-		speed = 1;
-		type="EnemyOne";
-		this.setXOffset(xPosition);
-		this.setYOffset(yPosition);
+    public EnemyOne(Handler handler, int xPosition, int yPosition, String state,String name,String area) {
+        super(handler, yPosition, yPosition,state,name,area);
+        width = 30;
+        height = 30;
+        speed = 1;
+        type="EnemyOne";
+        this.setXOffset(xPosition);
+        this.setYOffset(yPosition);
 
-		this.foundState = state;
-		enemyOne = new Rectangle();
-	}
+        this.foundState = state;
+        enemyOne = new Rectangle();
+    }
 
-	@Override
-	public void tick() {
+    @Override
+    public void tick() {
 
-		if(!Player.isinArea)super.tick();
+        if(!Player.isinArea)super.tick();
 
-	}
+    }
 
-	@Override
-	public void render(Graphics g) {
-		super.render(g);
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
 
-		Graphics2D g2 = (Graphics2D) g;
-
-
-		if(handler.getArea().equals(this.Area)) {
-			if (!Player.checkInWorld) {
-				enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
-						(int) (handler.getYDisplacement() + getYOffset()), 30, 30);
-			} else {
-				enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
-						(int) (handler.getYInWorldDisplacement() + getYOffset()), 70, 70);
-
-			}
-
-			g2.setColor(Color.black);
-
-			g2.fill(enemyOne);
-		}
-
-	}
+        Graphics2D g2 = (Graphics2D) g;
 
 
+        if(handler.getArea().equals(this.Area)) {
+            if (!Player.checkInWorld) {
+                enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
+                        (int) (handler.getYDisplacement() + getYOffset()), 30, 30);
 
-	@Override
-	public Rectangle getCollision() {
-		return enemyOne;
-	}
+            } else {
+                enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
+                        (int) (handler.getYInWorldDisplacement() + getYOffset()), 70, 70);
+
+            }
+
+            g2.setColor(Color.black);
+
+            g2.fill(enemyOne);
+
+            if (enemyOne.intersects(handler.getEntityManager().getPlayer().getCollision())) {
+                handler.getEntityManager().getPlayer().facing = "Left";
+                State.setState(new FightState(handler, handler.getEntityManager().getPlayer(), this, this.Area));
+            }
+        }
+
+
+    }
+
+    @Override
+    public Rectangle getCollision() {
+        return enemyOne;
+    }
 
     //GETTERS AND SETTERS FOR FIGHT STATS
 

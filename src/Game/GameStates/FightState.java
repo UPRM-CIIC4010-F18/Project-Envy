@@ -40,8 +40,9 @@ public class FightState extends InWorldState{
 
 
 
-    public FightState(Handler handler, BaseDynamicEntity player ,BaseHostileEntity enemy, State prev) {
+    public FightState(Handler handler, BaseDynamicEntity player ,BaseHostileEntity enemy, String prevState) {
         super(handler);
+        System.out.println(prevState);
 
         entityY = (int) handler.getHeight() * 2/3;
         entityInfoX = new int[2];
@@ -66,7 +67,7 @@ public class FightState extends InWorldState{
         enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5,entityY, 70, 70);
 
         setUiManager();
-        backgroundSelect(prev);
+        backgroundSelect(prevState);
 
         optionSelect = 0;
         inputCoolDown = 0;
@@ -83,7 +84,8 @@ public class FightState extends InWorldState{
 
         ///TEMP CODE TO EXIT FIGHT///
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            PauseState.lastState = State.getState();
+            handler.getGame().pauseState.lastState = State.getState();
+            GameSetUp.SWITCHING=true;
             State.setState(handler.getGame().pauseState);
         }
         /////////////////////////////
@@ -332,11 +334,11 @@ public class FightState extends InWorldState{
 
     //Sets the background according to the previous state
     //Current backgrounds where only added for testing purposes
-    private void backgroundSelect(State prev) {
+    private void backgroundSelect(String prev) {
 
-        if(prev.equals(handler.getGame().mapState))
+        if(prev.equals("None"))
             background = Images.battleBackground[1];
-        else if (prev.equals(handler.getGame().inWorldState))
+        else if (prev.equals("Cave"))
             background = Images.battleBackground[0];
 
 

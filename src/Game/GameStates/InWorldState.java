@@ -6,6 +6,7 @@ import Game.World.InWorldAreas.CaveArea;
 import Main.GameSetUp;
 import Main.Handler;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 import Display.UI.UIManager;
 import Resources.Images;
@@ -42,8 +43,14 @@ public class InWorldState extends State{
             }
             GameSetUp.loadCounter++;
         }else {
-            if (currentArea != null) {
-                currentArea.tick();
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+                handler.getGame().pauseState.lastState = State.getState();
+                GameSetUp.SWITCHING=true;
+                State.setState(handler.getGame().pauseState);
+            }else {
+                if (currentArea != null) {
+                    currentArea.tick();
+                }
             }
         }
     	

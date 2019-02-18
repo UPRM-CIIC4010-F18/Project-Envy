@@ -5,7 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import Game.GameStates.FightState;
 import Game.GameStates.InWorldState;
+import Game.GameStates.State;
 import Game.World.InWorldAreas.InWorldWalls;
 import Game.World.Walls;
 import Main.GameSetUp;
@@ -188,7 +190,7 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 
 	}
 
-	private void Chase() {
+	protected void Chase() {
 		if (this.handler.getEntityManager().getPlayer().getXOffset() > this.getXOffset() && canMove) {
 			facing = "Right";
 			this.setXOffset(this.getXOffset() + chaseSpeed);

@@ -151,7 +151,6 @@ public class MusicHandler {
 				InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 
 				handler.getEntityManager().getPlayer().setWidthAndHeight(25, 25);
-                PauseState.lastState = State.getState();
                 State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
 
     			
