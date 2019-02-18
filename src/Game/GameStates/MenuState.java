@@ -3,10 +3,8 @@ package Game.GameStates;
 
 import Main.Handler;
 import Resources.Images;
-import Display.UI.ClickListlener;
-import Display.UI.UIImageButton;
 import Display.UI.UIManager;
-import Game.Entities.Dynamics.Selector;
+import Display.UI.Selector;
 
 import java.awt.*;
 
