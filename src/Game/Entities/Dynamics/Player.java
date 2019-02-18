@@ -34,6 +34,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
         currentWidth = InMapWidth;
         currentHeight = InMapHeight;
 
+        speed=15;
         player = new Rectangle();
         checkInWorld = false;
 
@@ -107,7 +108,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
         if (handler.getKeyManager().runbutt) {
             speed = 2;
         } else {
-            speed = 8;
+            speed = 15;
         }
 
         CheckForWalls();

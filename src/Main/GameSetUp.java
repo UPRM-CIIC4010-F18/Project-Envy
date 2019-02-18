@@ -23,7 +23,7 @@ public class GameSetUp implements Runnable {
     public static boolean LOADING = false;//set to true for a second for all to load
     public static int loadCounter=0;//reaches 60 = loaded
 
-    public static boolean DEBUGMODE = true;
+    public static boolean DEBUGMODE = false;
 
     public static boolean SWITCHING = false;
 
@@ -193,6 +193,14 @@ public class GameSetUp implements Runnable {
     public void reStart() {
         this.mapState = new MapState(handler);
         this.inWorldState  = new InWorldState(handler);
+    }
+
+    public DisplayScreen getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(DisplayScreen display) {
+        this.display = display;
     }
 }
 

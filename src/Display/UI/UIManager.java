@@ -1,5 +1,6 @@
 package Display.UI;
 
+import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
 
@@ -12,6 +13,8 @@ import Game.Entities.EntityManager;
 import Game.World.Walls;
 import Game.World.InWorldAreas.BaseArea;
 import Game.World.InWorldAreas.InWorldWalls;
+
+import javax.swing.*;
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -134,12 +137,14 @@ public class UIManager {
 
 			this.manager.render(g2);
 
-			for(Walls w : areaWalls) {
+			if(GameSetUp.DEBUGMODE) {
+				for (Walls w : areaWalls) {
 
-				g2.setColor(Color.WHITE);
+					g2.setColor(Color.WHITE);
 
-				w.render(g2);
+					w.render(g2);
 
+				}
 			}
 
 			g2.setColor(Color.WHITE);

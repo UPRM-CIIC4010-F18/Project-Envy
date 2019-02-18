@@ -2,7 +2,7 @@ package Resources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -41,6 +41,7 @@ public class Images {
     public static Image ScaledArea;
     public static BufferedImage tree;
 
+
     public Images() {
 
         butstart = new BufferedImage[3];
@@ -61,7 +62,6 @@ public class Images {
         try {
             map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
             smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
-            
             CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
             Area =ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
