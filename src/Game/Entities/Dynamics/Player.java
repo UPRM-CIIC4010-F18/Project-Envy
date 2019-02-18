@@ -190,7 +190,7 @@ public class Player extends BaseDynamicEntity {
 							if (iw.getType().equals("Start Exit")) {
 
 								handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
-								handler.setYDisplacement(handler.getYDisplacement() + 380); // Cave
+								handler.setYDisplacement(handler.getYDisplacement() + 400); // Cave
 
 							} else if (iw.getType().equals("End Exit")) {
 

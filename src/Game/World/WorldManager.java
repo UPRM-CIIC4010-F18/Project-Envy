@@ -103,7 +103,9 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 1710, -150, 250, 250, "Wall"));
 		worldWalls.add(new Walls(handler, 1600, 0, 60, 100, "Wall"));
 		worldWalls.add(new Walls(handler, 1662, -60, 50, 80, "Wall"));
-		worldWalls.add(new Walls(handler, 1950, -300, 200, 50, "Wall"));
+		worldWalls.add(new Walls(handler, 1950, -270, 200, 50, "Wall"));
+		worldWalls.add(new Walls(handler, 1950, -300, 100, 50, "Wall"));
+		
 		worldWalls.add(new Walls(handler, 1980, -350, 50, 50, "Wall"));
 		worldWalls.add(new Walls(handler, 1950, -250, 200, 100, "Wall"));	
 		worldWalls.add(new Walls(handler, 1960, -150, 120, 100, "Wall"));
