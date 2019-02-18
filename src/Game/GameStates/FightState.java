@@ -210,10 +210,8 @@ public class FightState extends InWorldState{
                     State.setState(handler.getGame().menuState);
                 }else{
                     if(prevState.equals("None")){
-                        handler.getWorldManager().entityManager.RemoveEntity(inStateEnemy);
                         State.setState(handler.getGame().mapState);
                     }else{
-                        InWorldState.currentArea.entityManager.RemoveEntity(inStateEnemy);
                         State.setState(handler.getGame().inWorldState);
 
                     }
@@ -631,7 +629,7 @@ public class FightState extends InWorldState{
         g.setColor( new Color(Math.max(0,red--), green--,blue--));
         ((Graphics2D)g).fill(playerRect);
 
-        g.drawImage(enemySkilll.getCurrentFrame(),(handler.getWidth()/ 5)-93,entityY-93,256,256,null);
+        g.drawImage(Images.tint(enemySkilll.getCurrentFrame(),Color.YELLOW.getRed(),Color.YELLOW.getGreen(),Color.YELLOW.getBlue()),(handler.getWidth()/ 5)-93,entityY-93,256,256,null);
 
         int accc=new Random().nextInt((int)enemy.getAcc());
         int ev=new Random().nextInt((int)player.getEvs());
