@@ -41,10 +41,11 @@ public class Images {
     public Images() {
 
         butstart = new BufferedImage[3];
-        Resume = new BufferedImage[3];
         BTitle = new BufferedImage[3];
         Options = new BufferedImage[3];
-        Quit = new BufferedImage[3];
+        Resume = new BufferedImage[2];
+        Quit = new BufferedImage[2];
+        
 
         battleBackground = new BufferedImage[2];
         Attack = new BufferedImage[1];
@@ -61,9 +62,8 @@ public class Images {
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
-            Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
-            Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
-            Resume[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
+            Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));
+            Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton1.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
             BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
             BTitle[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
@@ -73,9 +73,9 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverBut.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
-            Quit[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButton.png"));//normbut
-            Quit[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonHover.png"));//hoverbut
-            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut
+            Quit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitButton3.png"));
+            Quit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitButton1.png"));
+
             
             battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
             battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
@@ -83,8 +83,6 @@ public class Images {
             Attack[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Attack.png"));
             Defend[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Defend.png"));
             Skill[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Skill.png"));
-
-            Quit[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/RealQuitButtonPressed.png"));//clickbut\
             
             smokeHouse[0] = smokeHouseSheet.crop(20, 7, 19, 20);
             smokeHouse[1] = smokeHouseSheet.crop(68, 7, 19, 20); 
