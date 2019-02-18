@@ -4,12 +4,14 @@ import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.BaseDynamicEntity;
 import Game.Entities.Dynamics.BaseHostileEntity;
 import Game.Entities.Dynamics.Player;
+import Main.GameSetUp;
 import Main.Handler;
 
 import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
@@ -49,8 +51,13 @@ public class FightState extends InWorldState{
 		entityInfoX[1] = handler.getWidth() * 14/20 + 4;
 
 		//get's the info from the player and enemy (Will be used for taking their info)
-		this.player = new Player(handler, (int) handler.getWidth() / 5, entityY);
-		this.enemy = new BaseHostileEntity(handler, (int) handler.getWidth() * 4/ 5,entityY,enemy.foundState,enemy.name,enemy.Area);
+		this.player = new Player(handler,  handler.getWidth() / 5, entityY);
+
+		this.enemy = (handler.newEnemy(handler,handler.getWidth() * 4/ 5, entityY,enemy.foundState,enemy.name,enemy.Area,
+				enemy.type,enemy.getHealth(),enemy.getMana(),enemy.getXp(),enemy.getLvl(),enemy.getStr(),enemy.getDefense(),
+				enemy.getIntl(),enemy.getCons(),enemy.getAcc(),enemy.getEvs(),enemy.getInitiative(),enemy.getclass(),enemy.getSkill(),
+				enemy.getBuffs(),enemy.getDebuffs()));
+
 		entityManager = new EntityManager(handler, this.player);
 		entityManager.AddEntity(this.enemy);
 		this.handler.setEntityManager(entityManager);
@@ -130,16 +137,16 @@ public class FightState extends InWorldState{
 		 * respective entity entity
 		 */
 		for(int i = 0; i < 2;i++) {
-			if(i==1) {//player
+			if(i==1) {//enemy
 				g2.drawString("Name: " + enemy.name, entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
 				//draws health info
 				g2.setColor(Color.GREEN);
-				g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
+				g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, (handler.getWidth() * 2 / 20), 17);
 				g2.setColor(Color.WHITE);
 				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
 				g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
-				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
+				g2.drawString(String.valueOf(enemy.getHealth()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
 
 				//Draws MP Information
 				g2.setColor(Color.BLUE);
@@ -147,11 +154,11 @@ public class FightState extends InWorldState{
 				g2.setColor(Color.WHITE);
 				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
 				g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
-				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
+				g2.drawString(String.valueOf(enemy.getMana()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
 
-				g2.drawString("Skill: " + "ThunderStorm", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
+				g2.drawString("Skill: " + String.valueOf(enemy.getSkill()), entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
 				g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
-			}else{//enemy
+			}else{//player
 				g2.drawString("Name: "+"Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
 				//draws health info
@@ -160,7 +167,7 @@ public class FightState extends InWorldState{
 				g2.setColor(Color.WHITE);
 				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
 				g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
-				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
+				g2.drawString(String.valueOf(player.getHealth()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
 
 				//Draws MP Information
 				g2.setColor(Color.BLUE);
@@ -168,9 +175,9 @@ public class FightState extends InWorldState{
 				g2.setColor(Color.WHITE);
 				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
 				g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
-				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
+				g2.drawString(String.valueOf(player.getMana()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
 
-				g2.drawString("Skill: " + "IceStorm", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
+				g2.drawString("Skill: " + String.valueOf(player.getSkill()), entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
 				g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
 			}
 
@@ -196,6 +203,36 @@ public class FightState extends InWorldState{
 
 		g2.setColor(Color.RED);
 		g2.drawString("FIGHT!", this.fightWordXPos, this.fightWordYPos);
+
+		if(GameSetUp.DEBUGMODE){
+		    g.setFont((new Font("IMPACT", Font.ITALIC, 25)));
+		    //player
+		    g.drawString("Accuracy: "+String.valueOf(player.getAcc()),0,300);
+		    g.drawString("XP: "+String.valueOf(player.getXp()),0,25);
+		    g.drawString("Level: "+String.valueOf(player.getLvl()),0,50);
+		    g.drawString("Strength: "+String.valueOf(player.getStr()),0,75);
+		    g.drawString("Defence: "+String.valueOf(player.getDefense()),0,100);
+		    g.drawString("Intelligence: "+String.valueOf(player.getIntl()),0,125);
+		    g.drawString("Constitution: "+String.valueOf(player.getCons()),0,150);
+		    g.drawString("Evasion: "+String.valueOf(player.getEvs()),0,175);
+		    g.drawString("Initiative: "+String.valueOf(player.getInitiative()),0,200);
+		    g.drawString("Class: "+String.valueOf(player.getclass()),0,225);
+		    g.drawString("Buffs: "+ Arrays.toString(player.getBuffs()),0,250);
+		    g.drawString("Debuffs: "+ Arrays.toString(player.getDebuffs()),0,275);
+            //enemy
+            g.drawString("Accuracy: "+String.valueOf(enemy.getAcc()),handler.getWidth()-200,300);
+            g.drawString("XP: "+String.valueOf(enemy.getXp()),handler.getWidth()-200,25);
+            g.drawString("Level: "+String.valueOf(enemy.getLvl()),handler.getWidth()-200,50);
+            g.drawString("Strength: "+String.valueOf(enemy.getStr()),handler.getWidth()-200,75);
+            g.drawString("Defence: "+String.valueOf(enemy.getDefense()),handler.getWidth()-200,100);
+            g.drawString("Intelligence: "+String.valueOf(enemy.getIntl()),handler.getWidth()-200,125);
+            g.drawString("Constitution: "+String.valueOf(enemy.getCons()),handler.getWidth()-200,150);
+            g.drawString("Evasion: "+String.valueOf(enemy.getEvs()),handler.getWidth()-200,175);
+            g.drawString("Initiative: "+String.valueOf(enemy.getInitiative()),handler.getWidth()-200,200);
+            g.drawString("Class: "+String.valueOf(enemy.getclass()),handler.getWidth()-200,225);
+            g.drawString("Buffs: "+ Arrays.toString(enemy.getBuffs()),handler.getWidth()-200,250);
+            g.drawString("Debuffs: "+ Arrays.toString(enemy.getDebuffs()),handler.getWidth()-200,275);
+        }
 
 	}
 

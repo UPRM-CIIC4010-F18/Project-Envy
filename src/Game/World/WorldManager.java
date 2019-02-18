@@ -31,7 +31,7 @@ public class WorldManager {
 		circle = mus.new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
-		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800,"MapState","Jovan","None"));
+		this.entityManager.AddEntity(handler.newEnemy(handler,500, 800,"MapState","Jovan","None","EnemyOne",100,100,0,1,40,20,20,20,20,10,5,"None","Thunder",null,null));
 		this.entityManager.AddEntity(circle);
 
 		AddWalls();

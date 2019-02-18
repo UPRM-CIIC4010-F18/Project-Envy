@@ -1,5 +1,7 @@
 package Main;
 
+import Game.Entities.Dynamics.BaseHostileEntity;
+import Game.Entities.Dynamics.EnemyOne;
 import Input.KeyManager;
 import Input.MouseManager;
 
@@ -121,5 +123,50 @@ public class Handler {
 
 	public void setArea(String area) {
 		Area = area;
+	}
+
+	public BaseHostileEntity newEnemy(Handler handler,int xPosition, int yPosition, String state,String name,String area,
+			String typeOfEnemy,double hp,double mana,double xp,double lvl,double str,double def,
+											double intl,double cons, double acc,double evs,double initiative,
+											String Class, String Skill,String[] buffs,String[] debuffs){
+	    if(typeOfEnemy.equals("EnemyOne")) {
+            EnemyOne n = new EnemyOne(handler, xPosition, yPosition, state, name, area);
+            n.setAcc(acc);
+            n.setBuffs(buffs);
+            n.setClass(Class);
+            n.setCons(cons);
+            n.setDebuffs(debuffs);
+            n.setDefense(def);
+            n.setEvs(evs);
+            n.setHealth(hp);
+            n.setInitiative(initiative);
+            n.setIntl(intl);
+            n.setLvl(lvl);
+            n.setMana(mana);
+            n.setSkill(Skill);
+            n.setStr(str);
+            n.setXp(xp);
+            return n;
+        }else{//default
+            EnemyOne n = new EnemyOne(handler, xPosition, yPosition, state, name, area);
+            n.setAcc(acc);
+            n.setBuffs(buffs);
+            n.setClass(Class);
+            n.setCons(cons);
+            n.setDebuffs(debuffs);
+            n.setDefense(def);
+            n.setEvs(evs);
+            n.setHealth(hp);
+            n.setInitiative(initiative);
+            n.setIntl(intl);
+            n.setLvl(lvl);
+            n.setMana(mana);
+            n.setSkill(Skill);
+            n.setStr(str);
+            n.setXp(xp);
+            return n;
+        }
+
+
 	}
 }

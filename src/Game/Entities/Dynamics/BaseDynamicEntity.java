@@ -13,7 +13,7 @@ public class BaseDynamicEntity extends BaseEntity {
 
 	//Where the player will stand
 	protected Rectangle nextArea;
-	String facing = "Down";
+	public String facing = "Down";
 	
 	public BaseDynamicEntity(Handler handler, int xPosition, int yPosition) {
 		super(handler, xPosition, yPosition);

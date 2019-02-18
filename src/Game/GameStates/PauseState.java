@@ -103,7 +103,7 @@ public class PauseState extends State {
 
 	private void returnToGame(){
         GameSetUp.LOADING=true;
-        if(lastState instanceof MapState){
+        if(lastState instanceof MapState || lastState instanceof FightState){
             handler.setArea("None");
         }else if(lastState instanceof InWorldState){
             handler.setArea(InWorldState.currentArea.name);

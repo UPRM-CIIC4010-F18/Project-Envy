@@ -52,7 +52,7 @@ public class EntityManager {
 			}
 			else if (e instanceof BaseHostileEntity) {
 				BaseHostileEntity enemy = (BaseHostileEntity)e;
-				System.out.println("Fight!");
+				player.facing = "Left";
 				State.setState(new FightState(handler, player, enemy, State.getState()));
 			}
 		}
