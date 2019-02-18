@@ -13,14 +13,14 @@ public class InWorldState extends State{
 
 
 	EntityManager entityManager;	// To manager the entities within the InWorld
-	private UIManager uM = new UIManager(handler);
+	private UIManager uM ;
     public static BaseArea currentArea;
     public static BaseArea caveArea;
     public static BaseArea SArea;
 
     public InWorldState(Handler handler) {
         super(handler);
-
+        uM= new UIManager(handler);
         entityManager = new EntityManager(handler, handler.getEntityManager().getPlayer());
         
         caveArea = new CaveArea(handler, entityManager);
