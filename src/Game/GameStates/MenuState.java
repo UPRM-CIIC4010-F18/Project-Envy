@@ -1,6 +1,7 @@
 package Game.GameStates;
 
 
+import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
 import Display.UI.UIManager;
@@ -120,6 +121,7 @@ public class MenuState extends State {
 
 		if(selector.getyPos2() == selector.getSBYpos()) {
 
+			GameSetUp.LOADING=true;
 			State.setState(handler.getGame().mapState);
 
 		}

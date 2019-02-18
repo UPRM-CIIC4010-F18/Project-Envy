@@ -11,8 +11,8 @@ public class EnemyOne extends BaseHostileEntity {
 	Rectangle enemyOne;
 	int width, height;
 
-	public EnemyOne(Handler handler, int xPosition, int yPosition, String state,String name) {
-		super(handler, yPosition, yPosition,state,name);
+	public EnemyOne(Handler handler, int xPosition, int yPosition, String state,String name,String area) {
+		super(handler, yPosition, yPosition,state,name,area);
 		width = 30;
 		height = 30;
 		speed = 1;
@@ -25,17 +25,19 @@ public class EnemyOne extends BaseHostileEntity {
 
 	@Override
 	public void tick() {
-		
-		if(!Player.isinArea)super.tick(); 
-		
+
+		if(!Player.isinArea)super.tick();
+
 	}
 
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		Graphics2D g2 = (Graphics2D) g;	
 
-		if(!Player.isinArea) {
+		Graphics2D g2 = (Graphics2D) g;
+
+
+		if(handler.getArea().equals(this.Area)) {
 			if (!Player.checkInWorld) {
 				enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
 						(int) (handler.getYDisplacement() + getYOffset()), 30, 30);
@@ -48,8 +50,8 @@ public class EnemyOne extends BaseHostileEntity {
 			g2.setColor(Color.black);
 
 			g2.fill(enemyOne);
-
 		}
+
 	}
 
 

@@ -36,6 +36,7 @@ public class Images {
     
     public static BufferedImage CaveMap;   
     public static BufferedImage Area;
+    public static BufferedImage Loading;
     public static Image ScaledCave;
     public static Image ScaledArea;
     public static BufferedImage tree;
@@ -65,6 +66,7 @@ public class Images {
             Area =ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/menuImage.png"));
+            Loading = ImageIO.read(getClass().getResourceAsStream("/Sheets/loading.jpg"));
             titleImage =  ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
             
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));

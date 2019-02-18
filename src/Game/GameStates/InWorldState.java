@@ -3,10 +3,12 @@ package Game.GameStates;
 import Game.Entities.EntityManager;
 import Game.World.InWorldAreas.BaseArea;
 import Game.World.InWorldAreas.CaveArea;
+import Main.GameSetUp;
 import Main.Handler;
 import java.awt.*;
 
 import Display.UI.UIManager;
+import Resources.Images;
 
 public class InWorldState extends State{
 
@@ -29,9 +31,20 @@ public class InWorldState extends State{
 
     @Override
     public void tick() {
-        
-        if(currentArea!=null) {
-            currentArea.tick();
+        if(GameSetUp.LOADING){
+            if(GameSetUp.loadCounter>=60){
+                GameSetUp.loadCounter=0;
+                GameSetUp.LOADING=false;
+                return;
+            }
+            if (currentArea != null) {
+                currentArea.tick();
+            }
+            GameSetUp.loadCounter++;
+        }else {
+            if (currentArea != null) {
+                currentArea.tick();
+            }
         }
     	
     }
@@ -39,9 +52,13 @@ public class InWorldState extends State{
     @Override
     public void render(Graphics g) {
 
-    	Graphics2D g2 = (Graphics2D)g;
-        if(currentArea!=null) {
-            currentArea.render(g);
+        if(!GameSetUp.LOADING) {
+            Graphics2D g2 = (Graphics2D) g;
+            if (currentArea != null) {
+                currentArea.render(g);
+            }
+        }else{
+            g.drawImage(Images.Loading,0,0,handler.getWidth(),handler.getHeight(),null);
         }
     	
     }

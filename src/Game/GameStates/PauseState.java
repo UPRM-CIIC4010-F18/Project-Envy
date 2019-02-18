@@ -1,5 +1,6 @@
 package Game.GameStates;
 
+import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
 import Display.UI.UIManager;
@@ -41,10 +42,10 @@ public class PauseState extends State {
 		selector.tick();
 
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-			State.setState(lastState);
+		    returnToGame();
 		}
 
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
+		else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
 
 			this.choose();
 
@@ -100,20 +101,23 @@ public class PauseState extends State {
 
 	}
 
+	private void returnToGame(){
+        GameSetUp.LOADING=true;
+        handler.setArea("None");
+        System.out.println(lastState);
+        State.setState(lastState);
+    }
+
+
 	public void choose() {
 
 		if(selector.getxPos() == selector.getRBpos()) {
+			returnToGame();
 
-			State.setState(lastState);
-
-		}
-		
-		else if(selector.getxPos() == selector.getTBXpos()) {
-			
+		}else if(selector.getxPos() == selector.getTBXpos()) {
+			handler.getGame().reStart();
 			State.setState(handler.getGame().menuState);
-			
 		}
-
 		else System.exit(0);
 
 	}

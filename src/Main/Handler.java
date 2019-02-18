@@ -26,6 +26,8 @@ public class Handler {
 	int xOverWorldDisplacement, yOverWorldDisplacement,
 		xInWorldDisplacement, yInWorldDisplacement;
 
+	private String Area="None";
+
 	private GameSetUp game;
 
 	public Handler() {
@@ -37,6 +39,7 @@ public class Handler {
 		width = DEFAULTWIDTH;
 
 	}
+
 
 	public int getWidth() {
 		return width;
@@ -112,4 +115,11 @@ public class Handler {
 		this.yInWorldDisplacement = yInWorldDisplacement;
 	}
 
+	public String getArea() {
+		return Area;
+	}
+
+	public void setArea(String area) {
+		Area = area;
+	}
 }

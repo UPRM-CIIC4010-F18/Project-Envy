@@ -20,6 +20,9 @@ public class GameSetUp implements Runnable {
     private DisplayScreen display;
     public String title;
 
+    public static boolean LOADING = false;//set to true for a second for all to load
+    public static int loadCounter=0;//reaches 60 = loaded
+
     public static boolean DEBUGMODE = true;
 
     private boolean running = false;
@@ -79,7 +82,7 @@ public class GameSetUp implements Runnable {
         musicHandler.set_changeMusic("res/music/Overture.mp3");
         musicHandler.play();
         musicHandler.setLoop(true);
-        musicHandler.setVolume(.25);
+        musicHandler.setVolume(0);
     }
 
 

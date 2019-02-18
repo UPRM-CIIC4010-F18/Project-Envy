@@ -31,7 +31,7 @@ public class WorldManager {
 		circle = mus.new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
-		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800,"MapState","Jovan"));
+		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800,"MapState","Jovan","None"));
 		this.entityManager.AddEntity(circle);
 
 		AddWalls();
@@ -91,7 +91,7 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 3000, -400, 5, 450, "Wall"));
 		worldWalls.add(new Walls(handler, 1365, -380, 1650, 5, "Wall"));
 		///Top of the Island
-		worldWalls.add(new Walls(handler, 1365, -380, 5, 250, "Wall"));
+		//worldWalls.add(new Walls(handler, 1365, -380, 5, 250, "Wall"));
 		worldWalls.add(new Walls(handler, 670, -130, 700, 5, "Wall"));
 		///Top right of the Island
 		worldWalls.add(new Walls(handler, 670, -130, 5, 250, "Wall"));

@@ -27,8 +27,15 @@ public class EntityManager {
 	public void tick() {
 		
 		for (BaseEntity e : entities) {
-			CheckCollisions(e);
-			e.tick();
+			if(e instanceof  BaseHostileEntity){
+				if(((BaseHostileEntity) e).Area.equals(handler.getArea())){
+					CheckCollisions(e);
+					e.tick();
+				}
+			}else {
+				CheckCollisions(e);
+				e.tick();
+			}
 		}
 		
 		player.tick();

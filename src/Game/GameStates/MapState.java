@@ -1,5 +1,6 @@
 package Game.GameStates;
 
+import Main.GameSetUp;
 import Main.Handler;
 import Resources.Images;
 import java.awt.*;
@@ -45,32 +46,44 @@ public class MapState extends State {
 	@Override
 	public void tick() {
 
-		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-			PauseState.lastState = State.getState();
-			State.setState(handler.getGame().pauseState);
-		} else {
+	    if(GameSetUp.LOADING){
+	        if(GameSetUp.loadCounter>=60){
+	            GameSetUp.loadCounter=0;
+	            GameSetUp.LOADING=false;
+	            return;
+            }
+            worldManager.tick();
+            GameSetUp.loadCounter++;
+        }else {
 
-			worldManager.tick();
-			entityManager.tick();
-		}
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+                PauseState.lastState = State.getState();
+                State.setState(handler.getGame().pauseState);
+            } else {
+
+                worldManager.tick();
+                entityManager.tick();
+            }
+        }
 	}
 
 	@Override
 	public void render(Graphics g) {
 
-		Graphics2D g2 = (Graphics2D) g;
+	    if(!GameSetUp.LOADING) {
+            Graphics2D g2 = (Graphics2D) g;
 
+            g2.setColor(backgroundColor);
+            g2.fill(background);
 
+            // Movement of the Image
+            g2.drawImage(Images.Scaledmap, handler.getXDisplacement() - initialXMapDisplacement, handler.getYDisplacement() - initialYMapDisplacement, null);
 
-        g2.setColor(backgroundColor);
-		g2.fill(background);
-
-		// Movement of the Image
-		g2.drawImage(Images.Scaledmap, handler.getXDisplacement()-initialXMapDisplacement, handler.getYDisplacement()-initialYMapDisplacement, null);
-
-		worldManager.render(g);
-		entityManager.render(g);
-
+            worldManager.render(g);
+            entityManager.render(g);
+        }else{
+	        g.drawImage(Images.Loading,0,0,handler.getWidth(),handler.getHeight(),null);
+        }
 	}
 
 }

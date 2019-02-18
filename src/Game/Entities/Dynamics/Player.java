@@ -162,6 +162,8 @@ public class Player extends BaseDynamicEntity {
 							setWidthAndHeight(InAreaWidth, InAreaHeight);
 							handler.setXInWorldDisplacement(CaveArea.playerXSpawn);
 							handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
+							GameSetUp.LOADING=true;
+							handler.setArea("Cave");
 							State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
 						}
 
@@ -171,7 +173,9 @@ public class Player extends BaseDynamicEntity {
 							InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 							this.isinArea = true;
 							setWidthAndHeight(InMapWidth, InMapHeight);
-							State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
+							GameSetUp.LOADING=true;
+                            handler.setArea("S");
+                            State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
 						}
 					}
 
@@ -199,7 +203,9 @@ public class Player extends BaseDynamicEntity {
 							}
 							
 							setWidthAndHeight(InMapWidth, InMapHeight);
-							State.setState(handler.getGame().mapState);
+							GameSetUp.LOADING=true;
+                            handler.setArea("None");
+                            State.setState(handler.getGame().mapState);
 							CaveArea.isInCave = false;
 
 						}

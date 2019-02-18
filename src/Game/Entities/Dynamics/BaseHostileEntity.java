@@ -23,11 +23,13 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 	boolean canMove = true;
 	public String foundState;
 	public String name="enemy";
+	public String Area;//None for MapState
 
-	public BaseHostileEntity(Handler handler, int xPosition, int yPosition, String state,String name) {
+	public BaseHostileEntity(Handler handler, int xPosition, int yPosition, String state,String name,String area) {
 		super(handler, xPosition, yPosition);
 		this.foundState = state;
 		chasingPlayer = false;
+		Area=area;
 		count = 0;
 		directionMov = 4;
 		this.name = name;
@@ -40,30 +42,30 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		UpdateNextMove();
-		checkCollision();
+		if(handler.getArea().equals(this.Area)) {
+            UpdateNextMove();
+            checkCollision();
 
 
+            if (canMove) {
+                count++;
+                if (count >= 100 + rand.nextInt(350)) {
 
+                    directionMov = rand.nextInt(5); // 0 (idle), 1(up), 2(down), 3(left), 4(right)
 
-		if(canMove) {
-			count++;
-			if (count >= 100 + rand.nextInt(350)) {
+                    count = 0;
+                }
 
-				directionMov = rand.nextInt(5); // 0 (idle), 1(up), 2(down), 3(left), 4(right)
+                PlayerDetector();
 
-				count = 0;
-			}
-
-			PlayerDetector();
-
-			if (!chasingPlayer) {
-				Move();
-			} else {
-				Chase();
-			}
-		}
-		canMove =true;
+                if (!chasingPlayer) {
+                    Move();
+                } else {
+                    Chase();
+                }
+            }
+            canMove = true;
+        }
 	}
 
     private void checkCollision() {

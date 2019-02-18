@@ -50,7 +50,7 @@ public class FightState extends InWorldState{
 
 		//get's the info from the player and enemy (Will be used for taking their info)
 		this.player = new Player(handler, (int) handler.getWidth() / 5, entityY);
-		this.enemy = new BaseHostileEntity(handler, (int) handler.getWidth() * 4/ 5,entityY,enemy.foundState,enemy.name);
+		this.enemy = new BaseHostileEntity(handler, (int) handler.getWidth() * 4/ 5,entityY,enemy.foundState,enemy.name,enemy.Area);
 		entityManager = new EntityManager(handler, this.player);
 		entityManager.AddEntity(this.enemy);
 		this.handler.setEntityManager(entityManager);
