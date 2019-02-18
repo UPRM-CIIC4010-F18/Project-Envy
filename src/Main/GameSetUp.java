@@ -74,7 +74,7 @@ public class GameSetUp implements Runnable {
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
 
-        State.setState(mapState);
+        State.setState(menuState);
 
         musicHandler.set_changeMusic("res/music/UTheme.mp3");
         musicHandler.play();
