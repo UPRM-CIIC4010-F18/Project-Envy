@@ -50,7 +50,7 @@ public class FightState extends InWorldState{
 
 		//get's the info from the player and enemy (Will be used for taking their info)
 		this.player = new Player(handler, (int) handler.getWidth() / 5, entityY);
-		this.enemy = new BaseHostileEntity(handler, (int) handler.getWidth() * 4/ 5,entityY,enemy.foundState);
+		this.enemy = new BaseHostileEntity(handler, (int) handler.getWidth() * 4/ 5,entityY,enemy.foundState,enemy.name);
 		entityManager = new EntityManager(handler, this.player);
 		entityManager.AddEntity(this.enemy);
 		this.handler.setEntityManager(entityManager);
@@ -130,7 +130,7 @@ public class FightState extends InWorldState{
 		 * respective entity entity
 		 */
 		for(int i = 0; i < 2;i++) {
-			g2.drawString("Name:" + "Waluigi", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 20);
+			g2.drawString("Name:" + enemy.name, entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 20);
 
 			//draws health info
 			g2.setColor(Color.GREEN);

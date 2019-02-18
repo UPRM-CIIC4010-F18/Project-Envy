@@ -11,8 +11,8 @@ public class EnemyOne extends BaseHostileEntity {
 	Rectangle enemyOne;
 	int width, height;
 
-	public EnemyOne(Handler handler, int xPosition, int yPosition, String state) {
-		super(handler, yPosition, yPosition,state);
+	public EnemyOne(Handler handler, int xPosition, int yPosition, String state,String name) {
+		super(handler, yPosition, yPosition,state,name);
 		width = 30;
 		height = 30;
 		speed = 1;

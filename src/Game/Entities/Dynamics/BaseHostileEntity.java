@@ -22,13 +22,15 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 	double chaseSpeed = 1.5;
 	boolean canMove = true;
 	public String foundState;
+	public String name="enemy";
 
-	public BaseHostileEntity(Handler handler, int xPosition, int yPosition, String state) {
+	public BaseHostileEntity(Handler handler, int xPosition, int yPosition, String state,String name) {
 		super(handler, xPosition, yPosition);
 		this.foundState = state;
 		chasingPlayer = false;
 		count = 0;
 		directionMov = 4;
+		this.name = name;
 		nextArea = new Rectangle();
 		rand = new Random();
 		detector = new Rectangle();
