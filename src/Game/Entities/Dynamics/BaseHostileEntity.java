@@ -252,6 +252,15 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
     }
 
     @Override
+    public double getMaxHealth() {
+        return 100;
+    }
+    @Override
+    public double getMaxMana() {
+        return 100;
+    }
+
+    @Override
     public void setHealth(double health) {
         this.health=health;
     }
