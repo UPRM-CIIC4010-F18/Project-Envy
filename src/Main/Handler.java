@@ -38,7 +38,6 @@ public class Handler {
 
 	}
 
-
 	public int getWidth() {
 		return width;
 	}
@@ -95,7 +94,6 @@ public class Handler {
 	public int getYDisplacement() {
 		return this.yOverWorldDisplacement;
 	}
-	
 	
 	// For InWorld Map Movement
 	public int getXInWorldDisplacement() {

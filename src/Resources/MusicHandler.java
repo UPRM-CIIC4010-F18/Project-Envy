@@ -79,7 +79,7 @@ public class MusicHandler {
 
     }
 
-    public void playEfect(String EPath,int index){
+    public void playEffect(String EPath,int index){
 
         pathE=EPath;
         mediaE = new Media(new File(EPath).toURI().toString());
@@ -89,7 +89,7 @@ public class MusicHandler {
 
     }
 
-    public void stopEfect(int index){
+    public void stopEffect(int index){
 
         playerE.get(index).stop();
 
@@ -119,6 +119,13 @@ public class MusicHandler {
     public void setVolume (double volume){
         player.setVolume(volume);
     }
+    
+    
+    
+    
+    
+    
+    
     
     public class Circle extends BaseStaticEntity{
     	
