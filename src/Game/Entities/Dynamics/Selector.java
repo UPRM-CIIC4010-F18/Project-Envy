@@ -17,23 +17,30 @@ public class Selector {
 	public int yPos;
 	public int yPos2;
 	public int RBXpos;
+	public int RBYpos;
 	public int QBXpos;
 	public int SBXpos;
 	public int SBYpos;
 	public int QBYpos2;
+	public int TBXpos;
+	public int TBYpos;
 
 
 	public Selector(Handler handler){
 
 		this.handler = handler;
-		
+
 		//Pause State positions
 		RBXpos = handler.getWidth()/2 - 128 * 2 - 35;	//resume button
+		RBYpos = handler.getHeight()/2 - 20;	
 		QBXpos = handler.getWidth()/2 + 128 - 10;		//pause quit button
+		TBXpos = handler.getWidth()/2 - 64 - 35;
+		TBYpos = handler.getHeight()/2 + 64 + 15;
 		this.xPos = this.getRBpos();					//pause x position
 		this.yPos = handler.getHeight()/2 - 20;			//pause y position
-		
-		//Menu State position
+
+
+		//Menu State positions
 		SBYpos = handler.getHeight()/2 - 230;			//start button
 		QBYpos2 =  handler.getHeight()/2 + 95;			//menu quit button
 		this.yPos2 = this.getSBYpos();					//menu y position
@@ -60,11 +67,11 @@ public class Selector {
 			selector = new Ellipse2D.Double(this.getxPos2(), this.getyPos2(), 100, 100);
 
 		}
-		
+
 		else {
-			
+
 			selector = new Ellipse2D.Double(this.getxPos(), this.getyPos(), 30, 30);
-			
+
 		}
 
 		g2.setColor(Color.WHITE);
@@ -79,13 +86,38 @@ public class Selector {
 
 			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
 
-				this.setxPos(this.getQBpos());
+				if(this.getxPos() == this.getRBpos()) {
+
+					this.setxPos(this.getTBXpos());
+					this.setyPos(this.getTBYpos());
+
+				}
+
+				else {	
+
+					this.setxPos(this.getQBpos());
+					this.setyPos(this.getRBYpos());
+
+				}
 
 			}
 
+
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
 
-				this.setxPos(this.getRBpos());
+				if(this.getxPos() == this.getQBpos()) {
+
+					this.setxPos(this.getTBXpos());
+					this.setyPos(this.getTBYpos());
+
+				}
+
+				else {
+
+					this.setxPos(this.getRBpos());
+					this.setyPos(this.getRBYpos());
+
+				}
 
 			}
 		}
@@ -163,7 +195,7 @@ public class Selector {
 	public void setQBYpos2(int qBYpos2) {
 		QBYpos2 = qBYpos2;
 	}	
-	
+
 	public int getxPos2() {
 		return xPos2;
 	}
@@ -184,5 +216,53 @@ public class Selector {
 
 	public void setyPos2(int yPos2) {
 		this.yPos2 = yPos2;
+	}
+
+
+
+	public int getTBXpos() {
+		return TBXpos;
+	}
+
+
+
+	public int getRBXpos() {
+		return RBXpos;
+	}
+
+
+
+	public void setRBXpos(int rBXpos) {
+		RBXpos = rBXpos;
+	}
+
+
+
+	public int getRBYpos() {
+		return RBYpos;
+	}
+
+
+
+	public void setRBYpos(int rBYpos) {
+		RBYpos = rBYpos;
+	}
+
+
+
+	public void setTBXpos(int tBXpos) {
+		TBXpos = tBXpos;
+	}
+
+
+
+	public int getTBYpos() {
+		return TBYpos;
+	}
+
+
+
+	public void setTBYpos(int tBYpos) {
+		TBYpos = tBYpos;
 	}
 }
