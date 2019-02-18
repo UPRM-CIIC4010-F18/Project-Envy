@@ -1,5 +1,6 @@
 package Resources;
 
+import Game.GameStates.PauseState;
 import Main.Handler;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
@@ -143,8 +144,9 @@ public class MusicHandler {
 				InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 
 				handler.getEntityManager().getPlayer().setWidthAndHeight(25, 25);
-				State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
-    			
+                PauseState.lastState = State.getState();
+                State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
+
     			
     		}
     		
