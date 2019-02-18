@@ -14,6 +14,7 @@ public class Images {
 
     public static BufferedImage[] butstart;
     public static BufferedImage title;
+    public static BufferedImage[] titleChoose;
     public static BufferedImage titleImage;
     public static BufferedImage Pause;
     public static BufferedImage[] Resume;
@@ -43,6 +44,7 @@ public class Images {
 
         butstart = new BufferedImage[3];
         BTitle = new BufferedImage[3];
+        titleChoose = new BufferedImage[2];
         Options = new BufferedImage[3];
         Resume = new BufferedImage[2];
         Quit = new BufferedImage[2];
@@ -64,6 +66,7 @@ public class Images {
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/menuImage.png"));
             titleImage =  ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
+            
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton1.png"));
@@ -77,6 +80,8 @@ public class Images {
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Start2.png"));
             Quit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit1.png"));
             Quit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit2.png"));
+            titleChoose[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title1.png"));
+            titleChoose[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title2.png"));
 
             
             battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
