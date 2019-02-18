@@ -9,6 +9,7 @@ import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
 import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
+import Game.GameStates.MapState;
 import Main.GameSetUp;
 import Main.Handler;
 import Resources.MusicHandler;
@@ -31,7 +32,7 @@ public class WorldManager {
 		circle = mus.new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
-		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800));
+		this.entityManager.AddEntity(new EnemyOne(handler, 500, 800,"MapState"));
 		this.entityManager.AddEntity(circle);
 
 		AddWalls();

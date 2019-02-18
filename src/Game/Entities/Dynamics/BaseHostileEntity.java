@@ -4,6 +4,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.Random;
+
+import Game.GameStates.InWorldState;
+import Game.GameStates.MapState;
+import Game.GameStates.State;
+import Game.World.InWorldAreas.InWorldWalls;
+import Game.World.Walls;
 import Main.GameSetUp;
 import Main.Handler;
 
@@ -17,14 +23,15 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 	private int directionMov;
 	double chaseSpeed = 1.5;
 	boolean canMove = true;
+	public String foundState;
 
-	public BaseHostileEntity(Handler handler, int xPosition, int yPosition) {
+	public BaseHostileEntity(Handler handler, int xPosition, int yPosition, String state) {
 		super(handler, xPosition, yPosition);
-
+		this.foundState = state;
 		chasingPlayer = false;
 		count = 0;
 		directionMov = 4;
-
+		nextArea = new Rectangle();
 		rand = new Random();
 		detector = new Rectangle();
 
@@ -33,21 +40,121 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 	@Override
 	public void tick() {
 		super.tick();
+		UpdateNextMove();
+		checkCollision();
 
-		count++;
-		if (count >= 100 + rand.nextInt(350)) {
 
-			directionMov = rand.nextInt(5); // 0 (idle), 1(up), 2(down), 3(left), 4(right)
 
-			count = 0;
+
+		if(canMove) {
+			count++;
+			if (count >= 100 + rand.nextInt(350)) {
+
+				directionMov = rand.nextInt(5); // 0 (idle), 1(up), 2(down), 3(left), 4(right)
+
+				count = 0;
+			}
+
+			PlayerDetector();
+
+			if (!chasingPlayer) {
+				Move();
+			} else {
+				Chase();
+			}
 		}
+		canMove =true;
+	}
 
-		PlayerDetector();
+    private void checkCollision() {
+	    if(foundState.equals("MapState")){
+            for(Walls w:handler.getWorldManager().getWalls()){
+                if(w.intersects(nextArea)) {
+                    canMove = false;
+                    switch (directionMov) {
+                        case 0://idle
+                            break;
+                        case 1://down
+                            this.setYOffset(this.getYOffset() - speed);
+                            break;
+                        case 2://up
+                            this.setYOffset(this.getYOffset() + speed);
+                            break;
 
-		if (!chasingPlayer) {
-			Move();
-		} else {
-			Chase();
+                        case 3://left
+                            this.setXOffset(this.getXOffset() + speed);
+                            break;
+
+                        case 4://right
+                            this.setXOffset(this.getXOffset() - speed);
+                            break;
+                    }
+                }
+            }
+        }else if(foundState.equals("InWorldState")){
+            for(InWorldWalls w:InWorldState.currentArea.getWalls()){
+                if(w.intersects(nextArea)) {
+                    canMove = false;
+                    switch (directionMov) {
+                        case 1://down
+                            this.setYOffset(this.getYOffset() - speed);
+                            break;
+                        case 2://up
+                            this.setYOffset(this.getYOffset() + speed);
+                            break;
+
+                        case 3://left
+                            this.setXOffset(this.getXOffset() + speed);
+                            break;
+
+                        case 4://right
+                            this.setXOffset(this.getXOffset() - speed);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void UpdateNextMove() {
+		if(foundState.equals("MapState")) {
+			switch (facing) {
+				case "Up":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXDisplacement(), (int) getYOffset() + handler.getYDisplacement() - 10, getCollision().width, getCollision().height / 2);
+
+					break;
+				case "Down":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXDisplacement(), (int) getYOffset() + handler.getYDisplacement() + getCollision().height, getCollision().width, 10);
+
+					break;
+				case "Left":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXDisplacement() - 10, (int) getYOffset() + handler.getYDisplacement(), 10, getCollision().height);
+
+					break;
+				case "Right":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXDisplacement() + getCollision().width, (int) getYOffset() + handler.getYDisplacement(), 10, getCollision().height);
+
+					break;
+			}
+		}else if(foundState.equals("InWorldState")){
+			switch (facing) {
+				case "Up":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXInWorldDisplacement(), (int) getYOffset() + handler.getYInWorldDisplacement() - 10, getCollision().width, getCollision().height / 2);
+
+					break;
+				case "Down":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXInWorldDisplacement(), (int) getYOffset() + handler.getYInWorldDisplacement() + getCollision().height, getCollision().width, 10);
+
+					break;
+				case "Left":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXInWorldDisplacement() - 10, (int) getYOffset() + handler.getYInWorldDisplacement(), 10, getCollision().height);
+
+					break;
+				case "Right":
+					nextArea = new Rectangle((int) getXOffset() + handler.getXInWorldDisplacement() + getCollision().width, (int) getYOffset() + handler.getYInWorldDisplacement(), 10, getCollision().height);
+
+					break;
+			}
 		}
 	}
 
@@ -59,7 +166,7 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 				detector.getWidth() * 10, detector.getHeight() * 10);
 
 		chasingPlayer = handler.getEntityManager().getPlayer().getCollision().intersects(detector);
-		
+
 		if (!Player.checkInWorld) {
 			chaseSpeed = 1.5;
 		}
@@ -73,6 +180,7 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 		if (GameSetUp.DEBUGMODE) {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.draw(detector);
+			g2.draw(nextArea);
 		}
 
 	}
@@ -102,27 +210,27 @@ public class BaseHostileEntity extends BaseDynamicEntity {
 	private void Move() {
 
 		switch (directionMov) {
-		case 0:
-			break;
-		case 1:
-			facing = "Down";
-			this.setYOffset(this.getYOffset() + speed);
-			break;
+			case 0:
+				break;
+			case 1:
+				facing = "Down";
+				this.setYOffset(this.getYOffset() + speed);
+				break;
 
-		case 2:
-			facing = "Up";
-			this.setYOffset(this.getYOffset() - speed);
-			break;
+			case 2:
+				facing = "Up";
+				this.setYOffset(this.getYOffset() - speed);
+				break;
 
-		case 3:
-			facing = "Left";
-			this.setXOffset(this.getXOffset() - speed);
-			break;
+			case 3:
+				facing = "Left";
+				this.setXOffset(this.getXOffset() - speed);
+				break;
 
-		case 4:
-			facing = "Right";
-			this.setXOffset(this.getXOffset() + speed);
-			break;
+			case 4:
+				facing = "Right";
+				this.setXOffset(this.getXOffset() + speed);
+				break;
 		}
 	}
 

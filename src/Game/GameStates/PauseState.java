@@ -44,7 +44,7 @@ public class PauseState extends State {
 			State.setState(lastState);
 		}
 
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
 
 			this.choose();
 

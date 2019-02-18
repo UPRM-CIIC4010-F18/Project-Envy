@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import Game.GameStates.InWorldState;
+import Game.GameStates.State;
 import Game.World.InWorldAreas.CaveArea;
 import Main.Handler;
 
@@ -14,14 +15,15 @@ public class EnemyOne extends BaseHostileEntity {
 	Rectangle enemyOne;
 	int width, height;
 
-	public EnemyOne(Handler handler, int xPosition, int yPosition) {
-		super(handler, yPosition, yPosition);
+	public EnemyOne(Handler handler, int xPosition, int yPosition, String state) {
+		super(handler, yPosition, yPosition,state);
 		width = 30;
 		height = 30;
 		speed = 1;
 		this.setXOffset(xPosition);
 		this.setYOffset(yPosition);
 
+		this.foundState = state;
 		enemyOne = new Rectangle();
 	}
 
