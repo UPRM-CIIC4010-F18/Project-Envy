@@ -11,7 +11,9 @@ public class BaseArea {
 
     Handler handler;
 
-	public int oldPlayerXCoord,oldPlayerYCoord;
+    public EntityManager entityManager;
+
+    public int oldPlayerXCoord,oldPlayerYCoord;
     public int inWorldX, inWorldY;
     public String name;
 

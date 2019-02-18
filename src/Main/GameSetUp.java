@@ -8,6 +8,7 @@ import Resources.Images;
 import Resources.MusicHandler;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -23,7 +24,7 @@ public class GameSetUp implements Runnable {
     public static boolean LOADING = false;//set to true for a second for all to load
     public static int loadCounter=0;//reaches 60 = loaded
 
-    public static boolean DEBUGMODE = false;
+    public static boolean DEBUGMODE = true;
 
     public static boolean SWITCHING = false;
 
@@ -140,8 +141,12 @@ public class GameSetUp implements Runnable {
         keyManager.tick();
 
         //game states are the menus
-        if(State.getState() != null)
+        if(State.getState() != null) {
             State.getState().tick();
+        }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F7)){
+            DEBUGMODE=!DEBUGMODE;
+        }
     }
 
     private void render(){

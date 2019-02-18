@@ -7,11 +7,13 @@ import Game.Entities.Dynamics.Player;
 import Main.GameSetUp;
 import Main.Handler;
 
+import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
+import java.util.Random;
 
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
@@ -37,12 +39,29 @@ public class FightState extends InWorldState{
     private int[] entityInfoX;
     Image background;
 
+    public int turn=0,numOfEnemies=1; // 0= player ; else is enemy
+    private boolean attacking=false,defense=false,skill=false,endTurn=false,attacked=false,isDefense=false;
 
+    private int attackSpeed =40;
+
+    private Animation playerSkilll;
+
+    private boolean Eattacking=false,Edefense=false,Eskill=false,EendTurn=false,Eattacked=false,EisDefense=false,battleOver =false;
+
+    private int EattackSpeed =40;
+
+    private Animation enemySkilll;
+
+    private int green= 255,red=95,blue=255,alpha=0;
+
+    private String prevState;
+
+    private BaseHostileEntity inStateEnemy;
 
 
     public FightState(Handler handler, BaseDynamicEntity player ,BaseHostileEntity enemy, String prevState) {
         super(handler);
-
+        this.prevState=prevState;
         entityY = (int) handler.getHeight() * 2/3;
         entityInfoX = new int[2];
         //player info square coordinate
@@ -50,6 +69,7 @@ public class FightState extends InWorldState{
         //enemy info square coordinate
         entityInfoX[1] = handler.getWidth() * 14/20 + 4;
 
+        inStateEnemy=enemy;
         //get's the info from the player and enemy (Will be used for taking their info)
         this.player = new Player(handler,  handler.getWidth() / 5, entityY);
 
@@ -71,6 +91,10 @@ public class FightState extends InWorldState{
         optionSelect = 0;
         inputCoolDown = 0;
 
+        playerSkilll = new Animation(45,Images.IceSkill);
+        enemySkilll = new Animation(45,Images.IceSkill);
+        chooseTurn();
+
 //        Possibly need to add the more of the same image on the attack image array for the mouse to work with the UIManager
 //        Since it only has one image and crashes when the mouse is hovered over it.
 
@@ -78,8 +102,22 @@ public class FightState extends InWorldState{
 
     }
 
+    private void chooseTurn() {
+        if(player.getInitiative()>=enemy.getInitiative()){
+            turn = 0;
+        }else{
+            turn = 1;
+        }
+
+    }
+
     @Override
     public void tick() {
+        if(turn>numOfEnemies){
+            turn=0;
+        }
+
+
 
         ///TEMP CODE TO EXIT FIGHT///
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
@@ -89,14 +127,36 @@ public class FightState extends InWorldState{
         }
         /////////////////////////////
 
-        else{
-            PlayerInput();
-            uiManager.tick();
+        else {
+            if (!battleOver) {
+                if (turn == 0) {
+                    PlayerInput();
+                    uiManager.tick();
+                    if (attacking) {
+                        attack();
+                    } else if (defense) {
+                        defend();
+                    }
+
+                } else {
+                    enemyTurn();
+                }
+            }
         }
 
         this.moveFightString();
 
+        if(!attacking&&!defense&&!skill&&turn>0&&enemy.getHealth()<=0){
+            battleOver=true;
+        }
+        if(!Eattacking&&!Edefense&&!Eskill&&turn==0&&player.getHealth()<=0){
+            battleOver=true;
+        }
+
     }
+
+
+
 
     @Override
     public void render(Graphics g) {
@@ -115,6 +175,52 @@ public class FightState extends InWorldState{
 
         drawDebug(g);
 
+        if(turn>0){
+            g.setColor(color);
+            g.fillRect(entityInfoX[0], handler.getHeight()* 4/5, (2*(handler.getWidth() * 3/20 - 4))+(handler.getWidth() * 8/20 - 8)+(10), handler.getHeight()/7);
+        }
+        if (turn == 0) {
+            if(skill){
+                callSkill(g);
+            }
+        }else if (turn > 0){
+            if(Eskill){
+                EcallSkill(g);
+            }
+        }
+
+        if(battleOver){
+
+            g2.setFont(new Font("IMPACT", 3, this.wordHeight));
+            if(player.getHealth()==0){
+                g.setColor(new Color(0,0,0,alpha++));
+                g.fillRect(0,0,handler.getWidth(),handler.getHeight());
+                g2.setColor(Color.RED);
+                g.drawString("Winner is: "+enemy.name,handler.getWidth()/4,handler.getHeight()/2);
+
+            }else{
+                g.setColor(new Color(255,255,255,alpha++));
+                g.fillRect(0,0,handler.getWidth(),handler.getHeight());
+                g2.setColor(Color.GREEN);
+                g.drawString("Winner is: Player",handler.getWidth()/4,handler.getHeight()/2);
+            }
+            if(alpha==255){
+                if(player.getHealth()==0){
+                    handler.getGame().reStart();
+                    State.setState(handler.getGame().menuState);
+                }else{
+                    if(prevState.equals("None")){
+                        handler.getWorldManager().entityManager.RemoveEntity(inStateEnemy);
+                        State.setState(handler.getGame().mapState);
+                    }else{
+                        InWorldState.currentArea.entityManager.RemoveEntity(inStateEnemy);
+                        State.setState(handler.getGame().inWorldState);
+
+                    }
+                }
+            }
+        }
+
 
     }
 
@@ -129,6 +235,8 @@ public class FightState extends InWorldState{
     private void drawDebug(Graphics g) {
         if(GameSetUp.DEBUGMODE){
             g.setFont((new Font("IMPACT", Font.ITALIC, 25)));
+            g.drawString("Turn: "+String.valueOf(turn),handler.getWidth()/2,25);
+
             //player
             g.drawString("Accuracy: "+String.valueOf(player.getAcc()),0,300);
             g.drawString("XP: "+String.valueOf(player.getXp()),0,25);
@@ -301,7 +409,7 @@ public class FightState extends InWorldState{
             public void onClick() {
                 //for testing purposes
                 System.out.println("Attack");
-                attack();
+                attacking=true;
 
             }
         }));
@@ -313,6 +421,7 @@ public class FightState extends InWorldState{
             @Override
             public void onClick() {
                 System.out.println("Defend");
+                defense=true;
             }
         }));
 
@@ -321,6 +430,7 @@ public class FightState extends InWorldState{
             @Override
             public void onClick() {
                 System.out.println("Skill");
+                skill=true;
 
 
             }
@@ -357,9 +467,193 @@ public class FightState extends InWorldState{
     }
 
 
-    //doesn't work rn
     private void attack() {
 
+        playerRect.x+=attackSpeed;
+        if(playerRect.x>=handler.getWidth()){
+            playerRect.x= 0-70;
+        }
+
+        int accc=new Random().nextInt((int)player.getAcc());
+        int ev=new Random().nextInt((int)enemy.getEvs());
+
+        if(accc>=ev &&!attacked && enemy.getHealth()-(player.getStr() - enemy.getDefense())>=0) {
+            enemy.setHealth(enemy.getHealth() - (player.getStr() - enemy.getDefense()));
+            attacked=true;
+        }else  if(accc>=ev &&!attacked && enemy.getHealth()-(player.getStr() - enemy.getDefense())<0){
+            enemy.setHealth(0);
+        }
+
+        if(playerRect.x<=(handler.getWidth() / 5)-10 && playerRect.x>=(handler.getWidth() / 5)-110){
+            playerRect.x=(handler.getWidth() / 5);
+            attacking=false;
+            endTurn=true;
+        }
+
+        if(endTurn|| battleOver){
+            attacking=false;
+            endTurn=false;
+            turn++;
+            attacked=false;
+            if(EisDefense){
+                enemy.setDefense(enemy.getDefense()-20);
+            }
+        }
+
+    }
+
+    private void defend() {
+
+
+        isDefense = true;
+        endTurn =true;
+        player.setDefense(player.getDefense()+20);
+        if(endTurn){
+            defense=false;
+            endTurn=false;
+            turn++;
+        }
+    }
+
+    private void callSkill(Graphics g) {
+        playerSkilll.tick();
+        g.setColor( new Color(Math.max(0,red--), green--,blue--));
+        ((Graphics2D)g).fill(enemyRect);
+
+        g.drawImage(playerSkilll.getCurrentFrame(),(handler.getWidth() * 4/ 5)-93,entityY-93,256,256,null);
+
+        int accc=new Random().nextInt((int)player.getAcc());
+        int ev=new Random().nextInt((int)enemy.getEvs());
+        if(accc>=ev &&!attacked && enemy.getHealth()-(player.getStr() - enemy.getDefense())>=0) {
+            enemy.setHealth(enemy.getHealth() - (player.getIntl() - enemy.getDefense()));
+            attacked=true;
+        }else  if(accc>=ev &&!attacked && enemy.getHealth()-(player.getStr() - enemy.getDefense())<0){
+            enemy.setHealth(0);
+        }
+
+        if(playerSkilll.getIndex()==63){
+            endTurn=true;
+            green= 255;
+            red=95;
+            blue=255;
+        }
+
+
+
+
+        if(endTurn|| battleOver){
+            skill=false;
+            endTurn=false;
+            turn++;
+        }
+    }
+
+    private void enemyTurn() {
+
+        if(!Eskill&&!Edefense&&!Eattacking) {
+            int choice = new Random().nextInt(3);
+            switch (choice) {
+                case 0://attack
+                    Eattacking = true;
+                    System.out.println("Attacked");
+                    break;
+                case 1://defence
+                    System.out.println("Defense");
+                    Edefense = true;
+                    break;
+                case 2://skill
+                    System.out.println("Skill");
+                    Eskill = true;
+                    break;
+            }
+        }else{
+            if(Eattacking){
+                Eattack();
+            }else if(Edefense){
+                Edefend();
+            }
+        }
+
+
+
+    }
+
+    private void Eattack() {
+
+        enemyRect.x-=attackSpeed;
+        if(enemyRect.x+70<0){
+            enemyRect.x= handler.getWidth();
+        }
+
+        int accc=new Random().nextInt((int)enemy.getAcc());
+        int ev=new Random().nextInt((int)player.getEvs());
+
+        if(accc>=ev &&!Eattacked && player.getHealth()-(enemy.getStr() - player.getDefense())>=0) {
+            player.setHealth(player.getHealth() - (enemy.getStr() - player.getDefense()));
+            Eattacked=true;
+        }else  if(accc>=ev &&!Eattacked && player.getHealth()-(enemy.getStr() - player.getDefense())<0){
+            player.setHealth(0);
+        }
+
+        if(enemyRect.x>=(handler.getWidth() * 4/ 5)+10 && enemyRect.x<=(handler.getWidth() * 4/ 5)+110){
+            enemyRect.x=(handler.getWidth() * 4/ 5);
+            Eattacking=false;
+            EendTurn=true;
+        }
+
+        if(EendTurn|| battleOver){
+            Eattacking=false;
+            EendTurn=false;
+            turn++;
+            Eattacked=false;
+            if(isDefense){
+                player.setDefense(player.getDefense()-20);
+            }
+        }
+
+    }
+
+    private void Edefend() {
+
+
+        EisDefense = true;
+        EendTurn =true;
+        enemy.setDefense(enemy.getDefense()+20);
+        if(EendTurn){
+            Edefense=false;
+            EendTurn=false;
+            turn++;
+        }
+    }
+
+    private void EcallSkill(Graphics g) {
+        enemySkilll.tick();
+        g.setColor( new Color(Math.max(0,red--), green--,blue--));
+        ((Graphics2D)g).fill(playerRect);
+
+        g.drawImage(enemySkilll.getCurrentFrame(),(handler.getWidth()/ 5)-93,entityY-93,256,256,null);
+
+        int accc=new Random().nextInt((int)enemy.getAcc());
+        int ev=new Random().nextInt((int)player.getEvs());
+
+        if(accc>=ev &&!Eattacked && player.getHealth()-(enemy.getStr() - player.getDefense())>=0) {
+            player.setHealth(player.getHealth() - (enemy.getStr() - player.getDefense()));
+            Eattacked=true;
+        }else  if(accc>=ev &&!Eattacked && player.getHealth()-(enemy.getStr() - player.getDefense())<0){
+            player.setHealth(0);
+        }
+        if(enemySkilll.getIndex()==63){
+            EendTurn=true;
+            green= 255;
+            red=95;
+            blue=255;
+        }
+
+        if(EendTurn || battleOver){
+            Eskill=false;
+            EendTurn=false;
+            turn++;
+        }
     }
 
     public int getFightWordXPos() {

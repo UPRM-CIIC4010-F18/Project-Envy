@@ -17,21 +17,19 @@ import Resources.MusicHandler.Circle;
 public class WorldManager {
 
 	protected Handler handler;
-	private MusicHandler mus;
 	private Circle circle;
-	protected EntityManager entityManager;
+	public EntityManager entityManager;
 
 	ArrayList<Game.World.Walls> worldWalls;
 
 	public WorldManager(Handler handler, EntityManager entityManager) {
 		this.handler = handler;
-		mus = new MusicHandler(handler);
 		this.entityManager = entityManager;
 		
-		circle = mus.new Circle(5627,380, this.handler);
+		circle = handler.getGame().getMusicHandler().new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
-		this.entityManager.AddEntity(handler.newEnemy(handler,500, 800,"MapState","Jovan","None","EnemyOne",100,100,0,1,40,20,20,20,20,10,5,"None","Thunder",null,null));
+		this.entityManager.AddEntity(handler.newEnemy(handler,500, 800,"MapState","Jovan","None","EnemyOne",100,100,0,1,40,20,20,20,20,5,5,"None","Thunder",null,null));
 		this.entityManager.AddEntity(circle);
 
 		AddWalls();

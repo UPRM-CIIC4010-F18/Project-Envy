@@ -14,7 +14,7 @@ import Resources.Images;
 public class InWorldState extends State{
 
 
-	EntityManager entityManager;	// To manager the entities within the InWorld
+	public EntityManager entityManager;	// To manager the entities within the InWorld
 	private UIManager uM ;
     public static BaseArea currentArea;
     public static BaseArea caveArea;

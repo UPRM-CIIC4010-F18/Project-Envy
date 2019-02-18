@@ -14,7 +14,6 @@ public class CaveArea extends BaseArea {
 
     Rectangle exit;
     Rectangle playerRect;
-    EntityManager entityManager;
     public static boolean isInCave = false;
 
     private int imageWidth = 3680, imageHeight = 4000;
@@ -34,7 +33,7 @@ public class CaveArea extends BaseArea {
 
         this.entityManager = entityManager;
 
-        this.entityManager.AddEntity(handler.newEnemy(handler,700, 2000,"InWorldState","Sergio","Cave","EnemyOne",100,100,0,1,40,20,20,20,20,10,5,"None","Thunder",null,null));
+        this.entityManager.AddEntity(handler.newEnemy(handler,700, 2000,"InWorldState","Sergio","Cave","EnemyOne",100,100,0,1,40,20,20,20,20,5,5,"None","Thunder",null,null));
 
 
         caveWalls = new ArrayList<>();

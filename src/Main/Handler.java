@@ -125,6 +125,8 @@ public class Handler {
 		Area = area;
 	}
 
+
+
 	public BaseHostileEntity newEnemy(Handler handler,int xPosition, int yPosition, String state,String name,String area,
 			String typeOfEnemy,double hp,double mana,double xp,double lvl,double str,double def,
 											double intl,double cons, double acc,double evs,double initiative,

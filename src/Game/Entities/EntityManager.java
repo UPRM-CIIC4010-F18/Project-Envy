@@ -74,7 +74,12 @@ public class EntityManager {
 	public void AddEntity(BaseEntity e) {
 		entities.add(e);
 	}
-	
+
+
+	public void RemoveEntity(BaseEntity e) {
+		entities.remove(e);
+	}
+
 	public Player getPlayer() {
 		return player;
 	}
