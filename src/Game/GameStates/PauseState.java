@@ -103,7 +103,11 @@ public class PauseState extends State {
 
 	private void returnToGame(){
         GameSetUp.LOADING=true;
-        handler.setArea("None");
+        if(lastState instanceof MapState){
+            handler.setArea("None");
+        }else if(lastState instanceof InWorldState){
+            handler.setArea(InWorldState.currentArea.name);
+        }
         System.out.println(lastState);
         State.setState(lastState);
     }
@@ -115,7 +119,8 @@ public class PauseState extends State {
 			returnToGame();
 
 		}else if(selector.getxPos() == selector.getTBXpos()) {
-			handler.getGame().reStart();
+            handler.setArea("None");
+            handler.getGame().reStart();
 			State.setState(handler.getGame().menuState);
 		}
 		else System.exit(0);

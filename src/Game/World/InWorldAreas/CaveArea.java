@@ -26,7 +26,7 @@ public class CaveArea extends BaseArea {
 
     public CaveArea(Handler handler, EntityManager entityManager) {
         super(handler, entityManager);
-
+        name="Cave";
         handler.setXInWorldDisplacement(playerXSpawn);
         handler.setYInWorldDisplacement(playerYSpawn);
 

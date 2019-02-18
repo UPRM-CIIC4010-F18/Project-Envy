@@ -17,8 +17,7 @@ public class MapState extends State {
 	WorldManager worldManager;
 	EntityManager entityManager;
 	Player player;
-
-	//changes the initial spawn of the player
+    //changes the initial spawn of the player
 	int initialXMapDisplacement=1450;
 	int initialYMapDisplacement=500;
 

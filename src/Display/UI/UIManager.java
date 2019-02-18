@@ -95,11 +95,12 @@ public class UIManager {
 		private int width = 8000;
 		private int height = 6000;
 
+
 		public ArrayList<InWorldWalls> areaWalls;
 
 		public Area(Handler handler, EntityManager entityManager) {
 			super(handler, entityManager);
-
+			name="S";
 			handler.setXInWorldDisplacement(playerXSpawn);
 			handler.setYInWorldDisplacement(playerYSpawn + 500);
 
