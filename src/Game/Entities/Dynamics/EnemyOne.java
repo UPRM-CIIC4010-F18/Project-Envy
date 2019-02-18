@@ -27,7 +27,9 @@ public class EnemyOne extends BaseHostileEntity {
 
 	@Override
 	public void tick() {
-		super.tick();
+		
+		if(!Player.isinArea)super.tick(); 
+		
 	}
 
 	@Override
@@ -35,11 +37,11 @@ public class EnemyOne extends BaseHostileEntity {
 		super.render(g);
 		Graphics2D g2 = (Graphics2D) g;	
 
-
+		if(!Player.isinArea) {
 			if (!Player.checkInWorld) {
 				enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
 						(int) (handler.getYDisplacement() + getYOffset()), 30, 30);
-			} else if(CaveArea.isInCave && Player.checkInWorld) {
+			} else {
 				enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
 						(int) (handler.getYInWorldDisplacement() + getYOffset()), 70, 70);
 
@@ -50,6 +52,7 @@ public class EnemyOne extends BaseHostileEntity {
 			g2.fill(enemyOne);
 
 		}
+	}
 
 
 
