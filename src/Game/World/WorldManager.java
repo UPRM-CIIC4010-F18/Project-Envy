@@ -73,8 +73,8 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 1710, -150, 180, 250, "Wall"));
 		worldWalls.add(new Walls(handler, 1600, 0, 60, 100, "Wall"));
 		worldWalls.add(new Walls(handler, 1662, -60, 50, 80, "Wall"));
-		worldWalls.add(new Walls(handler, 5627,380, 20, 20, "SDoor"));	
-		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Door"));
+		worldWalls.add(new Walls(handler, 5627,380, 20, 20, "Door S"));	
+		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Door Cave"));
 	}
 	
     public ArrayList<Walls> getWalls() {

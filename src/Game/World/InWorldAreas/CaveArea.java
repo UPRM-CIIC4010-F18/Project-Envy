@@ -18,21 +18,19 @@ public class CaveArea extends BaseArea {
 	public static boolean isInCave = false;
 
 	private int imageWidth = 3680, imageHeight = 4000;
-	public final static int playerXSpawn = -380, playerYSpawn = -3270;
+	public final static int playerXSpawn = -380, playerYSpawn = -3200;
 
 	private Rectangle background = new Rectangle(3000, 3000);
-	private Color backgroundColor = Color.BLUE;
 
 	public static ArrayList<InWorldWalls> caveWalls;
 
 	public CaveArea(Handler handler, EntityManager entityManager) {
 		super(handler, entityManager);
-
-		playerRect = new Rectangle((int) handler.getWidth() / 2 - 5, (int) (handler.getHeight() / 2) + 300, 70, 70);
-
-		// Original player x and y location relative to the image displacement.
+		
 		handler.setXInWorldDisplacement(playerXSpawn);
 		handler.setYInWorldDisplacement(playerYSpawn);
+
+		playerRect = new Rectangle((int) handler.getWidth() / 2 - 5, (int) (handler.getHeight() / 2) + 300, 70, 70);
 
 		this.entityManager = entityManager;
 		
@@ -51,8 +49,6 @@ public class CaveArea extends BaseArea {
 		}
 		
 		entityManager.tick();
-		System.out.println("X: " + handler.getEntityManager().getPlayer().getXOffset());
-		System.out.println("Y: " + handler.getEntityManager().getPlayer().getYOffset());
 
 	}
 
@@ -62,7 +58,7 @@ public class CaveArea extends BaseArea {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		g2.setColor(backgroundColor);
+		g2.setColor(Color.black);
 		g2.fill(background);
 
 		g.drawImage(Images.ScaledCave, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
@@ -121,9 +117,11 @@ public class CaveArea extends BaseArea {
 		caveWalls.add(new InWorldWalls(handler, 2744, 140, 200, 300, "Wall"));									// Left wall relative to Exit
 		caveWalls.add(new InWorldWalls(handler, 3288, 140, 200, 300, "Wall"));									// Right wall relative to Exit
 		
-		caveWalls.add(new InWorldWalls(handler, 2950, 340, 320, 100, "Door"));	//backexit							// Exit
-		caveWalls.add(new InWorldWalls(handler, 1230, 3900, 280, 100, "Door"));//front exitExit
 		caveWalls.add(new InWorldWalls(handler, imageWidth/3, imageHeight, 300, 50, "Wall"));					// Entrance
+		
+		caveWalls.add(new InWorldWalls(handler, 2950, 340, 320, 100, "Start Exit"));							// Exit at Start
+		caveWalls.add(new InWorldWalls(handler, 1230, 3900, 280, 100, "End Exit"));							// Exit at End
+
 		
 
 	}

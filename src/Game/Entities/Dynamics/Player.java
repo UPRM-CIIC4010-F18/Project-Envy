@@ -14,13 +14,15 @@ import Game.World.InWorldAreas.InWorldWalls;
 import Main.GameSetUp;
 import Main.Handler;
 import java.awt.event.KeyEvent;
+
 public class Player extends BaseDynamicEntity {
 
 	private Rectangle player;
 	private boolean canMove;
 	public static boolean checkInWorld;
 	public static final int InMapWidth = 25, InMapHeight = 25, InAreaWidth = 70, InAreaHeight = 70;
-	private int currentWidth, currentHeight; public static  boolean isinArea = false;
+	private int currentWidth, currentHeight;
+	public static boolean isinArea = false;
 
 	public Player(Handler handler, int xPosition, int yPosition) {
 		super(handler, yPosition, yPosition);
@@ -46,8 +48,9 @@ public class Player extends BaseDynamicEntity {
 		} else {
 			checkInWorld = false;
 		}
-		
-		if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_L)) System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
+
+		if (this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_L))
+			System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
 	}
 
 	@Override
@@ -149,24 +152,21 @@ public class Player extends BaseDynamicEntity {
 						PushPlayerBack();
 					}
 
-					else if (w.getType().equals("Door")) {
+					else if (w.getType().startsWith("Door")) {
 						canMove = true;
 
-						if (w.getX() == (1662 + handler.getXDisplacement())
-								&& w.getY() == (55 + handler.getYDisplacement())) {
+						if (w.getType().equals("Door Cave")) {
 							InWorldState.caveArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
 							InWorldState.caveArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 							CaveArea.isInCave = true;
 							setWidthAndHeight(InAreaWidth, InAreaHeight);
+							handler.setXInWorldDisplacement(CaveArea.playerXSpawn);
+							handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
 							State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
 						}
-					}
 
-					else if (w.getType().equals("SDoor")) {
-						canMove = true;
+						if (w.getType().equals("Door S")) {
 
-						if (w.getX() == (5627 + handler.getXDisplacement())
-								&& w.getY() == (380 + handler.getYDisplacement())) {
 							InWorldState.SArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
 							InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 							this.isinArea = true;
@@ -174,34 +174,32 @@ public class Player extends BaseDynamicEntity {
 							State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
 						}
 					}
+
 				}
 			}
-		} 
-		else {
-			if(CaveArea.isInCave) {
+		} else
+
+		{
+			if (CaveArea.isInCave) {
 				for (InWorldWalls iw : CaveArea.caveWalls) {
 					if (iw.intersects(player)) {
 						if (iw.getType().equals("Wall"))
 							PushPlayerBack();
 						else {
-							if(iw.getX() == (2950 + handler.getXInWorldDisplacement())
-									&& iw.getY() == (340 + handler.getYInWorldDisplacement())) {
-								handler.setXInWorldDisplacement(CaveArea.playerXSpawn); // Resets player x/y in Cave
-								handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
-								handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
-								handler.setYDisplacement(handler.getYDisplacement() + 380);// Cave
-								setWidthAndHeight(InMapWidth, InMapHeight);
-								State.setState(handler.getGame().mapState);
-							}else if(iw.getX() == (1230 + handler.getXInWorldDisplacement())
-									&& iw.getY() == (3900 + handler.getYInWorldDisplacement())) {
-								handler.setXInWorldDisplacement(CaveArea.playerXSpawn); // Resets player x/y in Cave
-								handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
-								handler.setXDisplacement(InWorldState.caveArea.oldPlayerXCoord); // Sets the player x/y outside the
-								handler.setYDisplacement(InWorldState.caveArea.oldPlayerYCoord);// Cave
-								setWidthAndHeight(InMapWidth, InMapHeight);
-								State.setState(handler.getGame().mapState);
-							}
 
+							if (iw.getType().equals("Start Exit")) {
+
+								handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
+								handler.setYDisplacement(handler.getYDisplacement() + 380); // Cave
+
+							} else if (iw.getType().equals("End Exit")) {
+
+								handler.setXDisplacement(InWorldState.caveArea.oldPlayerXCoord);// Sets the player x/y
+								handler.setYDisplacement(InWorldState.caveArea.oldPlayerYCoord);// outside theCave
+							}
+							
+							setWidthAndHeight(InMapWidth, InMapHeight);
+							State.setState(handler.getGame().mapState);
 							CaveArea.isInCave = false;
 
 						}
@@ -209,9 +207,9 @@ public class Player extends BaseDynamicEntity {
 				}
 			}
 
-			else if(Player.isinArea) {
+			else if (Player.isinArea) {
 
-				for(InWorldWalls iw : InWorldState.SArea.getWalls()) {
+				for (InWorldWalls iw : InWorldState.SArea.getWalls()) {
 
 					if (iw.intersects(player)) {
 						if (iw.getType().equals("Wall"))
@@ -273,9 +271,6 @@ public class Player extends BaseDynamicEntity {
 	}
 
 	/*
-	 * !!!!!!!!!TO REDESIGN!!!!!!!!!!!!!!! Make it so that it verifies between
-	 * OverWorldPlayer or InWorldPlayer
-	 * 
 	 * Although the TRUE Player position is in the middle of the screen, these two
 	 * methods give us the value as if the player was part of the world.
 	 */
