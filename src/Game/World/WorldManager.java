@@ -89,7 +89,7 @@ public class WorldManager {
 		////Top right of the Island
 		worldWalls.add(new Walls(handler, 2420, 40, 600, 5, "Wall"));
 		worldWalls.add(new Walls(handler, 3000, -400, 5, 450, "Wall"));
-		worldWalls.add(new Walls(handler, 1365, -380, 1650, 5, "Wall"));/////CANT PASS BEHIND MOUNTAIN SHIT
+		worldWalls.add(new Walls(handler, 1365, -380, 1650, 5, "Wall"));
 		///Top of the Island
 		worldWalls.add(new Walls(handler, 1365, -380, 5, 250, "Wall"));
 		worldWalls.add(new Walls(handler, 670, -130, 700, 5, "Wall"));
