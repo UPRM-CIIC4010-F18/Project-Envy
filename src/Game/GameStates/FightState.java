@@ -180,11 +180,11 @@ public class FightState extends InWorldState{
             g.fillRect(entityInfoX[0], handler.getHeight()* 4/5, (2*(handler.getWidth() * 3/20 - 4))+(handler.getWidth() * 8/20 - 8)+(10), handler.getHeight()/7);
         }
         if (turn == 0) {
-            if(skill){
+            if(skill && player.getMana()>=25){
                 callSkill(g);
             }
         }else if (turn > 0){
-            if(Eskill){
+            if(Eskill && enemy.getMana()>=25){
                 EcallSkill(g);
             }
         }
@@ -427,9 +427,10 @@ public class FightState extends InWorldState{
         uiManager.addObjects(new UIImageButton(handler.getWidth() * 38/60 - 128/2, 5*handler.getHeight()/6, 128, 64, Images.Skill, new ClickListlener() {
             @Override
             public void onClick() {
-                System.out.println("Skill");
-                skill=true;
-
+                if(player.getMana()>=25) {
+                    System.out.println("Skill");
+                    skill = true;
+                }
 
             }
         }));
@@ -543,12 +544,13 @@ public class FightState extends InWorldState{
             skill=false;
             endTurn=false;
             turn++;
+            player.setMana(player.getMana()-25);
         }
     }
 
     private void enemyTurn() {
 
-        if(!Eskill&&!Edefense&&!Eattacking) {
+        if(!Eskill&&!Edefense&&!Eattacking && enemy.getMana()>=25) {
             int choice = new Random().nextInt(3);
             switch (choice) {
                 case 0://attack
@@ -564,7 +566,20 @@ public class FightState extends InWorldState{
                     Eskill = true;
                     break;
             }
-        }else{
+        }else  if(!Eskill&&!Edefense&&!Eattacking) {
+            int choice = new Random().nextInt(2);
+            switch (choice) {
+                case 0://attack
+                    Eattacking = true;
+                    System.out.println("Attacked");
+                    break;
+                case 1://defence
+                    System.out.println("Defense");
+                    Edefense = true;
+                    break;
+            }
+        }
+        else{
             if(Eattacking){
                 Eattack();
             }else if(Edefense){
@@ -651,6 +666,7 @@ public class FightState extends InWorldState{
             Eskill=false;
             EendTurn=false;
             turn++;
+            enemy.setMana(enemy.getMana()-25);
         }
     }
 
