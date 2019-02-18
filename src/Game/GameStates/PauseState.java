@@ -58,7 +58,7 @@ public class PauseState extends State {
 
 		g2.setColor(new Color(61, 68, 128));
 		g2.fill(new Rectangle( 0, 0, this.handler.getWidth(), this.handler.getHeight()));
-
+		g.drawImage(Images.battleBackground[0],0,0,handler.getWidth(),handler.getHeight(),null);
 		if(selector.getxPos() == selector.getRBpos()) {
 
 			g2.drawImage(Images.Resume[1], this.RXPos, this.YPos, this.width, this.height, null);
