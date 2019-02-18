@@ -110,7 +110,7 @@ public class PauseState extends State {
 
 		}
 		
-		if(selector.getxPos() == selector.getTBXpos()) {
+		else if(selector.getxPos() == selector.getTBXpos()) {
 			
 			State.setState(handler.getGame().menuState);
 			
