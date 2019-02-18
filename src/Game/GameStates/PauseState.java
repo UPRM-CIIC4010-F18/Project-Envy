@@ -108,7 +108,6 @@ public class PauseState extends State {
         }else if(lastState instanceof InWorldState){
             handler.setArea(InWorldState.currentArea.name);
         }
-        System.out.println(lastState);
         GameSetUp.SWITCHING=true;
         State.setState(lastState);
     }

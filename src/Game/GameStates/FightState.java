@@ -42,7 +42,6 @@ public class FightState extends InWorldState{
 
     public FightState(Handler handler, BaseDynamicEntity player ,BaseHostileEntity enemy, String prevState) {
         super(handler);
-        System.out.println(prevState);
 
         entityY = (int) handler.getHeight() * 2/3;
         entityInfoX = new int[2];
