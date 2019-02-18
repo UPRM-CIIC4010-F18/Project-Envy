@@ -5,7 +5,7 @@ import Resources.Images;
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
 import Display.UI.UIManager;
-import Game.Entities.Dynamics.PauseMenuSelector;
+import Game.Entities.Dynamics.Selector;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -19,17 +19,17 @@ public class PauseState extends State {
 	int waitTimeForInput;
 	public static State lastState;
 	public int RXPos = handler.getWidth()/2 - 128 * 2;
-	public int QXPos = handler.getWidth()/2 + 128;
+	public int QXPos = handler.getWidth()/2 + 150;
 	public int YPos = handler.getHeight()/2 - 32;
 	public int width = 128;
 	public int height = 64;
-	PauseMenuSelector selector; 
+	Selector selector; 
 
 	public PauseState(Handler handler) {
 		super(handler);
 
 		uiManager = new UIManager(handler);
-		selector = new PauseMenuSelector(this.handler);
+		selector = new Selector(this.handler);
 
 	}
 
@@ -73,13 +73,13 @@ public class PauseState extends State {
 
 		if(selector.getxPos() == selector.getQBpos()) {
 
-			g2.drawImage(Images.Quit[1], this.QXPos, this.YPos, this.width, this.height, null);
+			g2.drawImage(Images.Quit[1], this.QXPos, this.YPos, this.width - 20, this.height, null);
 
 		}
 		
 		else {
 
-			g2.drawImage(Images.Quit[0], this.QXPos, this.YPos, this.width, this.height, null);
+			g2.drawImage(Images.Quit[0], this.QXPos, this.YPos, this.width - 20, this.height, null);
 
 		}
 
