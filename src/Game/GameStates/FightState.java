@@ -130,26 +130,49 @@ public class FightState extends InWorldState{
 		 * respective entity entity
 		 */
 		for(int i = 0; i < 2;i++) {
-			g2.drawString("Name:" + enemy.name, entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 20);
+			if(i==1) {//player
+				g2.drawString("Name: " + enemy.name, entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
-			//draws health info
-			g2.setColor(Color.GREEN);
-			g2.fillRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 46, handler.getWidth() * 2/20, 17);
-			g2.setColor(Color.WHITE);
-			g2.drawRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 46, handler.getWidth() * 2/20, 17);
-			g2.drawString("Health:", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 40 );
-			g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight()* 4/5) + 60 );
+				//draws health info
+				g2.setColor(Color.GREEN);
+				g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
+				g2.setColor(Color.WHITE);
+				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
+				g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
+				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
 
-			//Draws MP Information
-			g2.setColor(Color.BLUE);
-			g2.fillRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 86, handler.getWidth() * 2/20 , 17);
-			g2.setColor(Color.WHITE);
-			g2.drawRect(entityInfoX[i]+15, (handler.getHeight()* 4/5) + 86, handler.getWidth() * 2/20, 17);
-			g2.drawString("Mana:", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 80 );
-			g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight()* 4/5) + 100 );
+				//Draws MP Information
+				g2.setColor(Color.BLUE);
+				g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
+				g2.setColor(Color.WHITE);
+				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
+				g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
+				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
 
-			g2.drawString("Skill:" + "ThunderStorm", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 120 );
-			g2.drawString("Mana Cost:" + "25 MP", entityInfoX[i] + 15, (handler.getHeight()* 4/5) + 140 );
+				g2.drawString("Skill: " + "ThunderStorm", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
+				g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
+			}else{//enemy
+				g2.drawString("Name: "+"Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
+
+				//draws health info
+				g2.setColor(Color.GREEN);
+				g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
+				g2.setColor(Color.WHITE);
+				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
+				g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
+				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
+
+				//Draws MP Information
+				g2.setColor(Color.BLUE);
+				g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
+				g2.setColor(Color.WHITE);
+				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
+				g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
+				g2.drawString("100", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
+
+				g2.drawString("Skill: " + "IceStorm", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
+				g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
+			}
 
 		}
 
