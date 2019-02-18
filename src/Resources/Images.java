@@ -14,6 +14,7 @@ public class Images {
 
     public static BufferedImage[] butstart;
     public static BufferedImage title;
+    public static BufferedImage titleImage;
     public static BufferedImage Pause;
     public static BufferedImage[] Resume;
     public static BufferedImage[] Quit;
@@ -48,6 +49,7 @@ public class Images {
         
 
         battleBackground = new BufferedImage[2];
+        
         Attack = new BufferedImage[1];
         Defend = new BufferedImage[1];
         Skill = new BufferedImage[1];
@@ -60,7 +62,8 @@ public class Images {
             CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
             Area =ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
-            title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
+            title = ImageIO.read(getClass().getResourceAsStream("/Sheets/menuImage.png"));
+            titleImage =  ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton1.png"));
@@ -70,11 +73,10 @@ public class Images {
             Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
             Options[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
             Options[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
-            butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut
-            butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverBut.png"));//hoverbut
-            butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
-            Quit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitButton3.png"));
-            Quit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitButton1.png"));
+            butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Start1.png"));
+            butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Start2.png"));
+            Quit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit1.png"));
+            Quit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit2.png"));
 
             
             battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
