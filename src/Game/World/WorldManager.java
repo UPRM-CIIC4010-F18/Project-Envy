@@ -9,7 +9,6 @@ import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
 import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
-import Game.GameStates.MapState;
 import Main.GameSetUp;
 import Main.Handler;
 import Resources.MusicHandler;

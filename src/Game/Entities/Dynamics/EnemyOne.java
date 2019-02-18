@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
-import Game.GameStates.InWorldState;
-import Game.GameStates.State;
-import Game.World.InWorldAreas.CaveArea;
 import Main.Handler;
 
 public class EnemyOne extends BaseHostileEntity {

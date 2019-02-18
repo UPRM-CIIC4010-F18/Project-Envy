@@ -3,7 +3,6 @@ package Game.GameStates;
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.BaseDynamicEntity;
 import Game.Entities.Dynamics.BaseHostileEntity;
-import Game.Entities.Dynamics.EnemyOne;
 import Game.Entities.Dynamics.Player;
 import Main.Handler;
 
