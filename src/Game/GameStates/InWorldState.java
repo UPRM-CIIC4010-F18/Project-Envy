@@ -3,38 +3,55 @@ package Game.GameStates;
 import Game.Entities.EntityManager;
 import Game.World.InWorldAreas.BaseArea;
 import Game.World.InWorldAreas.CaveArea;
+import Main.GameSetUp;
 import Main.Handler;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import Display.UI.UIManager;
+import Resources.Images;
+
 public class InWorldState extends State{
 
 
-	EntityManager entityManager;	// To manager the entities within the InWorld
+	public EntityManager entityManager;	// To manager the entities within the InWorld
+	private UIManager uM ;
     public static BaseArea currentArea;
     public static BaseArea caveArea;
+    public static BaseArea SArea;
 
     public InWorldState(Handler handler) {
         super(handler);
-
+        uM= new UIManager(handler);
         entityManager = new EntityManager(handler, handler.getEntityManager().getPlayer());
         
         caveArea = new CaveArea(handler, entityManager);
+        SArea = uM.new Area(handler, entityManager);
+
     }
 
     @Override
     public void tick() {
-
-        ///TEMP CODE TO EXIT STATE///
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            PauseState.lastState = State.getState();
-            State.setState(handler.getGame().pauseState);
-        }
-        /////////////////////////////
-        
-        if(currentArea!=null) {
-            currentArea.tick();
-            entityManager.tick();
+        if(GameSetUp.LOADING){
+            if(GameSetUp.loadCounter>=60){
+                GameSetUp.loadCounter=0;
+                GameSetUp.LOADING=false;
+                return;
+            }
+            if (currentArea != null) {
+                currentArea.tick();
+            }
+            GameSetUp.loadCounter++;
+        }else {
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+                handler.getGame().pauseState.lastState = State.getState();
+                GameSetUp.SWITCHING=true;
+                State.setState(handler.getGame().pauseState);
+            }else {
+                if (currentArea != null) {
+                    currentArea.tick();
+                }
+            }
         }
     	
     }
@@ -42,9 +59,13 @@ public class InWorldState extends State{
     @Override
     public void render(Graphics g) {
 
-    	Graphics2D g2 = (Graphics2D)g;
-        if(currentArea!=null) {
-            currentArea.render(g);
+        if(!GameSetUp.LOADING) {
+            Graphics2D g2 = (Graphics2D) g;
+            if (currentArea != null) {
+                currentArea.render(g);
+            }
+        }else{
+            g.drawImage(Images.Loading,0,0,handler.getWidth(),handler.getHeight(),null);
         }
     	
     }
@@ -53,6 +74,5 @@ public class InWorldState extends State{
         currentArea = area;
         return this;
     }
-
     
 }

@@ -9,8 +9,8 @@ public class BaseEntity {
 
 	protected Handler handler;
 	
-	protected double xPosition;
-	protected double yPosition;
+	public double xPosition;
+	public double yPosition;
 	
 	public BaseEntity(Handler handler, double xPosition, double yPosition) {
 		this.handler = handler;

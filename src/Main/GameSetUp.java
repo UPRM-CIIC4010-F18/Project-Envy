@@ -8,6 +8,7 @@ import Resources.Images;
 import Resources.MusicHandler;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -20,7 +21,12 @@ public class GameSetUp implements Runnable {
     private DisplayScreen display;
     public String title;
 
+    public static boolean LOADING = false;//set to true for a second for all to load
+    public static int loadCounter=0;//reaches 60 = loaded
+
     public static boolean DEBUGMODE = true;
+
+    public static boolean SWITCHING = false;
 
     private boolean running = false;
     private Thread thread;
@@ -39,7 +45,7 @@ public class GameSetUp implements Runnable {
     public State mapState;
     public InWorldState inWorldState;
     public State menuState;
-    public State pauseState;
+    public PauseState pauseState;
 
     //Res.music
     private MusicHandler musicHandler;
@@ -74,9 +80,9 @@ public class GameSetUp implements Runnable {
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
 
-        State.setState(mapState);
+        State.setState(menuState);
 
-        musicHandler.set_changeMusic("res/music/UTheme.mp3");
+        musicHandler.set_changeMusic("res/music/Overture.mp3");
         musicHandler.play();
         musicHandler.setLoop(true);
         musicHandler.setVolume(0);
@@ -135,8 +141,12 @@ public class GameSetUp implements Runnable {
         keyManager.tick();
 
         //game states are the menus
-        if(State.getState() != null)
+        if(State.getState() != null) {
             State.getState().tick();
+        }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F7)){
+            DEBUGMODE=!DEBUGMODE;
+        }
     }
 
     private void render(){
@@ -185,5 +195,17 @@ public class GameSetUp implements Runnable {
         return mouseManager;
     }
 
+    public void reStart() {
+        this.mapState = new MapState(handler);
+        this.inWorldState  = new InWorldState(handler);
+    }
+
+    public DisplayScreen getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(DisplayScreen display) {
+        this.display = display;
+    }
 }
 
