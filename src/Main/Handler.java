@@ -37,8 +37,8 @@ public class Handler {
 //		height = (DEFAULTHEIGHT / 2) + (DEFAULTHEIGHT / 4);
 //		width = (DEFAULTWIDTH / 3);
 
-		height = DEFAULTHEIGHT;
-		width = DEFAULTWIDTH;
+		height =( DEFAULTHEIGHT/1080)*1080;
+		width = (DEFAULTWIDTH/1920)*1920;
 
 	}
 
