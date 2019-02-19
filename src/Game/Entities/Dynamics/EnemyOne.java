@@ -58,7 +58,7 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
 
             if (enemyOne.intersects(handler.getEntityManager().getPlayer().getCollision())) {
                 handler.getEntityManager().getPlayer().facing = "Left";
-                State.setState(new FightState(handler, handler.getEntityManager().getPlayer(), this, this.Area));
+                State.setState(new FightState(handler, this, this.Area));
             }
         }
 
