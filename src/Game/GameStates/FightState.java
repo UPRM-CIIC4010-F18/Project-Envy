@@ -281,16 +281,22 @@ public class FightState extends InWorldState{
                 g2.drawString("Name: " + enemy.name, entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
                 //draws health info
-                g2.setColor(Color.GREEN);
-                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, (handler.getWidth() * 2 / 20), 17);
-                g2.setColor(Color.WHITE);
+                if(enemy.getHealth()>=75){
+                    g2.setColor(Color.GREEN);
+                }else if(enemy.getHealth()>=50){
+                    g2.setColor(Color.YELLOW);
+                }else{
+                    g2.setColor(Color.RED);
+                }
+                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, (int)((handler.getWidth() * 2 / 20)*(enemy.getHealth()/enemy.getMaxHealth())), 17);
+                g2.setColor(Color.BLACK);
                 g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
                 g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
                 g2.drawString(String.valueOf(enemy.getHealth()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
 
                 //Draws MP Information
                 g2.setColor(Color.BLUE);
-                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
+                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, (int)((handler.getWidth() * 2 / 20)*(enemy.getMana()/enemy.getMaxMana())), 17);
                 g2.setColor(Color.WHITE);
                 g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
                 g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
@@ -302,16 +308,22 @@ public class FightState extends InWorldState{
                 g2.drawString("Name: "+"Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
                 //draws health info
-                g2.setColor(Color.GREEN);
-                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
-                g2.setColor(Color.WHITE);
+                if(player.getHealth()>=75){
+                    g2.setColor(Color.GREEN);
+                }else if(player.getHealth()>=50){
+                    g2.setColor(Color.YELLOW);
+                }else{
+                    g2.setColor(Color.RED);
+                }
+                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, (int)((handler.getWidth() * 2 / 20)*(player.getHealth()/player.getMaxHealth())), 17);
+                g2.setColor(Color.BLACK);
                 g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
                 g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
                 g2.drawString(String.valueOf(handler.getEntityManager().getPlayer().getHealth()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
 
                 //Draws MP Information
                 g2.setColor(Color.BLUE);
-                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
+                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, (int)((handler.getWidth() * 2 / 20)*(enemy.getMana()/enemy.getMaxMana())), 17);
                 g2.setColor(Color.WHITE);
                 g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
                 g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
@@ -328,7 +340,7 @@ public class FightState extends InWorldState{
 
 
         g2.setBackground(new Color(61,68,128));
-        g2.drawImage(background, 0, 0, null);
+        g2.drawImage(background, 0, 0,handler.getWidth(),handler.getHeight(), null);
 
         g2.setColor(new Color(51, 96, 178));
         g2.setComposite(AlphaComposite.SrcOver.derive(0.8f));
@@ -374,7 +386,6 @@ public class FightState extends InWorldState{
 //        	choose options to the left
             if(optionSelect > 0){
                 optionSelect -= 1;
-                System.out.println(optionSelect);
                 inputCoolDown = 0;
             }
 
