@@ -480,7 +480,7 @@ public class FightState extends InWorldState{
         int ev=new Random().nextInt((int)enemy.getEvs());
 
         if(accc>=ev &&!attacked && enemy.getHealth()-(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense())>=0) {
-            enemy.setHealth(enemy.getHealth() - (handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()));
+            enemy.setHealth(enemy.getHealth() - Math.abs(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()));
             attacked=true;
         }else  if(accc>=ev &&!attacked && enemy.getHealth()-(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense())<0){
             enemy.setHealth(0);
@@ -499,6 +499,7 @@ public class FightState extends InWorldState{
             attacked=false;
             if(EisDefense){
                 enemy.setDefense(enemy.getDefense()-20);
+                EisDefense = false;
             }
         }
 
@@ -514,6 +515,10 @@ public class FightState extends InWorldState{
             defense=false;
             endTurn=false;
             turn++;
+            if(EisDefense){
+                enemy.setDefense(enemy.getDefense()-20);
+                EisDefense = false;
+            }
         }
     }
 
@@ -527,7 +532,7 @@ public class FightState extends InWorldState{
         int accc=new Random().nextInt((int)handler.getEntityManager().getPlayer().getAcc());
         int ev=new Random().nextInt((int)enemy.getEvs());
         if(accc>=ev &&!attacked && enemy.getHealth()-(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense())>=0) {
-            enemy.setHealth(enemy.getHealth() - (handler.getEntityManager().getPlayer().getIntl() - enemy.getDefense()));
+            enemy.setHealth(enemy.getHealth() - Math.abs(handler.getEntityManager().getPlayer().getIntl() - enemy.getDefense()));
             attacked=true;
         }else  if(accc>=ev &&!attacked && enemy.getHealth()-(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense())<0){
             enemy.setHealth(0);
@@ -545,6 +550,10 @@ public class FightState extends InWorldState{
             endTurn=false;
             turn++;
             handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana()-25);
+            if(EisDefense){
+                enemy.setDefense(enemy.getDefense()-20);
+                EisDefense = false;
+            }
         }
     }
 
@@ -602,7 +611,7 @@ public class FightState extends InWorldState{
         int ev=new Random().nextInt((int)handler.getEntityManager().getPlayer().getEvs());
 
         if(accc>=ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense())>=0) {
-            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - (enemy.getStr() - handler.getEntityManager().getPlayer().getDefense()));
+            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - Math.abs(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense()));
             Eattacked=true;
         }else  if(accc>=ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense())<0){
             handler.getEntityManager().getPlayer().setHealth(0);
@@ -621,6 +630,7 @@ public class FightState extends InWorldState{
             Eattacked=false;
             if(isDefense){
                 handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()-20);
+                isDefense = false;
             }
         }
 
@@ -636,6 +646,10 @@ public class FightState extends InWorldState{
             Edefense=false;
             EendTurn=false;
             turn++;
+            if(isDefense){
+                handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()-20);
+                isDefense = false;
+            }
         }
     }
 
@@ -650,7 +664,7 @@ public class FightState extends InWorldState{
         int ev=new Random().nextInt((int)handler.getEntityManager().getPlayer().getEvs());
 
         if(accc>=ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense())>=0) {
-            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - (enemy.getStr() - handler.getEntityManager().getPlayer().getDefense()));
+            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - Math.abs(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense()));
             Eattacked=true;
         }else  if(accc>=ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense())<0){
             handler.getEntityManager().getPlayer().setHealth(0);
@@ -667,6 +681,10 @@ public class FightState extends InWorldState{
             EendTurn=false;
             turn++;
             enemy.setMana(enemy.getMana()-25);
+            if(isDefense){
+                handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()-20);
+                isDefense = false;
+            }
         }
     }
 
