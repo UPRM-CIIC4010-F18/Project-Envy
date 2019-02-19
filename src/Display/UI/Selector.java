@@ -74,7 +74,8 @@ public class Selector {
 		}
 
 		else {
-            g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos()-25, this.getyPos()-25, 80, 80, null);
+		    int r = new Random().nextInt(8);
+            g.drawImage(Images.tint(animSelector.getCurrentFrame(),r, r, r), this.getxPos()-30, this.getyPos()-25, 80, 80, null);
 
 		}
 
