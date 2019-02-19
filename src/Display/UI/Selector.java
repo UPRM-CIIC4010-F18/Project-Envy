@@ -71,17 +71,10 @@ public class Selector {
 
 		if(State.getState().equals(handler.getGame().menuState)) {
 				g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos2() - 25, this.getyPos2() - 25, 150, 150, null);
-
-
-
 		}
 
 		else {
-
-			selector = new Ellipse2D.Double(this.getxPos(), this.getyPos(), 30, 30);
-			g2.setColor(Color.WHITE);
-
-			g2.fill(selector);
+            g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos()-25, this.getyPos()-25, 80, 80, null);
 
 		}
 
