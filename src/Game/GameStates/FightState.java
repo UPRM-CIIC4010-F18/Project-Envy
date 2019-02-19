@@ -308,14 +308,14 @@ public class FightState extends InWorldState{
                 g2.drawString("Name: "+"Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
                 //draws health info
-                if(player.getHealth()>=75){
+                if(handler.getEntityManager().getPlayer().getHealth()>=75){
                     g2.setColor(Color.GREEN);
-                }else if(player.getHealth()>=50){
+                }else if(handler.getEntityManager().getPlayer().getHealth()>=50){
                     g2.setColor(Color.YELLOW);
                 }else{
                     g2.setColor(Color.RED);
                 }
-                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, (int)((handler.getWidth() * 2 / 20)*(player.getHealth()/player.getMaxHealth())), 17);
+                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, (int)((handler.getWidth() * 2 / 20)*(handler.getEntityManager().getPlayer().getHealth()/handler.getEntityManager().getPlayer().getMaxHealth())), 17);
                 g2.setColor(Color.BLACK);
                 g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 46, handler.getWidth() * 2 / 20, 17);
                 g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
