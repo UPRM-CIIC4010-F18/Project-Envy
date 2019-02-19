@@ -15,6 +15,9 @@ public class Images {
 
     public static BufferedImage[] butstart;
     public static BufferedImage title;
+    public static BufferedImage title2;
+    public static BufferedImage title3;
+    public static BufferedImage title4;
     public static BufferedImage[] titleChoose;
     public static BufferedImage titleImage;
     public static BufferedImage Pause;
@@ -81,6 +84,9 @@ public class Images {
             Area =ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/menuImage.png"));
+            title2 = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
+            title3 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static.jpg"));
+            title4 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static1.jpg"));
             Loading = ImageIO.read(getClass().getResourceAsStream("/Sheets/loading.jpg"));
             titleImage =  ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
             
