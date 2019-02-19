@@ -34,6 +34,7 @@ public class Images {
     public static BufferedImage[] IceSkill;
 
     public static BufferedImage[] Enemy;
+    public static BufferedImage[] SEnemy;
 
 
     public static SpriteSheet smokeHouseSheet;
@@ -67,6 +68,7 @@ public class Images {
         IceSkill = new BufferedImage[64];
 
         Enemy = new BufferedImage[8];
+        SEnemy = new BufferedImage[8];
         
 
 
@@ -122,6 +124,15 @@ public class Images {
             Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
             Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
             Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
+            
+            SEnemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel1.png"));
+            SEnemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel2.png"));
+            SEnemy[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel3.png"));
+            SEnemy[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel4.png"));
+            SEnemy[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel5.png"));
+            SEnemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel6.png"));
+            SEnemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel7.png"));
+            SEnemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel8.png"));
           
             
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));

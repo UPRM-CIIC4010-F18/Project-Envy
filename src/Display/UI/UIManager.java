@@ -96,10 +96,16 @@ public class UIManager {
 		private final static int playerXSpawn = -380, playerYSpawn = -3270;
 		Rectangle playerRect;
 		Random random = new Random();
+		public int xPos = random.nextInt(8000 - 100) + 100;
+		public int yPos = random.nextInt(6000 - 100) + 100;
 		private int width = 8000;
 		private int height = 6000;
 		Animation enemyAnimation;
+		Animation enemySAnimation;
 		Rectangle rectangle;
+
+		Long time;
+		Boolean reset = true;
 
 
 		public ArrayList<InWorldWalls> areaWalls;
@@ -111,15 +117,16 @@ public class UIManager {
 			handler.setYInWorldDisplacement(playerYSpawn + 500);
 
 			this.manager = entityManager;
-			
+
 			rectangle = new Rectangle();
-			
+
 			enemyAnimation = new Animation(100, Images.Enemy);
+			enemySAnimation = new Animation(150, Images.SEnemy);
 
 			this.areaWalls = new ArrayList<>();
 
 			this.addWalls();
-			
+
 
 		}
 
@@ -133,9 +140,11 @@ public class UIManager {
 				w.tick();
 
 			}
-			
+
 			this.enemyAnimation.tick();
-			
+			this.enemySAnimation.tick();
+			this.respawnEnemyTick();
+
 			this.collidedWithEnemy();
 
 
@@ -146,14 +155,12 @@ public class UIManager {
 			Graphics2D g2 = (Graphics2D) g;
 
 			g2.drawImage(Images.ScaledArea, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
-			
-			rectangle = new Rectangle(400 + 425 + handler.getXInWorldDisplacement(), 400  + 478 + handler.getYInWorldDisplacement(), 100, 100);
-			
-			g2.drawImage(this.enemyAnimation.getCurrentFrame(), 400 + handler.getXInWorldDisplacement(), 400 + handler.getYInWorldDisplacement(), 1000, 1000, null);
-			
+
+			rectangle = new Rectangle(this.getxPos() + 425 + handler.getXInWorldDisplacement(), this.getyPos()  + 478 + handler.getYInWorldDisplacement(), 100, 100);
+
+			g2.drawImage(this.enemyAnimation.getCurrentFrame(), this.getxPos() + handler.getXInWorldDisplacement(), this.getyPos() + handler.getYInWorldDisplacement(), 1000, 1000, null);
+
 			g2.setColor(Color.WHITE);
-			
-			g2.draw(this.rectangle);
 
 			this.manager.render(g2);
 
@@ -165,14 +172,17 @@ public class UIManager {
 					w.render(g2);
 
 				}
+				
+				g2.draw(this.rectangle);
+				
 			}
 
 			g2.setColor(Color.WHITE);
 
 			for(int i=0;i<handler.getWidth();i+=random.nextInt(45)){
-                    int s= random.nextInt(10)+1;
-                    g2.fillRect((random.nextInt(this.width)) + handler.getXInWorldDisplacement(), (random.nextInt(this.height)) + handler.getYInWorldDisplacement(), s, s);
-            }
+				int s= random.nextInt(10)+1;
+				g2.fillRect((random.nextInt(this.width)) + handler.getXInWorldDisplacement(), (random.nextInt(this.height)) + handler.getYInWorldDisplacement(), s, s);
+			}
 
 		}
 
@@ -183,7 +193,6 @@ public class UIManager {
 			this.areaWalls.add(new InWorldWalls(handler, 0, this.height, this.width, 2, "Wall"));
 			this.areaWalls.add(new InWorldWalls(handler, this.width, 0, 2, this.height, "Wall"));
 
-
 		}
 
 		public ArrayList<InWorldWalls> getWalls(){
@@ -191,17 +200,51 @@ public class UIManager {
 			return this.areaWalls;
 
 		}
-		
+
 		public void collidedWithEnemy() {
-			
+
 			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle)) {
-				
+
 				System.exit(0);
-				
+
 			}
-			
+
 		}
 
+		public void respawnEnemyTick() {
+
+			if(this.reset) {
+				
+				time = System.currentTimeMillis();
+				this.reset = false;
+				
+			}
+
+			if(System.currentTimeMillis() - this.time >= 10000) {		
+
+				this.setxPos( random.nextInt(8000 - 100) + 100);
+				this.setyPos(random.nextInt(6000 - 100) + 100);
+				
+				this.reset = true;
+			}
+
+		}
+
+		public int getxPos() {
+			return xPos;
+		}
+
+		public void setxPos(int xPos) {
+			this.xPos = xPos;
+		}
+
+		public int getyPos() {
+			return yPos;
+		}
+
+		public void setyPos(int yPos) {
+			this.yPos = yPos;
+		}
 
 	}
 
