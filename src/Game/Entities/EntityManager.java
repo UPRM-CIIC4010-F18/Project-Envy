@@ -29,9 +29,11 @@ public class EntityManager {
 		
 		for (BaseEntity e : entities) {
 			if(e instanceof  BaseHostileEntity){
-				if(((BaseHostileEntity) e).Area.equals(handler.getArea())){
-					CheckCollisions(e);
-					e.tick();
+				if(!((BaseHostileEntity) e).isDead()) {
+					if(((BaseHostileEntity) e).Area.equals(handler.getArea())){
+						CheckCollisions(e);
+						e.tick();
+					}
 				}
 			}else {
 				CheckCollisions(e);
@@ -65,7 +67,12 @@ public class EntityManager {
 		player.render(g);
 		
 		for (BaseEntity e : entities) {
-			e.render(g);
+			if(e instanceof BaseHostileEntity) {
+				if(!((BaseHostileEntity) e).isDead()) e.render(g);
+			}
+			else {
+				e.render(g);
+			}
 		}
 
 	}

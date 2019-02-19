@@ -44,31 +44,31 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void tick() {
-		super.tick();
-		if(handler.getArea().equals(this.Area)) {
-            UpdateNextMove();
-            checkCollision();
-
-
-            if (canMove) {
-                count++;
-                if (count >= 100 + rand.nextInt(350)) {
-
-                    directionMov = rand.nextInt(5); // 0 (idle), 1(up), 2(down), 3(left), 4(right)
-
-                    count = 0;
-                }
-
-                PlayerDetector();
-
-                if (!chasingPlayer) {
-                    Move();
-                } else {
-                    Chase();
-                }
-            }
-            canMove = true;
-        }
+			super.tick();
+			if(handler.getArea().equals(this.Area)) {
+	            UpdateNextMove();
+	            checkCollision();
+	
+	
+	            if (canMove) {
+	                count++;
+	                if (count >= 100 + rand.nextInt(350)) {
+	
+	                    directionMov = rand.nextInt(5); // 0 (idle), 1(up), 2(down), 3(left), 4(right)
+	
+	                    count = 0;
+	                }
+	
+	                PlayerDetector();
+	
+	                if (!chasingPlayer) {
+	                    Move();
+	                } else {
+	                    Chase();
+	                }
+	            }
+	            canMove = true;
+	        }
 	}
 
     private void checkCollision() {
@@ -243,12 +243,22 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
     //GETTERS AND SETTERS FOR FIGHT STATS
 
     double health=100,mana=100,xp=0l,lvl=1,defense=10,str=40,intl=30,cons=10,acc=10,evs=5,initiative=1;
+    boolean isDead = false;
     String Class = "none",skill = "none";
     String[] buffs = {},debuffs = {};
 
     @Override
     public double getHealth() {
         return health;
+    }
+
+    @Override
+    public double getMaxHealth() {
+        return 100;
+    }
+    @Override
+    public double getMaxMana() {
+        return 100;
     }
 
     @Override
@@ -394,6 +404,14 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
     @Override
     public void setDebuffs(String[] debuffs) {
         this.debuffs=debuffs;
+    }
+    
+    public boolean isDead() {
+    	return isDead;
+    }
+    
+    public void kill() {
+    	isDead = true;
     }
 
 }

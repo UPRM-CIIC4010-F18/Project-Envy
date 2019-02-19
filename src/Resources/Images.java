@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
 import java.io.IOException;
 
 /**
@@ -32,6 +33,10 @@ public class Images {
     public static BufferedImage[] Skill;
     public static BufferedImage[] IceSkill;
 
+    public static BufferedImage[] Enemy;
+    public static BufferedImage[] SEnemy;
+
+
     public static SpriteSheet smokeHouseSheet;
     public static SpriteSheet iceSkillSheet;
     public static BufferedImage[] smokeHouse;
@@ -59,7 +64,13 @@ public class Images {
         Attack = new BufferedImage[1];
         Defend = new BufferedImage[1];
         Skill = new BufferedImage[1];
+
         IceSkill = new BufferedImage[64];
+
+        Enemy = new BufferedImage[8];
+        SEnemy = new BufferedImage[8];
+        
+
 
         smokeHouse = new BufferedImage[7];
         try {
@@ -104,7 +115,26 @@ public class Images {
             smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20); 
             smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20); 
             smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20); 
-
+            
+            Enemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
+            Enemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
+            Enemy[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));				
+            Enemy[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
+            Enemy[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
+            Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
+            Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
+            Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
+            
+            SEnemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel1.png"));
+            SEnemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel2.png"));
+            SEnemy[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel3.png"));
+            SEnemy[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel4.png"));
+            SEnemy[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel5.png"));
+            SEnemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel6.png"));
+            SEnemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel7.png"));
+            SEnemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/ShaggyPixel8.png"));
+          
+            
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 
@@ -195,7 +225,31 @@ public class Images {
         ScaledCave = Images.CaveMap.getScaledInstance(3680, 4000, Image.SCALE_SMOOTH); // 368x400 pixel image
         ScaledArea = Images.Area.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
         
-    }	
+    }
+
+    public static BufferedImage tint(BufferedImage src,float r, float g, float b) {
+
+        // Copy image ( who made that so complicated :< )
+        BufferedImage newImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TRANSLUCENT);
+        Graphics2D graphics = newImage.createGraphics();
+        graphics.drawImage(src, 0, 0, null);
+        graphics.dispose();
+
+        // Color image
+        for (int i = 0; i < newImage.getWidth(); i++) {
+            for (int j = 0; j < newImage.getHeight(); j++) {
+                int ax = newImage.getColorModel().getAlpha(newImage.getRaster().getDataElements(i, j, null));
+                int rx = newImage.getColorModel().getRed(newImage.getRaster().getDataElements(i, j, null));
+                int gx = newImage.getColorModel().getGreen(newImage.getRaster().getDataElements(i, j, null));
+                int bx = newImage.getColorModel().getBlue(newImage.getRaster().getDataElements(i, j, null));
+                rx *= r;
+                gx *= g;
+                bx *= b;
+                newImage.setRGB(i, j, (ax << 24) | (rx << 16) | (gx << 8) | (bx << 0));
+            }
+        }
+        return newImage;
+    }
     
 
     public static BufferedImage loadImage(String path) {

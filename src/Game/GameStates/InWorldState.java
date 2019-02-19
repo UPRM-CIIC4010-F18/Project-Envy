@@ -14,8 +14,8 @@ import Resources.Images;
 public class InWorldState extends State{
 
 
-	public EntityManager entityManager;	// To manager the entities within the InWorld
-	private UIManager uM ;
+    public EntityManager entityManager;	// To manager the entities within the InWorld
+    private UIManager uM ;
     public static BaseArea currentArea;
     public static BaseArea caveArea;
     public static BaseArea SArea;
@@ -24,7 +24,7 @@ public class InWorldState extends State{
         super(handler);
         uM= new UIManager(handler);
         entityManager = new EntityManager(handler, handler.getEntityManager().getPlayer());
-        
+
         caveArea = new CaveArea(handler, entityManager);
         SArea = uM.new Area(handler, entityManager);
 
@@ -53,7 +53,7 @@ public class InWorldState extends State{
                 }
             }
         }
-    	
+
     }
 
     @Override
@@ -67,12 +67,12 @@ public class InWorldState extends State{
         }else{
             g.drawImage(Images.Loading,0,0,handler.getWidth(),handler.getHeight(),null);
         }
-    	
+
     }
 
     public State setArea(BaseArea area){
         currentArea = area;
         return this;
     }
-    
+
 }

@@ -58,7 +58,7 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
 
             if (enemyOne.intersects(handler.getEntityManager().getPlayer().getCollision())) {
                 handler.getEntityManager().getPlayer().facing = "Left";
-                State.setState(new FightState(handler, handler.getEntityManager().getPlayer(), this, this.Area));
+                State.setState(new FightState(handler, this, this.Area));
             }
         }
 
@@ -76,6 +76,14 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
     String Class = "none",skill = "none";
     String[] buffs = {},debuffs = {};
 
+    @Override
+    public double getMaxHealth() {
+        return 100;
+    }
+    @Override
+    public double getMaxMana() {
+        return 100;
+    }
     @Override
     public double getHealth() {
         return health;
