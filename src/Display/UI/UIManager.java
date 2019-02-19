@@ -2,6 +2,7 @@ package Display.UI;
 
 import Main.GameSetUp;
 import Main.Handler;
+import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
@@ -97,6 +98,8 @@ public class UIManager {
 		Random random = new Random();
 		private int width = 8000;
 		private int height = 6000;
+		Animation enemyAnimation;
+		Rectangle rectangle;
 
 
 		public ArrayList<InWorldWalls> areaWalls;
@@ -108,10 +111,15 @@ public class UIManager {
 			handler.setYInWorldDisplacement(playerYSpawn + 500);
 
 			this.manager = entityManager;
+			
+			rectangle = new Rectangle();
+			
+			enemyAnimation = new Animation(100, Images.Enemy);
 
 			this.areaWalls = new ArrayList<>();
 
 			this.addWalls();
+			
 
 		}
 
@@ -125,6 +133,10 @@ public class UIManager {
 				w.tick();
 
 			}
+			
+			this.enemyAnimation.tick();
+			
+			this.collidedWithEnemy();
 
 
 		}
@@ -134,6 +146,14 @@ public class UIManager {
 			Graphics2D g2 = (Graphics2D) g;
 
 			g2.drawImage(Images.ScaledArea, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
+			
+			rectangle = new Rectangle(400 + 425 + handler.getXInWorldDisplacement(), 400  + 478 + handler.getYInWorldDisplacement(), 100, 100);
+			
+			g2.drawImage(this.enemyAnimation.getCurrentFrame(), 400 + handler.getXInWorldDisplacement(), 400 + handler.getYInWorldDisplacement(), 1000, 1000, null);
+			
+			g2.setColor(Color.WHITE);
+			
+			g2.draw(this.rectangle);
 
 			this.manager.render(g2);
 
@@ -170,6 +190,16 @@ public class UIManager {
 
 			return this.areaWalls;
 
+		}
+		
+		public void collidedWithEnemy() {
+			
+			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle)) {
+				
+				System.exit(0);
+				
+			}
+			
 		}
 
 

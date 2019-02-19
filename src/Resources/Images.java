@@ -33,6 +33,9 @@ public class Images {
     public static BufferedImage[] Skill;
     public static BufferedImage[] IceSkill;
 
+    public static BufferedImage[] Enemy;
+
+
     public static SpriteSheet smokeHouseSheet;
     public static SpriteSheet iceSkillSheet;
     public static BufferedImage[] smokeHouse;
@@ -60,7 +63,12 @@ public class Images {
         Attack = new BufferedImage[1];
         Defend = new BufferedImage[1];
         Skill = new BufferedImage[1];
+
         IceSkill = new BufferedImage[64];
+
+        Enemy = new BufferedImage[8];
+        
+
 
         smokeHouse = new BufferedImage[7];
         try {
@@ -105,7 +113,17 @@ public class Images {
             smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20); 
             smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20); 
             smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20); 
-
+            
+            Enemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
+            Enemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
+            Enemy[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));				
+            Enemy[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
+            Enemy[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
+            Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
+            Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
+            Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
+          
+            
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 
