@@ -6,257 +6,301 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 /**
  * Created by AlexVR on 7/1/2018.
  */
 public class Images {
 
+	// true if you wish to use SortCropList()
+	private boolean processPixelSheet = true;
 
-    public static BufferedImage[] butstart;
-    public static BufferedImage title;
-    public static BufferedImage title2;
-    public static BufferedImage title3;
-    public static BufferedImage title4;
-    public static BufferedImage[] titleChoose;
-    public static BufferedImage titleImage;
-    public static BufferedImage Pause;
-    public static BufferedImage[] Resume;
-    public static BufferedImage[] Quit;
-    public static BufferedImage[] BTitle;
-    public static BufferedImage[] Options;
-    public static ImageIcon icon;
+	public static BufferedImage[] butstart;
+	public static BufferedImage title;
+	public static BufferedImage title2;
+	public static BufferedImage title3;
+	public static BufferedImage title4;
+	public static BufferedImage[] titleChoose;
+	public static BufferedImage titleImage;
+	public static BufferedImage Pause;
+	public static BufferedImage[] Resume;
+	public static BufferedImage[] Quit;
+	public static BufferedImage[] BTitle;
+	public static BufferedImage[] Options;
+	public static ImageIcon icon;
 
-    public static BufferedImage map;
-    public static Image Scaledmap;  
+	public static BufferedImage map;
+	public static Image Scaledmap;
 
-    public static BufferedImage[] battleBackground;
-    public static BufferedImage[] Attack;
-    public static BufferedImage[] Defend;
-    public static BufferedImage[] Skill;
-    public static BufferedImage[] IceSkill;
+	public static BufferedImage[] battleBackground;
+	public static BufferedImage[] Attack;
+	public static BufferedImage[] Defend;
+	public static BufferedImage[] Skill;
+	public static BufferedImage[] IceSkill;
 
-    public static BufferedImage[] Enemy;
-    public static BufferedImage[] SEnemy;
+	public static BufferedImage[] Enemy;
+	public static BufferedImage[] SEnemy;
 
+	public static SpriteSheet smokeHouseSheet;
+	public static SpriteSheet iceSkillSheet;
+	public static BufferedImage[] smokeHouse;
 
-    public static SpriteSheet smokeHouseSheet;
-    public static SpriteSheet iceSkillSheet;
-    public static BufferedImage[] smokeHouse;
-    
-    public static BufferedImage CaveMap;   
-    public static BufferedImage Area;
-    public static BufferedImage Loading;
-    public static Image ScaledCave;
-    public static Image ScaledArea;
-    public static BufferedImage tree;
+	public static BufferedImage CaveMap;
+	public static BufferedImage Area;
+	public static BufferedImage Loading;
+	public static Image ScaledCave;
+	public static Image ScaledArea;
+	public static BufferedImage tree;
 
+	public Images() {
 
-    public Images() {
+		butstart = new BufferedImage[3];
+		BTitle = new BufferedImage[3];
+		titleChoose = new BufferedImage[2];
+		Options = new BufferedImage[3];
+		Resume = new BufferedImage[2];
+		Quit = new BufferedImage[2];
 
-        butstart = new BufferedImage[3];
-        BTitle = new BufferedImage[3];
-        titleChoose = new BufferedImage[2];
-        Options = new BufferedImage[3];
-        Resume = new BufferedImage[2];
-        Quit = new BufferedImage[2];
-        
+		battleBackground = new BufferedImage[2];
 
-        battleBackground = new BufferedImage[2];
-        
-        Attack = new BufferedImage[1];
-        Defend = new BufferedImage[1];
-        Skill = new BufferedImage[1];
+		Attack = new BufferedImage[1];
+		Defend = new BufferedImage[1];
+		Skill = new BufferedImage[1];
 
-        IceSkill = new BufferedImage[64];
+		IceSkill = new BufferedImage[64];
 
-        Enemy = new BufferedImage[8];
-        SEnemy = new BufferedImage[8];
-        
+		Enemy = new BufferedImage[8];
+		SEnemy = new BufferedImage[8];
 
+		smokeHouse = new BufferedImage[7];
+		try {
+			map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
+			smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
+			iceSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/iceSkill.png")));
+			CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
+			Area = ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
+			tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
+			title = ImageIO.read(getClass().getResourceAsStream("/Sheets/menuImage.png"));
+			title2 = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
+			title3 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static.jpg"));
+			title4 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static1.jpg"));
+			Loading = ImageIO.read(getClass().getResourceAsStream("/Sheets/loading.jpg"));
+			titleImage = ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
 
-        smokeHouse = new BufferedImage[7];
-        try {
-            map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
-            smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
-            iceSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/iceSkill.png")));
-            CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
-            Area =ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
-            tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
-            title = ImageIO.read(getClass().getResourceAsStream("/Sheets/menuImage.png"));
-            title2 = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
-            title3 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static.jpg"));
-            title4 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static1.jpg"));
-            Loading = ImageIO.read(getClass().getResourceAsStream("/Sheets/loading.jpg"));
-            titleImage =  ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
-            
-            Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
-            Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));
-            Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton1.png"));
-            BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
-            BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
-            BTitle[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
-            Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
-            Options[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
-            Options[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
-            butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Start1.png"));
-            butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Start2.png"));
-            Quit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit1.png"));
-            Quit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit2.png"));
-            titleChoose[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title1.png"));
-            titleChoose[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title2.png"));
+			Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
+			Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));
+			Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton1.png"));
+			BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
+			BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
+			BTitle[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
+			Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
+			Options[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
+			Options[2] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
+			butstart[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Start1.png"));
+			butstart[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Start2.png"));
+			Quit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit1.png"));
+			Quit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit2.png"));
+			titleChoose[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title1.png"));
+			titleChoose[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title2.png"));
 
-            
-            battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
-            battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
-            
-            Attack[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Attack.png"));
-            Defend[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Defend.png"));
-            Skill[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Skill.png"));
-            
-            smokeHouse[0] = smokeHouseSheet.crop(20, 7, 19, 20);
-            smokeHouse[1] = smokeHouseSheet.crop(68, 7, 19, 20); 
-            smokeHouse[2] = smokeHouseSheet.crop(116, 7, 19, 20); 
-            smokeHouse[3] = smokeHouseSheet.crop(164, 7, 19, 20); 
-            smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20); 
-            smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20); 
-            smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20); 
-            
-            Enemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
-            Enemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
-            Enemy[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));				
-            Enemy[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
-            Enemy[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
-            Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
-            Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
-            Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
-            
-            
-            icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
+			battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
+			battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
 
+			Attack[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Attack.png"));
+			Defend[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Defend.png"));
+			Skill[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Skill.png"));
 
-            IceSkill[0] = iceSkillSheet.crop(0, 0, 50, 50);
-            IceSkill[1] = iceSkillSheet.crop(0, 0, 50, 50);
-            IceSkill[2] = iceSkillSheet.crop(52, 0, 50, 50);
-            IceSkill[3] = iceSkillSheet.crop(0, 52, 50, 50);
-            IceSkill[4] = iceSkillSheet.crop(52, 52, 50, 50);
-            IceSkill[5] = iceSkillSheet.crop(104, 0, 50, 50);
-            IceSkill[6] = iceSkillSheet.crop(0, 104, 50, 50);
-            IceSkill[7] = iceSkillSheet.crop(52, 104, 50, 50);
+			smokeHouse[0] = smokeHouseSheet.crop(20, 7, 19, 20);
+			smokeHouse[1] = smokeHouseSheet.crop(68, 7, 19, 20);
+			smokeHouse[2] = smokeHouseSheet.crop(116, 7, 19, 20);
+			smokeHouse[3] = smokeHouseSheet.crop(164, 7, 19, 20);
+			smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20);
+			smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20);
+			smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20);
 
-            IceSkill[8] = iceSkillSheet.crop(104,52, 50, 50);
-            IceSkill[9] = iceSkillSheet.crop(104,104, 50, 50);
-            IceSkill[10] = iceSkillSheet.crop(156,0, 50, 50);
-            IceSkill[11] = iceSkillSheet.crop(0,156, 50, 50);
-            IceSkill[12] = iceSkillSheet.crop(52,156, 50, 50);
-            IceSkill[13] = iceSkillSheet.crop(156,52, 50, 50);
-            IceSkill[14] = iceSkillSheet.crop(104,156, 50, 50);
-            IceSkill[15] = iceSkillSheet.crop(156,104, 50, 50);
+			Enemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
+			Enemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
+			Enemy[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
+			Enemy[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
+			Enemy[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E4.png"));
+			Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
+			Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
+			Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
 
-            IceSkill[16] = iceSkillSheet.crop(208,0, 50, 50);
-            IceSkill[17] = iceSkillSheet.crop(0,208, 50, 50);
-            IceSkill[18] = iceSkillSheet.crop(52,208, 50, 50);
-            IceSkill[19] = iceSkillSheet.crop(208,52, 50, 50);
-            IceSkill[20] = iceSkillSheet.crop(156,156, 50, 50);
-            IceSkill[21] = iceSkillSheet.crop(104,208, 50, 50);
-            IceSkill[22] = iceSkillSheet.crop(208,104, 50, 50);
-            IceSkill[23] = iceSkillSheet.crop(156,208, 50, 50);
+			icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
-            IceSkill[24] = iceSkillSheet.crop(208,156, 50, 50);
-            IceSkill[25] = iceSkillSheet.crop(260,0, 50, 50);
-            IceSkill[26] = iceSkillSheet.crop(0,260, 50, 50);
-            IceSkill[27] = iceSkillSheet.crop(52,260, 50, 50);
-            IceSkill[28] = iceSkillSheet.crop(260,52, 50, 50);
-            IceSkill[29] = iceSkillSheet.crop(104,260, 50, 50);
-            IceSkill[30] = iceSkillSheet.crop(260,104, 50, 50);
-            IceSkill[31] = iceSkillSheet.crop(208,208, 50, 50);
+			IceSkill[0] = iceSkillSheet.crop(0, 0, 50, 50);
+			IceSkill[1] = iceSkillSheet.crop(0, 0, 50, 50);
+			IceSkill[2] = iceSkillSheet.crop(52, 0, 50, 50);
+			IceSkill[3] = iceSkillSheet.crop(0, 52, 50, 50);
+			IceSkill[4] = iceSkillSheet.crop(52, 52, 50, 50);
+			IceSkill[5] = iceSkillSheet.crop(104, 0, 50, 50);
+			IceSkill[6] = iceSkillSheet.crop(0, 104, 50, 50);
+			IceSkill[7] = iceSkillSheet.crop(52, 104, 50, 50);
 
-            IceSkill[63] = iceSkillSheet.crop(0, 0, 50, 50);
-            IceSkill[62] = iceSkillSheet.crop(0, 0, 50, 50);
-            IceSkill[61] = iceSkillSheet.crop(52, 0, 50, 50);
-            IceSkill[60] = iceSkillSheet.crop(0, 52, 50, 50);
-            IceSkill[59] = iceSkillSheet.crop(52, 52, 50, 50);
-            IceSkill[58] = iceSkillSheet.crop(104, 0, 50, 50);
-            IceSkill[57] = iceSkillSheet.crop(0, 104, 50, 50);
-            IceSkill[56] = iceSkillSheet.crop(52, 104, 50, 50);
+			IceSkill[8] = iceSkillSheet.crop(104, 52, 50, 50);
+			IceSkill[9] = iceSkillSheet.crop(104, 104, 50, 50);
+			IceSkill[10] = iceSkillSheet.crop(156, 0, 50, 50);
+			IceSkill[11] = iceSkillSheet.crop(0, 156, 50, 50);
+			IceSkill[12] = iceSkillSheet.crop(52, 156, 50, 50);
+			IceSkill[13] = iceSkillSheet.crop(156, 52, 50, 50);
+			IceSkill[14] = iceSkillSheet.crop(104, 156, 50, 50);
+			IceSkill[15] = iceSkillSheet.crop(156, 104, 50, 50);
 
-            IceSkill[55] = iceSkillSheet.crop(104,52, 50, 50);
-            IceSkill[54] = iceSkillSheet.crop(104,104, 50, 50);
-            IceSkill[53] = iceSkillSheet.crop(156,0, 50, 50);
-            IceSkill[52] = iceSkillSheet.crop(0,156, 50, 50);
-            IceSkill[51] = iceSkillSheet.crop(52,156, 50, 50);
-            IceSkill[50] = iceSkillSheet.crop(156,52, 50, 50);
-            IceSkill[49] = iceSkillSheet.crop(104,156, 50, 50);
-            IceSkill[48] = iceSkillSheet.crop(156,104, 50, 50);
+			IceSkill[16] = iceSkillSheet.crop(208, 0, 50, 50);
+			IceSkill[17] = iceSkillSheet.crop(0, 208, 50, 50);
+			IceSkill[18] = iceSkillSheet.crop(52, 208, 50, 50);
+			IceSkill[19] = iceSkillSheet.crop(208, 52, 50, 50);
+			IceSkill[20] = iceSkillSheet.crop(156, 156, 50, 50);
+			IceSkill[21] = iceSkillSheet.crop(104, 208, 50, 50);
+			IceSkill[22] = iceSkillSheet.crop(208, 104, 50, 50);
+			IceSkill[23] = iceSkillSheet.crop(156, 208, 50, 50);
 
-            IceSkill[47] = iceSkillSheet.crop(208,0, 50, 50);
-            IceSkill[46] = iceSkillSheet.crop(0,208, 50, 50);
-            IceSkill[45] = iceSkillSheet.crop(52,208, 50, 50);
-            IceSkill[44] = iceSkillSheet.crop(208,52, 50, 50);
-            IceSkill[43] = iceSkillSheet.crop(156,156, 50, 50);
-            IceSkill[42] = iceSkillSheet.crop(104,208, 50, 50);
-            IceSkill[41] = iceSkillSheet.crop(208,104, 50, 50);
-            IceSkill[40] = iceSkillSheet.crop(156,208, 50, 50);
+			IceSkill[24] = iceSkillSheet.crop(208, 156, 50, 50);
+			IceSkill[25] = iceSkillSheet.crop(260, 0, 50, 50);
+			IceSkill[26] = iceSkillSheet.crop(0, 260, 50, 50);
+			IceSkill[27] = iceSkillSheet.crop(52, 260, 50, 50);
+			IceSkill[28] = iceSkillSheet.crop(260, 52, 50, 50);
+			IceSkill[29] = iceSkillSheet.crop(104, 260, 50, 50);
+			IceSkill[30] = iceSkillSheet.crop(260, 104, 50, 50);
+			IceSkill[31] = iceSkillSheet.crop(208, 208, 50, 50);
 
-            IceSkill[39] = iceSkillSheet.crop(208,156, 50, 50);
-            IceSkill[38] = iceSkillSheet.crop(260,0, 50, 50);
-            IceSkill[37] = iceSkillSheet.crop(0,260, 50, 50);
-            IceSkill[36] = iceSkillSheet.crop(52,260, 50, 50);
-            IceSkill[35] = iceSkillSheet.crop(260,52, 50, 50);
-            IceSkill[34] = iceSkillSheet.crop(104,260, 50, 50);
-            IceSkill[33] = iceSkillSheet.crop(260,104, 50, 50);
-            IceSkill[32] = iceSkillSheet.crop(208,208, 50, 50);
+			IceSkill[63] = iceSkillSheet.crop(0, 0, 50, 50);
+			IceSkill[62] = iceSkillSheet.crop(0, 0, 50, 50);
+			IceSkill[61] = iceSkillSheet.crop(52, 0, 50, 50);
+			IceSkill[60] = iceSkillSheet.crop(0, 52, 50, 50);
+			IceSkill[59] = iceSkillSheet.crop(52, 52, 50, 50);
+			IceSkill[58] = iceSkillSheet.crop(104, 0, 50, 50);
+			IceSkill[57] = iceSkillSheet.crop(0, 104, 50, 50);
+			IceSkill[56] = iceSkillSheet.crop(52, 104, 50, 50);
 
+			IceSkill[55] = iceSkillSheet.crop(104, 52, 50, 50);
+			IceSkill[54] = iceSkillSheet.crop(104, 104, 50, 50);
+			IceSkill[53] = iceSkillSheet.crop(156, 0, 50, 50);
+			IceSkill[52] = iceSkillSheet.crop(0, 156, 50, 50);
+			IceSkill[51] = iceSkillSheet.crop(52, 156, 50, 50);
+			IceSkill[50] = iceSkillSheet.crop(156, 52, 50, 50);
+			IceSkill[49] = iceSkillSheet.crop(104, 156, 50, 50);
+			IceSkill[48] = iceSkillSheet.crop(156, 104, 50, 50);
 
+			IceSkill[47] = iceSkillSheet.crop(208, 0, 50, 50);
+			IceSkill[46] = iceSkillSheet.crop(0, 208, 50, 50);
+			IceSkill[45] = iceSkillSheet.crop(52, 208, 50, 50);
+			IceSkill[44] = iceSkillSheet.crop(208, 52, 50, 50);
+			IceSkill[43] = iceSkillSheet.crop(156, 156, 50, 50);
+			IceSkill[42] = iceSkillSheet.crop(104, 208, 50, 50);
+			IceSkill[41] = iceSkillSheet.crop(208, 104, 50, 50);
+			IceSkill[40] = iceSkillSheet.crop(156, 208, 50, 50);
 
+			IceSkill[39] = iceSkillSheet.crop(208, 156, 50, 50);
+			IceSkill[38] = iceSkillSheet.crop(260, 0, 50, 50);
+			IceSkill[37] = iceSkillSheet.crop(0, 260, 50, 50);
+			IceSkill[36] = iceSkillSheet.crop(52, 260, 50, 50);
+			IceSkill[35] = iceSkillSheet.crop(260, 52, 50, 50);
+			IceSkill[34] = iceSkillSheet.crop(104, 260, 50, 50);
+			IceSkill[33] = iceSkillSheet.crop(260, 104, 50, 50);
+			IceSkill[32] = iceSkillSheet.crop(208, 208, 50, 50);
 
+			if (processPixelSheet) {
+				PrintCropList("IceSkill", "iceSkillSheet");
+			}
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+		ScaledCave = Images.CaveMap.getScaledInstance(3680, 4000, Image.SCALE_SMOOTH); // 368x400 pixel image
+		ScaledArea = Images.Area.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
 
+	}
 
+	/*
+	 * Given a File containing a list of crop coordinate systems, this will output a
+	 * File with all the crop coordinates in an orderly fashion like to later
+	 * Copy/Paste.
+	 * 
+	 * @param String skill is the name of the array that will hold the frames of a skill
+	 * @param String sheet is the sheet to which the frames are located
+	 * 
+	 * Compatible only with https://untiedgames.itch.io/wills-magic-pixel-particle-effects
+	 */
+	public void PrintCropList(String skill, String sheet) throws IOException {
 
+		Scanner in = new Scanner(getClass().getResourceAsStream("/EffectCrops/iceSkillCropCoords.txt"));
+		String line;
 
-        }catch (IOException e) {
-        e.printStackTrace();
-    }
-        Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
-        ScaledCave = Images.CaveMap.getScaledInstance(3680, 4000, Image.SCALE_SMOOTH); // 368x400 pixel image
-        ScaledArea = Images.Area.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
-        
-    }
+		
+		String xPos;
+		String yPos;
 
-    public static BufferedImage tint(BufferedImage src,float r, float g, float b) {
+		int indexCounter = 0;
 
-        // Copy image ( who made that so complicated :< )
-        BufferedImage newImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TRANSLUCENT);
-        Graphics2D graphics = newImage.createGraphics();
-        graphics.drawImage(src, 0, 0, null);
-        graphics.dispose();
+		while (in.hasNextLine()) {
+			line = in.nextLine();
+			
+			xPos = line.substring(12, 15);
+			if (xPos.contains(" ")) {
+				xPos = "0";
+			}
+			
+			yPos = line.substring(14, 19);
+			
+			if (yPos.startsWith("0") || yPos.charAt(2) == '0' ) {
+				yPos = "0";
+			} else if (line.charAt(12) == '0') {
+				yPos = yPos.substring(0, 3);
+			} else {
+				yPos = yPos.substring(2, 5);
+			}
+			
+			System.out.println(skill + "[" + indexCounter + "]" + " = " + sheet + ".crop( " + xPos + ", " + yPos + ", " + "100" + ", " + "100" + ")");
+			indexCounter++;
+		}
 
-        // Color image
-        for (int i = 0; i < newImage.getWidth(); i++) {
-            for (int j = 0; j < newImage.getHeight(); j++) {
-                int ax = newImage.getColorModel().getAlpha(newImage.getRaster().getDataElements(i, j, null));
-                int rx = newImage.getColorModel().getRed(newImage.getRaster().getDataElements(i, j, null));
-                int gx = newImage.getColorModel().getGreen(newImage.getRaster().getDataElements(i, j, null));
-                int bx = newImage.getColorModel().getBlue(newImage.getRaster().getDataElements(i, j, null));
-                rx *= r;
-                gx *= g;
-                bx *= b;
-                newImage.setRGB(i, j, (ax << 24) | (rx << 16) | (gx << 8) | (bx << 0));
-            }
-        }
-        return newImage;
-    }
-    
+	}
 
-    public static BufferedImage loadImage(String path) {
-        try {
-            return ImageIO.read(Images.class.getResourceAsStream(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        return null;
-    }
+//        IceSkill[9] = iceSkillSheet.crop( 306, 0 1, 100, 100) 		yPos : 0 1
+
+	public static BufferedImage tint(BufferedImage src, float r, float g, float b) {
+
+		// Copy image ( who made that so complicated :< )
+		BufferedImage newImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TRANSLUCENT);
+		Graphics2D graphics = newImage.createGraphics();
+		graphics.drawImage(src, 0, 0, null);
+		graphics.dispose();
+
+		// Color image
+		for (int i = 0; i < newImage.getWidth(); i++) {
+			for (int j = 0; j < newImage.getHeight(); j++) {
+				int ax = newImage.getColorModel().getAlpha(newImage.getRaster().getDataElements(i, j, null));
+				int rx = newImage.getColorModel().getRed(newImage.getRaster().getDataElements(i, j, null));
+				int gx = newImage.getColorModel().getGreen(newImage.getRaster().getDataElements(i, j, null));
+				int bx = newImage.getColorModel().getBlue(newImage.getRaster().getDataElements(i, j, null));
+				rx *= r;
+				gx *= g;
+				bx *= b;
+				newImage.setRGB(i, j, (ax << 24) | (rx << 16) | (gx << 8) | (bx << 0));
+			}
+		}
+		return newImage;
+	}
+
+	public static BufferedImage loadImage(String path) {
+		try {
+			return ImageIO.read(Images.class.getResourceAsStream(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return null;
+	}
 
 }
