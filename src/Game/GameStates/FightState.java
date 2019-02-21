@@ -42,6 +42,7 @@ public class FightState extends InWorldState{
 
     private Animation playerIceSkill;
     private Animation playerDefenceMode;
+    private Animation playerAttackMode;
     private Animation enemyFireSkill;
 
     private boolean Eattacking=false,Edefense=false,Eskill=false,EendTurn=false,Eattacked=false,EisDefense=false,battleOver =false;
@@ -82,8 +83,9 @@ public class FightState extends InWorldState{
 
         playerIceSkill = new Animation(20,Images.IceSkill);
         playerDefenceMode = new Animation(15, Images.DefenceMode);
+        playerAttackMode = new Animation(15, Images.AttackMode);
         
-        enemyFireSkill = new Animation(20,Images.IceSkill);
+        enemyFireSkill = new Animation(20,Images.IceSkill); // @Sergio: "Replace this with Images.FireSkill so u can do ur stuff" 
         
         
         chooseTurn();
