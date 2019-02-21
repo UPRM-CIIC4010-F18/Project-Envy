@@ -21,7 +21,7 @@ import java.io.BufferedReader;
 public class Images {
 
 	// true if you wish to use PrintCropList()
-	private boolean processPixelSheet = true;
+	private boolean processPixelSheet = false;
 
 	public static BufferedImage[] butstart;
 	public static BufferedImage title;
