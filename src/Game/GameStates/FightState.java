@@ -667,7 +667,7 @@ public class FightState extends InWorldState{
         }else  if(accc>=ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense())<0){
             handler.getEntityManager().getPlayer().setHealth(0);
         }
-        if(enemyFireSkill.getIndex()==63){
+        if(enemyFireSkill.getIndex()==99){
             EendTurn=true;
             green= 255;
             red=95;
