@@ -40,6 +40,23 @@ public class Images {
 	public static BufferedImage map;
 	public static Image Scaledmap;
 
+	public static BufferedImage projectTitle;
+	public static BufferedImage envyTitle;
+
+
+	public static SpriteSheet playerSheet;
+	public static BufferedImage[] player_front;
+	public static BufferedImage[] player_left;
+	public static BufferedImage[] player_right;
+	public static BufferedImage[] player_back;
+	public static BufferedImage player_attack;
+
+	public static BufferedImage[] PEnemyIdle;
+	public static BufferedImage[] WEnemyIdle;
+
+	public static SpriteSheet PEnemySheet;
+	public static SpriteSheet WEnemySheet;
+
 	public static BufferedImage[] battleBackground;
 	public static BufferedImage[] Attack;
 	public static BufferedImage[] Defend;
@@ -90,6 +107,15 @@ public class Images {
 		DefenceMode = new BufferedImage[100];
 		AttackMode = new BufferedImage[100];
 
+
+		player_front = new BufferedImage[4];
+		player_right = new BufferedImage[4];
+		player_left = new BufferedImage[4];
+		player_back = new BufferedImage[4];
+
+		PEnemyIdle = new BufferedImage[7];
+		WEnemyIdle = new BufferedImage[3];
+
 		Enemy = new BufferedImage[8];
 		SEnemy = new BufferedImage[8];
 
@@ -102,7 +128,15 @@ public class Images {
 			fireSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/fireSkill.png")));
 			defenceModeSheet=  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/defenceMode.png")));
 			attackModeSheet=  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/attackMode.png")));
-			
+
+			PEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/P-enemy.png")));
+			WEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/W-enemy.png")));
+
+			projectTitle = ImageIO.read(getClass().getResourceAsStream("/Buttons/ProjectWord.png"));
+//			envyTitle = ImageIO.read(getClass().getResourceAsStream("/Buttons/EnvyWord.png"));
+
+
+
 			CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
 			Area = ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
 			tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
@@ -143,6 +177,41 @@ public class Images {
 			smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20);
 			smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20);
 			smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20);
+
+			PEnemyIdle[0] = PEnemySheet.crop(0, 0, 38, 40);
+			PEnemyIdle[1] = PEnemySheet.crop(39, 0, 39, 40);
+			PEnemyIdle[2] = PEnemySheet.crop(78, 0, 39, 40);
+			PEnemyIdle[3] = PEnemySheet.crop(118, 0, 36, 40);
+			PEnemyIdle[4] = PEnemySheet.crop(155, 0, 36, 40);
+			PEnemyIdle[5] = PEnemySheet.crop(192, 0, 37, 40);
+			PEnemyIdle[6] = PEnemySheet.crop(233, 0, 37, 40);
+
+
+			playerSheet =  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/player.png")));
+
+			player_front[0] = playerSheet.crop(1, 6, 15, 27);
+			player_front[1] = playerSheet.crop(17, 7, 15, 27);
+			player_front[2] = playerSheet.crop(33, 6, 15, 27);
+			player_front[3] = playerSheet.crop(49, 7, 15, 27);
+
+			player_left[0] = playerSheet.crop(1, 102, 13, 22);
+			player_left[1] = playerSheet.crop(17, 102, 13, 22);
+			player_left[2] = playerSheet.crop(33, 102, 13, 22);
+			player_left[3] = playerSheet.crop(49, 102, 13, 22);
+
+			player_right[0] = playerSheet.crop(2, 38, 13, 22);
+			player_right[1] = playerSheet.crop(18, 38, 13, 22);
+			player_right[2] = playerSheet.crop(34, 38, 13, 22);
+			player_right[3] = playerSheet.crop(50, 38, 13, 22);
+
+			player_back[0] = playerSheet.crop(0, 69, 15, 23);
+			player_back[1] = playerSheet.crop(16, 69, 15, 23);
+			player_back[2] = playerSheet.crop(32, 69, 15, 23);
+			player_back[3] = playerSheet.crop(48, 69, 15, 23);
+
+			player_attack = ImageIO.read(getClass().getResourceAsStream("/Sheets/playerAttack.png"));
+
+
 
 			Enemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
 			Enemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
@@ -558,6 +627,8 @@ public class Images {
 	 * https://untiedgames.itch.io/wills-magic-pixel-particle-effects
 	 */
 	public void PrintCropList(String skill, String sheet, String path, int width, int height) throws IOException {
+
+		icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 		Scanner in = new Scanner(getClass().getResourceAsStream(path));
 		String line;
