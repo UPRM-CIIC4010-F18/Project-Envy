@@ -7,6 +7,7 @@ public class Animation {
     private int speed,index;
     private long lastTime,timer;
     private BufferedImage[] frames;
+    public boolean end=false;
 
     public Animation(int speed,BufferedImage[] frames) {
         this.speed = speed;
@@ -33,6 +34,7 @@ public class Animation {
             index++;
             timer = 0;
             if(index >= frames.length){
+                end =true;
                 index = 0;
             }
         }
@@ -46,5 +48,9 @@ public class Animation {
     public int getIndex() {
     	return index;
     }
-	
+
+    public void reset(){
+        index =0;
+        end = false;
+    }
 }

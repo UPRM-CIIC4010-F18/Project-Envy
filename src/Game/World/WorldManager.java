@@ -11,6 +11,7 @@ import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
 import Main.GameSetUp;
 import Main.Handler;
+import Resources.Images;
 import Resources.MusicHandler;
 import Resources.MusicHandler.Circle;
 
@@ -29,7 +30,7 @@ public class WorldManager {
 		circle = handler.getGame().getMusicHandler().new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
-		this.entityManager.AddEntity(handler.newEnemy(handler,500, 800,"MapState","Jovan","None","EnemyOne",100,100,0,1,40,20,20,20,20,5,5,"None","Fire",null,null));
+		this.entityManager.AddEntity(handler.newEnemy(Images.PEnemyIdle,handler,500, 800,"MapState","Jovan","None","EnemyOne",100,100,0,1,40,20,20,20,20,5,5,"None","Fire",null,null));
 		this.entityManager.AddEntity(circle);
 
 		AddWalls();
