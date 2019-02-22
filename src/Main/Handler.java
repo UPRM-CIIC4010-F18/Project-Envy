@@ -143,6 +143,7 @@ public class Handler {
             n.setDefense(def);
             n.setEvs(evs);
             n.setHealth(hp);
+            n.setMaxHealth(hp);
             n.setInitiative(initiative);
             n.setIntl(intl);
             n.setLvl(lvl);
@@ -161,6 +162,7 @@ public class Handler {
             n.setDefense(def);
             n.setEvs(evs);
             n.setHealth(hp);
+            n.setMaxHealth(hp);
             n.setInitiative(initiative);
             n.setIntl(intl);
             n.setLvl(lvl);
