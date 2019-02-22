@@ -34,11 +34,13 @@ public class Handler {
 
 	public Handler() {
 
-//		height = (DEFAULTHEIGHT / 2) + (DEFAULTHEIGHT / 4);
-//		width = (DEFAULTWIDTH / 3);
-
-		height =( DEFAULTHEIGHT/1080)*1080;
-		width = (DEFAULTWIDTH/1920)*1920;
+/*      If your game display seems zoomed out, usually the case on 4k screens, 
+ * 		remove the comments on the following two lines of code and comment out the height and width declaration in this method*/
+//		height =( DEFAULTHEIGHT/1080)*1080;
+//		width = (DEFAULTWIDTH/1920)*1920;
+		
+		height = DEFAULTHEIGHT;
+		width = DEFAULTWIDTH;
 
 	}
 

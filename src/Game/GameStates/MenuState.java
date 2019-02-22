@@ -3,11 +3,13 @@ package Game.GameStates;
 
 import Main.GameSetUp;
 import Main.Handler;
+import Resources.Animation;
 import Resources.Images;
 import Display.UI.UIManager;
 import Display.UI.Selector;
 
 import java.awt.*;
+import java.util.Random;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -28,6 +30,9 @@ public class MenuState extends State {
 	public int imageSpeed = 15;
 
 	Selector selector = new Selector(this.handler);
+	private boolean statics=false;
+	private int staticsCounter=0;
+	private int staticsChoice;
 
 	public MenuState(Handler handler) {
 		super(handler);
@@ -46,15 +51,17 @@ public class MenuState extends State {
 
 	@Override
 	public void tick() {
+
 		handler.getMouseManager().setUimanager(uiManager);
 		uiManager.tick();
 		selector.tick();
 		this.moveMenuImages();
-		
+
+
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
-			
+
 			this.choose();
-			
+
 		}
 
 	}
@@ -90,17 +97,58 @@ public class MenuState extends State {
 			g.drawImage(Images.Quit[0],handler.getWidth()/2 - 425, handler.getHeight()/2, 450, 300, null);
 
 		}
-		
+
 		g.drawImage(Images.titleImage, this.imageX, this.yPos, handler.getHeight() / 2, handler.getHeight(), null);
 
 		selector.render(g);
 		uiManager.Render(g);
+		if(!statics){
+			int x = new Random().nextInt(5000);
+			staticsChoice = new Random().nextInt(3);
+			if (x <= 5) {
+				statics=true;
+			}
+		}else{
+			staticsCounter++;
+			if(staticsCounter>=60){
+				staticsCounter=0;
+				statics=false;
+			}
+			switch (staticsChoice){
+				case 0:
+
+					if(staticsCounter%2==0) {
+						g.drawImage(Images.title2, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}else{
+						g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}
+
+					break;
+				case 1:
+					if(staticsCounter%2==0) {
+						g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}else{
+						g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}
+					break;
+				case 2:
+					if(staticsCounter%2==0) {
+						g.drawImage(Images.title4, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}else{
+						g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}
+					break;
+
+
+			}
+		}
+
 
 	}
 
 	public void moveMenuImages() {
 
-		this.setxPos(this.getxPos() - this.menuSpeed); 
+		this.setxPos(this.getxPos() - this.menuSpeed);
 		this.setxPos2(this.getxPos2() - this.menuSpeed);
 		this.setImageX(this.getImageX() - this.imageSpeed);
 
@@ -109,14 +157,14 @@ public class MenuState extends State {
 		}
 
 		if(this.getxPos() + handler.getWidth() <= 0) {
-			this.setxPos(handler.getWidth());   		
+			this.setxPos(handler.getWidth());
 		}
 		else if(this.getxPos2() + handler.getWidth() <= 0) {
 			this.setxPos2(handler.getWidth());
 		}
 
 	}
-	
+
 	public void choose() {
 
 		if(selector.getyPos2() == selector.getSBYpos()) {
