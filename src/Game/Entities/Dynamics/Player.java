@@ -316,7 +316,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
     //GETTERS AND SETTERS FOR FIGHT STATS
 
-    double health=200,mana=100,xp=0l,lvl=1,defense=10,str=8,intl=23,cons=20,acc=12,evs=5,initiative=20, maxHealth = 200;
+    double health=200,mana=100,xp=0l,lvl=1,defense=10,str=8,intl=23,cons=20,acc=12,evs=3,initiative=20, maxHealth = 200;
     String Class = "none",skill = "Ice";
     String[] buffs = {},debuffs = {};
 

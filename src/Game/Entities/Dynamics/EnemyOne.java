@@ -72,7 +72,7 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
 
     //GETTERS AND SETTERS FOR FIGHT STATS
 
-    double health=100,mana=100,xp=0l,lvl=1,defense=10,str=7,intl=28,cons=10,acc=10,evs=4,initiative=1, maxHealth = 100;
+    double health=100,mana=100,xp=0l,lvl=1,defense=10,str=7,intl=28,cons=10,acc=10,evs=2,initiative=1, maxHealth = 100;
     String Class = "none",skill = "none";
     String[] buffs = {},debuffs = {};
 

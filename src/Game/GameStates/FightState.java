@@ -106,6 +106,7 @@ public class FightState extends InWorldState{
         if(turn>numOfEnemies){
             turn=0;
         }
+        
 
 
 
@@ -486,10 +487,10 @@ public class FightState extends InWorldState{
         		atk+= (int) handler.getEntityManager().getPlayer().getStr();
         }
         
-        if(evade<ev &&!attacked && enemy.getHealth()-(atk - enemy.getDefense())>=0) {
+        if(evade>ev &&!attacked && enemy.getHealth()-(atk - enemy.getDefense())>=0) {
             enemy.setHealth(enemy.getHealth() - Math.abs(atk - enemy.getDefense()));
             attacked=true;
-        }else  if(evade<ev &&!attacked && enemy.getHealth()-(atk - enemy.getDefense())<0){
+        }else  if(evade>ev &&!attacked && enemy.getHealth()-(atk - enemy.getDefense())<0){
             enemy.setHealth(0);
         }
 
@@ -508,7 +509,12 @@ public class FightState extends InWorldState{
                 enemy.setDefense(enemy.getDefense()-20);
                 EisDefense = false;
             }
+            //addMana
+            if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
+            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
         }
+        
+       
 
     }
 
@@ -526,7 +532,12 @@ public class FightState extends InWorldState{
                 enemy.setDefense(enemy.getDefense()-20);
                 EisDefense = false;
             }
+            //addMana
+            if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
+            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
         }
+       
+
     }
 
     private void callSkill(Graphics g) {
@@ -540,13 +551,13 @@ public class FightState extends InWorldState{
 
         
         int ev=(int)enemy.getEvs();
-        int evade=new Random().nextInt(75);
+        int evade=new Random().nextInt(125);
         int skillAtk = (int) handler.getEntityManager().getPlayer().getIntl() * 2;
         
-        if(evade<ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)>=0) {
+        if(evade>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)>=0) {
             enemy.setHealth(enemy.getHealth() - Math.abs(skillAtk - enemy.getDefense()/2));
             attacked=true;
-        }else  if(evade<ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)<0){
+        }else  if(evade>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)<0){
             enemy.setHealth(0);
         }
 
@@ -686,13 +697,13 @@ public class FightState extends InWorldState{
 
         
         int ev=(int)handler.getEntityManager().getPlayer().getEvs();
-        int evade=new Random().nextInt(75);
+        int evade=new Random().nextInt(125);
         int skillAtk = (int) enemy.getIntl() * 2;
 
-        if(evade<ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)>=0) {
+        if(evade>ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)>=0) {
             handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - Math.abs(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2));
             Eattacked=true;
-        }else  if(evade<ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)<0){
+        }else  if(evade>ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)<0){
             handler.getEntityManager().getPlayer().setHealth(0);
         }
         if(enemyFireSkill.getIndex()==99){

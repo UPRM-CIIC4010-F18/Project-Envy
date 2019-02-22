@@ -33,7 +33,7 @@ public class CaveArea extends BaseArea {
 
         this.entityManager = entityManager;
 
-        this.entityManager.AddEntity(handler.newEnemy(handler,700, 2000,"InWorldState","Sergio","Cave","EnemyOne",150,100,0,1,7,16,25,20,13,4,5,"None","Thunder",null,null));
+        this.entityManager.AddEntity(handler.newEnemy(handler,700, 2000,"InWorldState","Sergio","Cave","EnemyOne",150,75,0,1,7,16,25,20,13,2,5,"None","Thunder",null,null));
         
 
         caveWalls = new ArrayList<>();

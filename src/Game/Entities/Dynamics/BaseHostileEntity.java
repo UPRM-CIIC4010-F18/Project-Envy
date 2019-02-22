@@ -242,7 +242,7 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 
     //GETTERS AND SETTERS FOR FIGHT STATS
 
-    double health=100,mana=80,xp=0l,lvl=1,defense=16,str=6,intl=23,cons=15,acc=10,evs=3,initiative=1, maxHealth = 100;;
+    double health=100,mana=80,xp=0l,lvl=1,defense=16,str=6,intl=23,cons=15,acc=10,evs=2,initiative=1, maxHealth = 100;;
     boolean isDead = false;
     String Class = "none",skill = "none";
     String[] buffs = {},debuffs = {};
