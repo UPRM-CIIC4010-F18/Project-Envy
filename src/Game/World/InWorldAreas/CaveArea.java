@@ -50,7 +50,9 @@ public class CaveArea extends BaseArea {
         for (Walls w : caveWalls) {
             w.tick();
         }
-        entityManager.tick();
+        if(!GameSetUp.LOADING) {
+            entityManager.tick();
+        }
 
 
     }

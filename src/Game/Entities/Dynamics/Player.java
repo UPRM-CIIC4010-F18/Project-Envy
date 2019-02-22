@@ -59,33 +59,35 @@ public class Player extends BaseDynamicEntity implements Fighter {
 
 	@Override
 	public void tick() {
-		;
 
-		animDown.tick();
-		animUp.tick();
-		animRight.tick();
-		animLeft.tick();
+		if (!GameSetUp.LOADING) {
 
-		UpdateNextMove();
-		PlayerInput();
+			animDown.tick();
+			animUp.tick();
+			animRight.tick();
+			animLeft.tick();
 
-		if (GameSetUp.SWITCHING) {
-			switchingCoolDown++;
+			UpdateNextMove();
+			PlayerInput();
+
+			if (GameSetUp.SWITCHING) {
+				switchingCoolDown++;
+			}
+			if (switchingCoolDown >= 30) {
+				GameSetUp.SWITCHING = false;
+				switchingCoolDown = 0;
+
+			}
+
+			if (State.getState().equals(handler.getGame().inWorldState)) {
+				checkInWorld = true;
+			} else {
+				checkInWorld = false;
+			}
+
+			if (this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_L))
+				System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
 		}
-		if (switchingCoolDown >= 30) {
-			GameSetUp.SWITCHING = false;
-			switchingCoolDown = 0;
-
-		}
-
-		if (State.getState().equals(handler.getGame().inWorldState)) {
-			checkInWorld = true;
-		} else {
-			checkInWorld = false;
-		}
-
-		if (this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_L))
-			System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
 	}
 
 	@Override
