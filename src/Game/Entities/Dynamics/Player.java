@@ -18,75 +18,84 @@ import Resources.Images;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-public class Player extends BaseDynamicEntity implements Fighter{
+public class Player extends BaseDynamicEntity implements Fighter {
 
 	private Rectangle player;
 	private boolean canMove;
 	public static boolean checkInWorld;
-	public static final int InMapWidth = 50, InMapHeight = 60, InAreaWidth = 70, InAreaHeight = 80;
+
+	public static final int InMapWidthFrontAndBack = 15 * 3, InMapHeightFront = 27 * 3, InMapHeightBack = 23 * 3,
+							InMapWidthSideways = 13 * 3, InMapHeightSideways = 22 * 3, 
+							InAreaWidthFrontAndBack = 15 * 5, InAreaHeightFront = 27 * 5, InAreaHeightBack = 23 * 5,
+							InAreaWidthSideways = 13 * 5, InAreaHeightSideways = 22 * 5;
+
 	private int currentWidth, currentHeight;
 	public static boolean isinArea = false;
 	private int switchingCoolDown = 0;
 
-	//Animations
+	// Animations
 	private Animation animDown, animUp, animLeft, animRight;
 	private int animWalkingSpeed = 150;
 
 	public Player(Handler handler, int xPosition, int yPosition) {
-		super(handler, yPosition, yPosition,null);
+		super(handler, yPosition, yPosition, null);
 
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 
-		currentWidth = InMapWidth;
-		currentHeight = InMapHeight;
+		currentWidth = InMapWidthFrontAndBack;
+		currentHeight = InMapHeightFront;
 
-		animDown = new Animation(animWalkingSpeed,Images.player_front);
-		animLeft = new Animation(animWalkingSpeed,Images.player_left);
-		animRight = new Animation(animWalkingSpeed,Images.player_right);
-		animUp = new Animation(animWalkingSpeed,Images.player_back);
+		animDown = new Animation(animWalkingSpeed, Images.player_front);
+		animLeft = new Animation(animWalkingSpeed, Images.player_left);
+		animRight = new Animation(animWalkingSpeed, Images.player_right);
+		animUp = new Animation(animWalkingSpeed, Images.player_back);
 
-		speed=15;
+		speed = 15;
 		player = new Rectangle();
 		checkInWorld = false;
 
 	}
 
 	@Override
-	public void tick() {;
+	public void tick() {
+		;
 
-	animDown.tick();
-	animUp.tick();
-	animRight.tick();
-	animLeft.tick();
+		animDown.tick();
+		animUp.tick();
+		animRight.tick();
+		animLeft.tick();
 
-	UpdateNextMove();
-	PlayerInput();
+		UpdateNextMove();
+		PlayerInput();
 
-	if(GameSetUp.SWITCHING){
-		switchingCoolDown++;
-	}
-	if(switchingCoolDown>=30){
-		GameSetUp.SWITCHING=false;
-		switchingCoolDown=0;
+		if (GameSetUp.SWITCHING) {
+			switchingCoolDown++;
+		}
+		if (switchingCoolDown >= 30) {
+			GameSetUp.SWITCHING = false;
+			switchingCoolDown = 0;
 
-	}
+		}
 
-	if (State.getState().equals(handler.getGame().inWorldState)) {
-		checkInWorld = true;
-	} else {
-		checkInWorld = false;
-	}
+		if (State.getState().equals(handler.getGame().inWorldState)) {
+			checkInWorld = true;
+		} else {
+			checkInWorld = false;
+		}
 
-	if (this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_L))
-		System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
+		if (this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_L))
+			System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
 	}
 
 	@Override
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		
-		g.drawImage(getCurrentAnimationFrame(animDown, animUp, animLeft, animRight, Images.player_front, Images.player_back, Images.player_left, Images.player_right),(int) xPosition,(int) yPosition, currentWidth, currentHeight, null);
+
+		g.drawImage(
+				getCurrentAnimationFrame(animDown, animUp, animLeft, animRight, Images.player_front, Images.player_back,
+						Images.player_left, Images.player_right),
+				(int) xPosition, (int) yPosition, currentWidth, currentHeight, null);
 
 		player = new Rectangle((int) xPosition, (int) yPosition, currentWidth, currentHeight);
 
@@ -99,7 +108,6 @@ public class Player extends BaseDynamicEntity implements Fighter{
 		switch (facing) {
 		case "Up":
 			nextArea = new Rectangle((int) xPosition, (int) yPosition - speed, currentWidth, currentHeight / 2);
-
 			break;
 		case "Down":
 			nextArea = new Rectangle((int) xPosition, (int) yPosition + currentHeight, currentWidth, speed);
@@ -125,7 +133,6 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 		canMove = true;
 
-
 		if (handler.getKeyManager().runbutt) {
 			speed = 2;
 		} else {
@@ -146,11 +153,9 @@ public class Player extends BaseDynamicEntity implements Fighter{
 		} else if (handler.getKeyManager().left & canMove) {
 			Move(true, speed);
 			facing = "Left";
-		}
-		else {
+		} else {
 			isMoving = false;
 		}
-
 
 	}
 
@@ -188,24 +193,25 @@ public class Player extends BaseDynamicEntity implements Fighter{
 						canMove = true;
 
 						if (w.getType().equals("Door Cave")) {
+							checkInWorld = true;
 							InWorldState.caveArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
 							InWorldState.caveArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 							CaveArea.isInCave = true;
-							setWidthAndHeight(InAreaWidth, InAreaHeight);
+							setWidthAndHeight(InAreaWidthFrontAndBack, InAreaHeightFront);
 							handler.setXInWorldDisplacement(CaveArea.playerXSpawn);
 							handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
-							GameSetUp.LOADING=true;
+							GameSetUp.LOADING = true;
 							handler.setArea("Cave");
 							State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
 						}
 
 						if (w.getType().equals("Door S")) {
-
+							checkInWorld = true;
 							InWorldState.SArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
 							InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 							this.isinArea = true;
-							setWidthAndHeight(InMapWidth, InMapHeight);
-							GameSetUp.LOADING=true;
+							setWidthAndHeight(InMapWidthFrontAndBack, InMapHeightFront);
+							GameSetUp.LOADING = true;
 							handler.setArea("S");
 							State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
 						}
@@ -225,7 +231,8 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 							if (iw.getType().equals("Start Exit")) {
 
-								handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y outside the
+								handler.setXDisplacement(handler.getXDisplacement() - 450); // Sets the player x/y
+																							// outside the
 								handler.setYDisplacement(handler.getYDisplacement() + 400); // Cave
 
 							} else if (iw.getType().equals("End Exit")) {
@@ -233,13 +240,14 @@ public class Player extends BaseDynamicEntity implements Fighter{
 								handler.setXDisplacement(InWorldState.caveArea.oldPlayerXCoord);// Sets the player x/y
 								handler.setYDisplacement(InWorldState.caveArea.oldPlayerYCoord);// outside theCave
 							}
-
-							setWidthAndHeight(InMapWidth, InMapHeight);
-							GameSetUp.LOADING=true;
+	
+							GameSetUp.LOADING = true;
 							handler.setArea("None");
 							State.setState(handler.getGame().mapState);
 							CaveArea.isInCave = false;
-
+							checkInWorld = false;
+							System.out.println("Left Cave");
+							setWidthAndHeight(InMapWidthFrontAndBack, InMapHeightFront);
 						}
 					}
 				}
@@ -265,19 +273,32 @@ public class Player extends BaseDynamicEntity implements Fighter{
 	 * @param speed
 	 */
 	private void Move(boolean XorY, int speed) {
-		
+
 		isMoving = true;
 
 		if (!checkInWorld) {
 			if (XorY) {
+				setWidthAndHeight(InMapWidthSideways, InMapHeightSideways);
 				handler.setXDisplacement(handler.getXDisplacement() + speed);
 			} else {
+				if (facing.equals("Up")) {
+					setWidthAndHeight(InMapWidthFrontAndBack, InMapHeightBack);
+				} else {
+					setWidthAndHeight(InMapWidthFrontAndBack, InMapHeightFront);
+				}
 				handler.setYDisplacement(handler.getYDisplacement() + speed);
 			}
 		} else {
 			if (XorY) {
+				setWidthAndHeight(InAreaWidthSideways, InAreaHeightSideways);
 				handler.setXInWorldDisplacement((handler.getXInWorldDisplacement() + speed));
 			} else {
+				if (facing.equals("Up")) {
+					setWidthAndHeight(InAreaWidthFrontAndBack, InAreaHeightBack);
+				} else {
+					setWidthAndHeight(InAreaWidthFrontAndBack, InAreaHeightFront);
+				}
+
 				handler.setYInWorldDisplacement(handler.getYInWorldDisplacement() + speed);
 			}
 
@@ -337,27 +358,23 @@ public class Player extends BaseDynamicEntity implements Fighter{
 		this.currentHeight = newHeight;
 	}
 
+	// GETTERS AND SETTERS FOR FIGHT STATS
 
+	double health = 200, mana = 100, xp = 0l, lvl = 1, defense = 10, str = 8, intl = 23, cons = 20, acc = 12, evs = 3,
+			initiative = 20, maxHealth = 200;
 
+	String Class = "none", skill = "Ice";
+	String[] buffs = {}, debuffs = {};
 
-	//GETTERS AND SETTERS FOR FIGHT STATS
+	@Override
+	public double getMaxHealth() {
+		return maxHealth;
+	}
 
-
-    double health=200,mana=100,xp=0l,lvl=1,defense=10,str=8,intl=23,cons=20,acc=12,evs=3,initiative=20, maxHealth = 200;
-    String Class = "none",skill = "Ice";
-    String[] buffs = {},debuffs = {};
-
-
-
-    @Override
-    public double getMaxHealth() {
-        return maxHealth;
-    }
-    @Override
-    public double getMaxMana() {
-        return 100;
-    }
-
+	@Override
+	public double getMaxMana() {
+		return 100;
+	}
 
 	@Override
 	public double getHealth() {
@@ -366,7 +383,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setHealth(double health) {
-		this.health=health;
+		this.health = health;
 	}
 
 	@Override
@@ -376,7 +393,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setMana(double mana) {
-		this.mana=mana;
+		this.mana = mana;
 	}
 
 	@Override
@@ -386,7 +403,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setXp(double xp) {
-		this.xp=xp;
+		this.xp = xp;
 	}
 
 	@Override
@@ -396,7 +413,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setLvl(double lvl) {
-		this.lvl=lvl;
+		this.lvl = lvl;
 	}
 
 	@Override
@@ -406,7 +423,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setDefense(double defense) {
-		this.defense=defense;
+		this.defense = defense;
 	}
 
 	@Override
@@ -416,7 +433,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setStr(double str) {
-		this.str=str;
+		this.str = str;
 	}
 
 	@Override
@@ -426,7 +443,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setIntl(double intl) {
-		this.intl=intl;
+		this.intl = intl;
 	}
 
 	@Override
@@ -436,7 +453,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setCons(double cons) {
-		this.cons=cons;
+		this.cons = cons;
 	}
 
 	@Override
@@ -446,7 +463,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setAcc(double acc) {
-		this.acc=acc;
+		this.acc = acc;
 	}
 
 	@Override
@@ -456,7 +473,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setEvs(double evs) {
-		this.evs=evs;
+		this.evs = evs;
 	}
 
 	@Override
@@ -466,7 +483,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setInitiative(double initiative) {
-		this.initiative=initiative;
+		this.initiative = initiative;
 	}
 
 	@Override
@@ -476,7 +493,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setClass(String aClass) {
-		this.Class=aClass;
+		this.Class = aClass;
 	}
 
 	@Override
@@ -486,7 +503,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setSkill(String skill) {
-		this.skill=skill;
+		this.skill = skill;
 	}
 
 	@Override
@@ -496,7 +513,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setBuffs(String[] buffs) {
-		this.buffs=buffs;
+		this.buffs = buffs;
 	}
 
 	@Override
@@ -506,8 +523,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	@Override
 	public void setDebuffs(String[] debuffs) {
-		this.debuffs=debuffs;
+		this.debuffs = debuffs;
 	}
-
 
 }
