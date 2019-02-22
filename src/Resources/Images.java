@@ -25,14 +25,21 @@ public class Images {
     public static ImageIcon icon;
 
     public static BufferedImage map;
-    public static Image Scaledmap;  
+    public static Image Scaledmap; 
+    
+    public static SpriteSheet playerSheet;
+    public static BufferedImage[] player_front;
+    public static BufferedImage[] player_left;
+    public static BufferedImage[] player_right;
+    public static BufferedImage[] player_back;
+    public static BufferedImage player_attack;
 
     public static BufferedImage[] battleBackground;
     public static BufferedImage[] Attack;
     public static BufferedImage[] Defend;
     public static BufferedImage[] Skill;
     public static BufferedImage[] IceSkill;
-
+    
     public static BufferedImage[] Enemy;
 
 
@@ -66,6 +73,11 @@ public class Images {
 
         IceSkill = new BufferedImage[64];
 
+        player_front = new BufferedImage[4];
+        player_right = new BufferedImage[4];
+        player_left = new BufferedImage[4];
+        player_back = new BufferedImage[4];
+        
         Enemy = new BufferedImage[8];
         
 
@@ -113,6 +125,30 @@ public class Images {
             smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20); 
             smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20); 
             smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20); 
+            
+            playerSheet =  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/player.png")));
+            
+            player_front[0] = playerSheet.crop(1, 6, 15, 27);
+            player_front[1] = playerSheet.crop(17, 7, 15, 27);
+            player_front[2] = playerSheet.crop(33, 6, 15, 27);
+            player_front[3] = playerSheet.crop(49, 7, 15, 27);
+            
+            player_left[0] = playerSheet.crop(1, 102, 13, 22);
+            player_left[1] = playerSheet.crop(17, 102, 13, 22);
+            player_left[2] = playerSheet.crop(33, 102, 13, 22);
+            player_left[3] = playerSheet.crop(49, 102, 13, 22);
+            
+            player_right[0] = playerSheet.crop(2, 38, 13, 22);
+            player_right[1] = playerSheet.crop(18, 38, 13, 22);
+            player_right[2] = playerSheet.crop(34, 38, 13, 22);
+            player_right[3] = playerSheet.crop(50, 38, 13, 22);
+            
+            player_back[0] = playerSheet.crop(0, 69, 15, 23);
+            player_back[1] = playerSheet.crop(16, 69, 15, 23);
+            player_back[2] = playerSheet.crop(32, 69, 15, 23);
+            player_back[3] = playerSheet.crop(48, 69, 15, 23);
+            
+            player_attack = ImageIO.read(getClass().getResourceAsStream("/Sheets/playerAttack.png"));
             
             Enemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
             Enemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
