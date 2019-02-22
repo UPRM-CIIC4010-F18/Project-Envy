@@ -30,6 +30,8 @@ public class Images {
 	public static BufferedImage title4;
 	public static BufferedImage[] titleChoose;
 	public static BufferedImage titleImage;
+	public static BufferedImage projectTitle;
+	public static BufferedImage envyTitle;
 	public static BufferedImage Pause;
 	public static BufferedImage[] Resume;
 	public static BufferedImage[] Quit;
@@ -133,6 +135,8 @@ public class Images {
 			title4 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static1.jpg"));
 			Loading = ImageIO.read(getClass().getResourceAsStream("/Sheets/loading.jpg"));
 			titleImage = ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
+			projectTitle = ImageIO.read(getClass().getResourceAsStream("/Buttons/ProjectWord.png"));
+			envyTitle = ImageIO.read(getClass().getResourceAsStream("/Buttons/EnvyWord.png"));
 
 			Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
 			Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));

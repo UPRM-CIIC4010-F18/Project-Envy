@@ -45,8 +45,8 @@ public class Selector {
 
 
 		//Menu State positions
-		SBYpos = handler.getHeight()/2 - 230;			//start button
-		QBYpos2 =  handler.getHeight()/2 + 95;			//menu quit button
+		SBYpos = handler.getHeight()/2 - 52;			//start button
+		QBYpos2 =  handler.getHeight()/2 + 195;			//menu quit button
 		this.yPos2 = this.getSBYpos();					//menu y position
 		this.xPos2 = handler.getWidth()/2 - 400 - 150;	//menu x position
 		animSelector = new Animation(50, Images.IceSkill);
