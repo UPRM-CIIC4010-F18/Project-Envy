@@ -342,18 +342,22 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 	//GETTERS AND SETTERS FOR FIGHT STATS
 
-	double health=100,mana=100,xp=0l,lvl=1,defense=10,str=40,intl=30,cons=10,acc=10,evs=5,initiative=100;
-	String Class = "none",skill = "Ice";
-	String[] buffs = {},debuffs = {};
 
-	@Override
-	public double getMaxHealth() {
-		return 100;
-	}
-	@Override
-	public double getMaxMana() {
-		return 100;
-	}
+    double health=200,mana=100,xp=0l,lvl=1,defense=10,str=8,intl=23,cons=20,acc=12,evs=3,initiative=20, maxHealth = 200;
+    String Class = "none",skill = "Ice";
+    String[] buffs = {},debuffs = {};
+
+
+
+    @Override
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+    @Override
+    public double getMaxMana() {
+        return 100;
+    }
+
 
 	@Override
 	public double getHealth() {
