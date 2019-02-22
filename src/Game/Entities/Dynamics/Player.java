@@ -22,7 +22,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 	private Rectangle player;
 	private boolean canMove;
 	public static boolean checkInWorld;
-	public static final int InMapWidth = 50, InMapHeight = 60, InAreaWidth = 70, InAreaHeight = 70;
+	public static final int InMapWidth = 50, InMapHeight = 60, InAreaWidth = 70, InAreaHeight = 80;
 	private int currentWidth, currentHeight;
 	public static boolean isinArea = false;
 	private int switchingCoolDown = 0;
