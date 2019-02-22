@@ -72,7 +72,7 @@ public class FightState extends InWorldState{
                 enemy.getIntl(),enemy.getCons(),enemy.getAcc(),enemy.getEvs(),enemy.getInitiative(),enemy.getclass(),enemy.getSkill(),
                 enemy.getBuffs(),enemy.getDebuffs()));
 
-        playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 70, 70);
+        playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 100, 100);
         enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5,entityY, 70, 70);
 
         setUiManager();
@@ -218,8 +218,7 @@ public class FightState extends InWorldState{
 
     private void drawEntities(Graphics2D g2) {
         //Draws entities
-        g2.setColor(Color.RED);
-        g2.fill(playerRect);
+    	 g2.drawImage(Images.player_attack, playerRect.x, playerRect.y, playerRect.width, playerRect.height, null);
         g2.setColor(Color.BLACK);
         g2.fill(enemyRect);
     }
