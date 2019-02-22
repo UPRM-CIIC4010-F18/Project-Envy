@@ -489,7 +489,7 @@ public class FightState extends InWorldState{
             }
 
             int ev=(int)enemy.getEvs();
-            int evade=new Random().nextInt(100);
+            int evade=new Random().nextInt(200);
             
             int atk = (int) handler.getEntityManager().getPlayer().getStr() * 2;
             for(int i = 0; i < 6;i++) {
@@ -513,6 +513,9 @@ public class FightState extends InWorldState{
             }
 
             if (endTurn || battleOver) {
+            	//addMana
+                if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
+                	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
                 attacking = false;
                 endTurn = false;
                 turn++;
@@ -523,9 +526,7 @@ public class FightState extends InWorldState{
                     EisDefense = false;
                 }
             }
-            //addMana
-            if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
-            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
+            
         }
         
        
@@ -542,6 +543,9 @@ public class FightState extends InWorldState{
 
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()+20);
+          //addMana
+            if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
+            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
             defense=false;
             endTurn=false;
             turn++;
@@ -549,9 +553,7 @@ public class FightState extends InWorldState{
                 enemy.setDefense(enemy.getDefense()-20);
                 EisDefense = false;
             }
-            //addMana
-            if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
-            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
+            
         }
        
 
@@ -568,10 +570,10 @@ public class FightState extends InWorldState{
 
         
         int ev=(int)enemy.getEvs();
-        int evade=new Random().nextInt(125);
+        int evade=new Random().nextInt(200) + 1;
         int skillAtk = (int) handler.getEntityManager().getPlayer().getIntl() * 2;
         
-        if(evade>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)>=0) {
+        if(100>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)>=0) {
             enemy.setHealth(enemy.getHealth() - Math.abs(skillAtk - enemy.getDefense()/2));
             attacked=true;
         }else  if(evade>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)<0){
@@ -586,6 +588,7 @@ public class FightState extends InWorldState{
         }
 
         if(endTurn|| battleOver){
+        	attacked=false;
             skill=false;
             endTurn=false;
             turn++;
@@ -649,7 +652,7 @@ public class FightState extends InWorldState{
             }
 
             int ev=(int)handler.getEntityManager().getPlayer().getEvs();
-            int evade=new Random().nextInt(100);
+            int evade=new Random().nextInt(200);
             
             int atk = (int) enemy.getStr() * 2;
             for(int i = 0; i < 6;i++) {
@@ -712,7 +715,7 @@ public class FightState extends InWorldState{
 
         
         int ev=(int)handler.getEntityManager().getPlayer().getEvs();
-        int evade=new Random().nextInt(125);
+        int evade=new Random().nextInt(200)+1;
         int skillAtk = (int) enemy.getIntl() * 2;
 
         if(evade>ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)>=0) {
@@ -730,6 +733,7 @@ public class FightState extends InWorldState{
         }
 
         if(EendTurn || battleOver){
+        	Eattacked=false;
             Eskill=false;
             EendTurn=false;
             turn++;
