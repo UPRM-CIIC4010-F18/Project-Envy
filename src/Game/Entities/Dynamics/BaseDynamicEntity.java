@@ -25,7 +25,7 @@ public class BaseDynamicEntity extends BaseEntity {
 		super(handler, xPosition, yPosition);
         nextArea = new Rectangle();
 		PEnemyIdle = new Animation(120, animFrames);
-		frames = animFrames;
+		//frames = animFrames;
 
 	}
 	

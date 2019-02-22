@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Game.Entities.EntityManager;
+import Game.GameStates.State;
 import Game.World.Walls;
 import Game.World.InWorldAreas.BaseArea;
 import Game.World.InWorldAreas.InWorldWalls;
@@ -206,7 +207,7 @@ public class UIManager {
 
 			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle)) {
 
-				System.exit(0);
+				State.setState(new UIListener(handler));
 
 			}
 
