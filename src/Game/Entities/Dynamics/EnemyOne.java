@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Display.UI.UIListener;
 import Game.GameStates.FightState;
-import Game.GameStates.JMPFightState;
 import Game.GameStates.State;
 import Main.Handler;
 
@@ -60,7 +60,7 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
 
             if (enemyOne.intersects(handler.getEntityManager().getPlayer().getCollision())) {
                 handler.getEntityManager().getPlayer().facing = "Left";
-                State.setState(new JMPFightState(handler, this, this.Area));
+                State.setState(new FightState(handler, this, this.Area));
             }
         }
 

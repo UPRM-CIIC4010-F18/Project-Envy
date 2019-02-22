@@ -1,32 +1,24 @@
 package Game.Entities.Dynamics;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import Main.Handler;
-import Resources.Animation;
-import Resources.Images;
+
 
 public class JMPEnemy implements Fighter{
 
 	private Random rand;
-	private Animation enemyFrames;
 	double health, mana, xp,lvl,defense,str,intl,cons,acc,evs,initiative, maxHealth;
-	    
-	public boolean weaker = false;
-	public String name="enemy";
-    public String type;//class it is ex: "EnemyOne"
+	Handler handler;
+	public String name;
 
-	public JMPEnemy(String name, BufferedImage[] enemyFrames) {
+	public JMPEnemy(String name, Handler handler) {
 
 		this.name = name;
-		this.enemyFrames = new Animation(20, enemyFrames);
 		rand = new Random();
+		this.handler = handler;
 		
-		if(weaker) {
+		if(this.handler.getEntityManager().getPlayer().getWeaken()) {
 			
 			health=100;mana=80;xp=0l;lvl=1;defense=16;str=6;intl=23;cons=15;acc=10;evs=2;initiative=1; maxHealth = 100;		    
 			
@@ -34,15 +26,12 @@ public class JMPEnemy implements Fighter{
 		
 		else{
 			
-			health=100;mana=80;xp=100;lvl=100;defense=100;str=100;intl=100;cons=100;acc=100;evs=100;initiative=100; maxHealth = 100;
+			health=100;mana=100;xp=100;lvl=100;defense=100;str=100;intl=100;cons=100;acc=100;evs=100;initiative=100; maxHealth = 100;
 		    		
 		}
 
 
 	}
-
-
-    //GETTERS AND SETTERS FOR FIGHT STATS
 
 	boolean isDead = false;
     String Class = "none",skill = "none";
@@ -211,14 +200,6 @@ public class JMPEnemy implements Fighter{
     public void setDebuffs(String[] debuffs) {
         this.debuffs=debuffs;
     }
-    
-    public BufferedImage getEnemyFrames(){
-		if(!this.enemyFrames.getCurrentFrame().equals(null)) {
-			return this.enemyFrames.getCurrentFrame();
-		}else{
-			return Images.PEnemyIdle[0];
-		}
-	}
     
     public boolean isDead() {
     	return isDead;

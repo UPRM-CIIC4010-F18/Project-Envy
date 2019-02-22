@@ -1,7 +1,10 @@
-package Game.GameStates;
+package Display.UI;
 
 import Game.Entities.Dynamics.BaseHostileEntity;
+import Game.Entities.Dynamics.JMPEnemy;
 import Game.Entities.Dynamics.Player;
+import Game.GameStates.InWorldState;
+import Game.GameStates.State;
 import Main.GameSetUp;
 import Main.Handler;
 
@@ -13,16 +16,12 @@ import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.Random;
 
-import Display.UI.ClickListlener;
-import Display.UI.UIImageButton;
-import Display.UI.UIManager;
 
-
-public class JJMPFightState extends InWorldState{
+public class UIListener extends InWorldState{
     private UIManager uiManager;
     private int entityY;
 
-    BaseHostileEntity enemy;
+    JMPEnemy enemy;
     Rectangle enemyRect, playerRect;
 
     public int fightWordXPos = handler.getWidth()/2 - 250;
@@ -43,7 +42,9 @@ public class JJMPFightState extends InWorldState{
     private Animation playerIceSkill;
     private Animation playerDefenceMode;
     private Animation playerAttackMode;
-    private Animation enemyFireSkill;
+    private Animation enemySkill;
+    private Animation Senemy;
+    private Animation Saura;
 
     private boolean Eattacking=false,Edefense=false,Eskill=false,EendTurn=false,Eattacked=false,EisDefense=false,battleOver =false;
 
@@ -51,14 +52,10 @@ public class JJMPFightState extends InWorldState{
 
     private int green= 255,red=95,blue=255,alpha=0;
 
-    private String prevState;
 
-    private BaseHostileEntity inStateEnemy;
-
-
-    public JJMPFightState(Handler handler ,BaseHostileEntity enemy, String prevState) {
+    public UIListener(Handler handler) {
         super(handler);
-        this.prevState=prevState;
+
         entityY = (int) handler.getHeight() * 2/3;
         entityInfoX = new int[2];
         //player info square coordinate
@@ -66,18 +63,12 @@ public class JJMPFightState extends InWorldState{
         //enemy info square coordinate
         entityInfoX[1] = handler.getWidth() * 14/20 + 4;
 
-        inStateEnemy=enemy;
-
-        this.enemy = (handler.newEnemy(enemy.frames,handler,handler.getWidth() * 4/ 5, entityY,enemy.foundState,enemy.name,enemy.Area,
-                enemy.type,enemy.getHealth(),enemy.getMana(),enemy.getXp(),enemy.getLvl(),enemy.getStr(),enemy.getDefense(),
-                enemy.getIntl(),enemy.getCons(),enemy.getAcc(),enemy.getEvs(),enemy.getInitiative(),enemy.getclass(),enemy.getSkill(),
-                enemy.getBuffs(),enemy.getDebuffs()));
+        this.enemy = new JMPEnemy("???", this.handler);
 
         playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 100, 100);
-        enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5,entityY, 70, 70);
+        enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5, entityY - 200, 400 / 2, 400);
 
         setUiManager();
-        backgroundSelect();
 
         optionSelect = 0;
         inputCoolDown = 0;
@@ -86,9 +77,11 @@ public class JJMPFightState extends InWorldState{
         playerDefenceMode = new Animation(15, Images.DefenceMode);
         playerAttackMode = new Animation(15, Images.AttackMode);
 
-       // enemyFireSkill = new Animation(50,Images.SSkill);
+        enemySkill = new Animation(50,Images.SSkill); 
+        Senemy = new Animation(100, Images.EnemyS);
+        Saura = new Animation(70, Images.aura);
 
-
+        this.backgroundSelect();
         chooseTurn();
 
     }
@@ -107,11 +100,7 @@ public class JJMPFightState extends InWorldState{
         if(turn>numOfEnemies){
             turn=0;
         }
-        
-        if(!enemy.PEnemyIdle.getCurrentFrame().equals(null)) {
-            enemy.PEnemyIdle.tick();
-        }
-        
+
         ///TEMP CODE TO EXIT FIGHT///
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             handler.getGame().pauseState.lastState = State.getState();
@@ -141,8 +130,8 @@ public class JJMPFightState extends InWorldState{
         }
 
         this.moveFightString();
-
-
+        this.Senemy.tick();
+        this.Saura.tick();
 
     }
 
@@ -192,7 +181,7 @@ public class JJMPFightState extends InWorldState{
                 g.setColor(new Color(0,0,0,alpha++));
                 g.fillRect(0,0,handler.getWidth(),handler.getHeight());
                 g2.setColor(Color.RED);
-                g.drawString("Winner is: ??? ",handler.getWidth()/4,handler.getHeight()/2);
+                g.drawString("Winner is: "+enemy.name,handler.getWidth()/4,handler.getHeight()/2);
 
             }else{
                 g.setColor(new Color(255,255,255,alpha++));
@@ -200,19 +189,29 @@ public class JJMPFightState extends InWorldState{
                 g2.setColor(Color.GREEN);
                 g.drawString("Winner is: Player",handler.getWidth()/4,handler.getHeight()/2);
                 enemy.kill();
-                inStateEnemy.kill();
             }
             if(alpha==255){
                 if(handler.getEntityManager().getPlayer().getHealth()==0){
                     handler.getGame().reStart();
                     State.setState(handler.getGame().menuState);
                 }else{
-                    if(prevState.equals("None")){
-                        State.setState(handler.getGame().mapState);
-                    }else{
-                        State.setState(handler.getGame().inWorldState);
-
-                    }
+                	//restores an amount on hp
+                	handler.getEntityManager().getPlayer().setHealth((int)(handler.getEntityManager().getPlayer().getHealth()+ ((handler.getEntityManager().getPlayer().getMaxHealth() - 
+                			handler.getEntityManager().getPlayer().getHealth())* handler.getEntityManager().getPlayer().getCons()/100)));
+                	if(handler.getEntityManager().getPlayer().getHealth() > handler.getEntityManager().getPlayer().getMaxHealth())
+                		handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getMaxHealth());
+                	//Restores an amount of mp
+                	handler.getEntityManager().getPlayer().setMana((int)(handler.getEntityManager().getPlayer().getMana()+ ((handler.getEntityManager().getPlayer().getMaxMana() - 
+                			handler.getEntityManager().getPlayer().getMana())* handler.getEntityManager().getPlayer().getIntl()/100)));
+                	if(handler.getEntityManager().getPlayer().getMana() > handler.getEntityManager().getPlayer().getMaxMana())
+                		handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMaxMana());
+                	
+////                    if(prevState.equals("None")){
+////                        State.setState(handler.getGame().mapState);
+////                    }else{
+////                        State.setState(handler.getGame().inWorldState);
+//
+//                    }
                 }
             }
         }
@@ -221,8 +220,9 @@ public class JJMPFightState extends InWorldState{
     private void drawEntities(Graphics2D g2) {
         //Draws entities
         g2.drawImage(handler.getEntityManager().getPlayer().getIdle(), playerRect.x, playerRect.y, playerRect.width, playerRect.height, null);
-        g2.setColor(Color.BLACK);
-        g2.drawImage(enemy.getIdle(), enemyRect.x, enemyRect.y, enemyRect.width, enemyRect.height, null);
+        g2.drawImage(this.Saura.getCurrentFrame(), enemyRect.x - 100, enemyRect.y - 400, enemyRect.width * 2, enemyRect.height * 2, null);
+        g2.drawImage(this.Senemy.getCurrentFrame(), enemyRect.x, enemyRect.y, enemyRect.width, enemyRect.height, null);
+       
     }
 
     private void drawDebug(Graphics g) {
@@ -244,18 +244,18 @@ public class JJMPFightState extends InWorldState{
             g.drawString("Buffs: "+ Arrays.toString(handler.getEntityManager().getPlayer().getBuffs()),0,250);
             g.drawString("Debuffs: "+ Arrays.toString(handler.getEntityManager().getPlayer().getDebuffs()),0,275);
             //enemy
-            g.drawString("Accuracy: ???",handler.getWidth()-200,300);
-            g.drawString("XP: ???",handler.getWidth()-200,25);
-            g.drawString("Level: ???",handler.getWidth()-200,50);
-            g.drawString("Strength: ???",handler.getWidth()-200,75);
-            g.drawString("Defence: ???",handler.getWidth()-200,100);
-            g.drawString("Intelligence: ???",handler.getWidth()-200,125);
-            g.drawString("Constitution: ???",handler.getWidth()-200,150);
-            g.drawString("Evasion: ???",handler.getWidth()-200,175);
-            g.drawString("Initiative: ???",handler.getWidth()-200,200);
-            g.drawString("Class: ???",handler.getWidth()-200,225);
-            g.drawString("Buffs: ???",handler.getWidth()-200,250);
-            g.drawString("Debuffs: ???",handler.getWidth()-200,275);
+            g.drawString("Accuracy: "+String.valueOf(enemy.getAcc()),handler.getWidth()-200,300);
+            g.drawString("XP: "+String.valueOf(enemy.getXp()),handler.getWidth()-200,25);
+            g.drawString("Level: "+String.valueOf(enemy.getLvl()),handler.getWidth()-200,50);
+            g.drawString("Strength: "+String.valueOf(enemy.getStr()),handler.getWidth()-200,75);
+            g.drawString("Defence: "+String.valueOf(enemy.getDefense()),handler.getWidth()-200,100);
+            g.drawString("Intelligence: "+String.valueOf(enemy.getIntl()),handler.getWidth()-200,125);
+            g.drawString("Constitution: "+String.valueOf(enemy.getCons()),handler.getWidth()-200,150);
+            g.drawString("Evasion: "+String.valueOf(enemy.getEvs()),handler.getWidth()-200,175);
+            g.drawString("Initiative: "+String.valueOf(enemy.getInitiative()),handler.getWidth()-200,200);
+            g.drawString("Class: "+String.valueOf(enemy.getclass()),handler.getWidth()-200,225);
+            g.drawString("Buffs: "+ Arrays.toString(enemy.getBuffs()),handler.getWidth()-200,250);
+            g.drawString("Debuffs: "+ Arrays.toString(enemy.getDebuffs()),handler.getWidth()-200,275);
         }
     }
 
@@ -281,12 +281,12 @@ public class JJMPFightState extends InWorldState{
          */
         for(int i = 0; i < 2;i++) {
             if(i==1) {//enemy
-                g2.drawString("Name: ??? ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
+                g2.drawString("Name: " + enemy.name, entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
                 //draws health info
-                if(enemy.getHealth()>=75){
+                if(enemy.getHealth()>=enemy.getMaxHealth() * 3/4){
                     g2.setColor(Color.GREEN);
-                }else if(enemy.getHealth()>=50){
+                }else if(enemy.getHealth()>= enemy.getMaxHealth() * 1/2){
                     g2.setColor(Color.YELLOW);
                 }else{
                     g2.setColor(Color.RED);
@@ -306,14 +306,14 @@ public class JJMPFightState extends InWorldState{
                 g2.drawString(" ??? ", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
 
                 g2.drawString("Skill: ??? ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
-                g2.drawString("Mana Cost: ??? ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
+                g2.drawString("Mana Cost: -- ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
             }else{//player
                 g2.drawString("Name: "+"Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
                 //draws health info
-                if(handler.getEntityManager().getPlayer().getHealth()>=75){
+                if(handler.getEntityManager().getPlayer().getHealth()>= handler.getEntityManager().getPlayer().getMaxHealth() * 3/4){
                     g2.setColor(Color.GREEN);
-                }else if(handler.getEntityManager().getPlayer().getHealth()>=50){
+                }else if(handler.getEntityManager().getPlayer().getHealth()>=handler.getEntityManager().getPlayer().getMaxHealth() * 1/2){
                     g2.setColor(Color.YELLOW);
                 }else{
                     g2.setColor(Color.RED);
@@ -326,12 +326,12 @@ public class JJMPFightState extends InWorldState{
 
                 //Draws MP Information
                 g2.setColor(Color.BLUE);
-                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, (int)((handler.getWidth() * 2 / 20)*(enemy.getMana()/enemy.getMaxMana())), 17);
+                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, (int)((handler.getWidth() * 2 / 20)*(handler.getEntityManager().getPlayer().getMana()/handler.getEntityManager().getPlayer().getMaxMana())), 17);
                 g2.setColor(Color.WHITE);
                 g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
                 g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
                 g2.drawString(String.valueOf(handler.getEntityManager().getPlayer().getMana()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
-
+                
                 g2.drawString("Skill: " + String.valueOf(handler.getEntityManager().getPlayer().getSkill()), entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
                 g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
             }
@@ -408,7 +408,6 @@ public class JJMPFightState extends InWorldState{
         uiManager.addObjects(new UIImageButton(handler.getWidth() * 22/60 - 128/2, 5*handler.getHeight()/6, 128, 64, Images.Attack, new ClickListlener() {
             @Override
             public void onClick() {
-                //for testing purposes
                 System.out.println("Attack");
                 attacking=true;
 
@@ -441,9 +440,10 @@ public class JJMPFightState extends InWorldState{
     }
 
 
+    //Sets the background according to the previous state
     private void backgroundSelect() {
 
-        background = Images.battleBackground[2];
+       background = Images.battleBackground[2];
 
     }
 
@@ -473,17 +473,24 @@ public class JJMPFightState extends InWorldState{
                 playerRect.x = 0 - 70;
             }
 
-            int accc = new Random().nextInt((int) handler.getEntityManager().getPlayer().getAcc());
-            int ev = new Random().nextInt((int) enemy.getEvs());
-
-            if (accc >= ev && !attacked && enemy.getHealth() - (handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()) >= 0) {
-                enemy.setHealth(this.enemy.getHealth() - 1);
-                attacked = true;
-            } else if (accc >= ev && !attacked && enemy.getHealth() - (handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()) < 0) {
+            int ev=(int)enemy.getEvs();
+            int evade=new Random().nextInt(100);
+            
+            int atk = (int) handler.getEntityManager().getPlayer().getStr() * 2;
+            for(int i = 0; i < 6;i++) {
+            	if(new Random().nextInt(20) <= (int)handler.getEntityManager().getPlayer().getAcc())
+            		atk+= (int) handler.getEntityManager().getPlayer().getStr();
+            }
+            
+            if(evade>ev &&!attacked && enemy.getHealth()-(atk - enemy.getDefense())>=0) {
+                enemy.setHealth(enemy.getHealth() - Math.abs(atk - enemy.getDefense()));
+                attacked=true;
+            }else  if(evade>ev &&!attacked && enemy.getHealth()-(atk - enemy.getDefense())<0){
                 enemy.setHealth(0);
                 attacked = true;
             }
 
+            
             if (playerRect.x <= (handler.getWidth() / 5) - 10 && playerRect.x >= (handler.getWidth() / 5) - 110) {
                 playerRect.x = (handler.getWidth() / 5);
                 attacking = false;
@@ -491,7 +498,8 @@ public class JJMPFightState extends InWorldState{
             }
 
             if (endTurn || battleOver) {
-            	if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
+            	//addMana
+                if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
                 	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
                 attacking = false;
                 endTurn = false;
@@ -503,7 +511,10 @@ public class JJMPFightState extends InWorldState{
                     EisDefense = false;
                 }
             }
+            
         }
+        
+       
 
     }
 
@@ -517,6 +528,7 @@ public class JJMPFightState extends InWorldState{
 
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()+20);
+          //addMana
             if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
             	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
             defense=false;
@@ -526,7 +538,10 @@ public class JJMPFightState extends InWorldState{
                 enemy.setDefense(enemy.getDefense()-20);
                 EisDefense = false;
             }
+            
         }
+       
+
     }
 
     private void callSkill(Graphics g) {
@@ -534,16 +549,19 @@ public class JJMPFightState extends InWorldState{
         playerIceSkill.tick();
 
         g.setColor( new Color(Math.max(0,red--),Math.max(0, green--),Math.max(0, blue--)));
-        g.drawImage(Images.tint(enemy.getIdle(),0,0,Math.max(0, blue--)),enemyRect.x,enemyRect.y,enemyRect.width,enemyRect.height,null);
+        g.drawImage(Images.tint(this.Senemy.getCurrentFrame(),0,0,Math.max(0, blue--)),enemyRect.x,enemyRect.y,enemyRect.width,enemyRect.height,null);
 
         g.drawImage(playerIceSkill.getCurrentFrame(),(handler.getWidth() * 4/ 5)-93,entityY-93,256,256,null);
 
-        int accc=new Random().nextInt((int)handler.getEntityManager().getPlayer().getAcc());
-        int ev=new Random().nextInt((int)enemy.getEvs());
-        if(accc>=ev &&!attacked && enemy.getHealth()-(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense())>=0) {
-            enemy.setHealth(this.enemy.getHealth() - 2);
+        
+        int ev=(int)enemy.getEvs();
+        int evade=new Random().nextInt(125);
+        int skillAtk = (int) handler.getEntityManager().getPlayer().getIntl() * 2;
+        
+        if(100>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)>=0) {
+            enemy.setHealth(enemy.getHealth() - Math.abs(skillAtk - enemy.getDefense()/2));
             attacked=true;
-        }else  if(accc>=ev &&!attacked && enemy.getHealth()-(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense())<0){
+        }else  if(evade>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)<0){
             enemy.setHealth(0);
         }
 
@@ -555,6 +573,7 @@ public class JJMPFightState extends InWorldState{
         }
 
         if(endTurn|| battleOver){
+        	attacked=false;
             skill=false;
             endTurn=false;
             turn++;
@@ -571,29 +590,32 @@ public class JJMPFightState extends InWorldState{
     private void enemyTurn() {
 
         if(!Eskill&&!Edefense&&!Eattacking && enemy.getMana()>=25) {
-            int choice = new Random().nextInt(3);
+            int choice = new Random().nextInt(5);
             switch (choice) {
                 case 0://attack
+                case 1:
                     Eattacking = true;
                     System.out.println("Attacked");
                     break;
-                case 1://defence
+                case 2://defence
                     System.out.println("Defense");
                     Edefense = true;
                     break;
-                case 2://skill
+                case 3://skill
+                case 4:
                     System.out.println("Skill");
                     Eskill = true;
                     break;
             }
         }else  if(!Eskill&&!Edefense&&!Eattacking) {
-            int choice = new Random().nextInt(2);
+            int choice = new Random().nextInt(3);
             switch (choice) {
                 case 0://attack
+                case 1:
                     Eattacking = true;
                     System.out.println("Attacked");
                     break;
-                case 1://defence
+                case 2://defence
                     System.out.println("Defense");
                     Edefense = true;
                     break;
@@ -614,15 +636,22 @@ public class JJMPFightState extends InWorldState{
                 enemyRect.x = handler.getWidth();
             }
 
-            int accc = new Random().nextInt((int) enemy.getAcc());
-            int ev = new Random().nextInt((int) handler.getEntityManager().getPlayer().getEvs());
-
-            if (accc >= ev && !Eattacked && handler.getEntityManager().getPlayer().getHealth() - (enemy.getStr() - handler.getEntityManager().getPlayer().getDefense()) >= 0) {
-                handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - 50);
-                Eattacked = true;
-            } else if (accc >= ev && !Eattacked && handler.getEntityManager().getPlayer().getHealth() - (enemy.getStr() - handler.getEntityManager().getPlayer().getDefense()) < 0) {
-                handler.getEntityManager().getPlayer().setHealth(0);
+            int ev=(int)handler.getEntityManager().getPlayer().getEvs();
+            int evade=new Random().nextInt(100);
+            
+            int atk = (int) enemy.getStr() * 2;
+            for(int i = 0; i < 6;i++) {
+            	if(new Random().nextInt(20) <= (int)enemy.getAcc())
+            		atk+= (int) enemy.getStr();
             }
+            
+	        if(evade <ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())>=0) {
+	            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - Math.abs(atk - handler.getEntityManager().getPlayer().getDefense()));
+	            Eattacked=true;
+	        }else  if(evade<ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())<0){
+	            handler.getEntityManager().getPlayer().setHealth(0);
+	        }
+
 
             if (enemyRect.x >= (handler.getWidth() * 4 / 5) + 10 && enemyRect.x <= (handler.getWidth() * 4 / 5) + 110) {
                 enemyRect.x = (handler.getWidth() * 4 / 5);
@@ -651,34 +680,37 @@ public class JJMPFightState extends InWorldState{
         g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
 
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
-            enemy.setDefense(enemy.getDefense());
+            enemy.setDefense(enemy.getDefense()+20);
             Edefense=false;
             EendTurn=false;
             turn++;
             if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
-                handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense());
+                handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()-20);
                 isDefense = false;
             }
         }
     }
 
     private void EcallSkill(Graphics g) {
-        enemyFireSkill.tick();
+        enemySkill.tick();
         g.setColor( new Color(Math.max(0,red--), Math.max(0,green--),Math.max(0,blue--)));
         g.drawImage(Images.tint(Images.player_attack,Math.max(0,red--),0,0),playerRect.x,playerRect.y,playerRect.width,playerRect.height,null);
 
-        g.drawImage((enemyFireSkill.getCurrentFrame()),0 - 50 ,entityY-105,this.enemyRect.x - 50 ,300,null);
+        g.drawImage((enemySkill.getCurrentFrame()), 0 - 100, entityY-105,this.enemyRect.x , 256, null);
 
-        int accc=new Random().nextInt((int)enemy.getAcc());
-        int ev=new Random().nextInt((int)handler.getEntityManager().getPlayer().getEvs());
+        
+        int ev=(int)handler.getEntityManager().getPlayer().getEvs();
+        int evade=new Random().nextInt(125);
+        int skillAtk = (int) enemy.getIntl() * 2;
 
-        if(accc>=ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense())>=0 ) {
-            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - 80 );
+        if(evade>ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)>=0) {
+            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - Math.abs(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2));
             Eattacked=true;
-        }else  if(accc>=ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(enemy.getStr() - handler.getEntityManager().getPlayer().getDefense())<0){
+        }else  if(evade>ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)<0){
             handler.getEntityManager().getPlayer().setHealth(0);
         }
-        if(enemyFireSkill.getIndex()>=22){
+        
+        if(enemySkill.getIndex()>=22){
             EendTurn=true;
             green= 255;
             red=95;
@@ -686,12 +718,15 @@ public class JJMPFightState extends InWorldState{
         }
 
         if(EendTurn || battleOver){
+        	Eattacked=false;
             Eskill=false;
             EendTurn=false;
             turn++;
-            enemy.setMana(enemy.getMana());
+            if(this.handler.getEntityManager().getPlayer().getWeaken()) {
+            enemy.setMana(enemy.getMana()-25);
+        	}
             if(isDefense){
-                handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense());
+                handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()-20);
                 isDefense = false;
             }
         }
@@ -736,7 +771,5 @@ public class JJMPFightState extends InWorldState{
     public void setStringSpeed(int stringSpeed) {
         this.stringSpeed = stringSpeed;
     }
-
-
 
 }

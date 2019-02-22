@@ -69,6 +69,9 @@ public class Images {
 
 	public static BufferedImage[] Enemy;
 	public static BufferedImage[] SEnemy;
+	public static BufferedImage[] EnemyS;
+	public static BufferedImage[] SSkill;
+	public static BufferedImage[] aura;
 
 	public static SpriteSheet smokeHouseSheet;
 	
@@ -96,7 +99,7 @@ public class Images {
 		Resume = new BufferedImage[2];
 		Quit = new BufferedImage[2];
 
-		battleBackground = new BufferedImage[2];
+		battleBackground = new BufferedImage[3];
 
 		Attack = new BufferedImage[1];
 		Defend = new BufferedImage[1];
@@ -118,6 +121,9 @@ public class Images {
 
 		Enemy = new BufferedImage[8];
 		SEnemy = new BufferedImage[8];
+		EnemyS = new BufferedImage[16];
+		SSkill = new BufferedImage[23];
+		aura = new BufferedImage[4];
 
 		smokeHouse = new BufferedImage[7];
 		try {
@@ -133,8 +139,6 @@ public class Images {
 			WEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/W-enemy.png")));
 
 			projectTitle = ImageIO.read(getClass().getResourceAsStream("/Buttons/ProjectWord.png"));
-//			envyTitle = ImageIO.read(getClass().getResourceAsStream("/Buttons/EnvyWord.png"));
-
 
 
 			CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
@@ -165,6 +169,7 @@ public class Images {
 
 			battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
 			battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
+			battleBackground[2] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SArea.png"));
 
 			Attack[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Attack.png"));
 			Defend[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Defend.png"));
@@ -221,6 +226,52 @@ public class Images {
 			Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
 			Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
 			Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
+			
+			aura[0] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura1.png"));
+			aura[1] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura2.png"));
+			aura[2] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura3.png"));
+			aura[3] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura4.png"));
+			
+			EnemyS[0] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.1.png"));
+			EnemyS[1] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.2.png"));
+			EnemyS[2] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.3.png"));
+			EnemyS[3] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.4.png"));
+			EnemyS[4] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.5.png"));
+			EnemyS[5] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.6.png"));
+			EnemyS[6] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.7.png"));
+			EnemyS[7] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.8.png"));
+			EnemyS[8] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.8.png"));
+			EnemyS[9] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.7.png"));
+			EnemyS[10] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.6.png"));
+			EnemyS[11] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.5.png"));
+			EnemyS[12] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.4.png"));
+			EnemyS[13] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.3.png"));
+			EnemyS[14] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.2.png"));
+			EnemyS[15] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.1.png"));
+			
+			SSkill[0] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack0.png"));
+			SSkill[1] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack1.png"));
+			SSkill[2] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack2.png"));
+			SSkill[3] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack3.png"));
+			SSkill[4] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack4.png"));
+			SSkill[5] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack5.png"));
+			SSkill[6] = SSkill[5];
+			SSkill[7] = SSkill[4];
+			SSkill[8] = SSkill[3];
+			SSkill[9] = SSkill[2];
+			SSkill[10] = SSkill[1];
+			SSkill[11] = SSkill[0];
+			SSkill[12] = SSkill[0];
+			SSkill[13] = SSkill[1];
+			SSkill[14] = SSkill[3];
+			SSkill[15] = SSkill[4];
+			SSkill[16] = SSkill[5];
+			SSkill[17] = SSkill[5];
+			SSkill[18] = SSkill[4];
+			SSkill[19] = SSkill[3];
+			SSkill[20] = SSkill[2];
+			SSkill[21] = SSkill[1];
+			SSkill[22] = SSkill[0];
 			
 			IceSkill[0] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[1] = iceSkillSheet.crop( 0, 0, 50, 50);
