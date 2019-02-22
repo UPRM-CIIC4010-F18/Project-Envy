@@ -242,7 +242,7 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 
     //GETTERS AND SETTERS FOR FIGHT STATS
 
-    double health=100,mana=100,xp=0l,lvl=1,defense=10,str=40,intl=30,cons=10,acc=10,evs=5,initiative=1;
+    double health=100,mana=80,xp=0l,lvl=1,defense=16,str=6,intl=23,cons=15,acc=10,evs=3,initiative=1, maxHealth = 100;;
     boolean isDead = false;
     String Class = "none",skill = "none";
     String[] buffs = {},debuffs = {};
@@ -254,7 +254,7 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 
     @Override
     public double getMaxHealth() {
-        return 100;
+        return maxHealth;
     }
     @Override
     public double getMaxMana() {
@@ -264,6 +264,11 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
     @Override
     public void setHealth(double health) {
         this.health=health;
+    }
+    
+    
+    public void setMaxHealth(double maxHealth) {
+        this.maxHealth=maxHealth;
     }
 
     @Override
