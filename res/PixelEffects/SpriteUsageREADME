@@ -1,0 +1,24 @@
+	- (if the packages look spread out in a list, go to your Project Explorer -> Package Presentation -> Hierarchical.)
+	- These we're bought from Will from untiedgames.com
+
+	- THIS IS AN OPTIONAL TOOL FOR ADDING PIXEL EFFECTS.
+
+
+If you find any Pixel effect interesting to use then follow these instructions:
+
+ . The Images folder has a boolean called "processPixelSheet" and it's set to false.
+ . This boolean tells the program to either run or not run a method called PrintCropList()
+ . This method needs to be given:
+ 	1. The Array that will contain the frames.
+ 	2. The Sheet that contains the frame images. (Each pixel effect has one called spritesheet.png)
+ 	3. And the designated coordinates for each frame to be "cropped" individually. These coordinates
+ 			are called "spritesheet.txt" and by clicking it you'll see all the frame coordinates.
+ 			Place this file in the /EffectCrops package, and in the PrintCropList's respective parameter
+ 			give it the String "/EffectCrops/THESPRITESHEETS'NAME.TXT" (usually this coord data is named spritesheet.txt
+ 	4. Give it the width and height at the last two parameters (usually 50,50 but check in the Coordinate txt
+ 	5. Now when you start, the console will print the frames like this:
+ 		"FireSkill[69] = fireSkillSheet.crop( 0, 0, 50, 50);"
+ 	6. Copy/Paste it in the code like the other Pixel Effects.
+ 	
+ 	*These pixel effects haven't been ALL tested with the PrintCropList() algorithm. If it is the case that
+ 	the coordinates are printed incorrectly then the algorithm provides proper examples if you wish to fix it.*
