@@ -5,9 +5,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
+import java.util.Random;
 
 import Game.GameStates.State;
 import Main.Handler;
+import Resources.Animation;
+import Resources.Images;
 
 public class Selector {
 
@@ -24,6 +27,7 @@ public class Selector {
 	public int QBYpos2;
 	public int TBXpos;
 	public int TBYpos;
+	private Animation animSelector;
 
 
 	public Selector(Handler handler){
@@ -32,7 +36,7 @@ public class Selector {
 
 		//Pause State positions
 		RBXpos = handler.getWidth()/2 - 128 * 2 - 35;	//resume button
-		RBYpos = handler.getHeight()/2 - 20;	
+		RBYpos = handler.getHeight()/2 - 20;
 		QBXpos = handler.getWidth()/2 + 128 - 10;		//pause quit button
 		TBXpos = handler.getWidth()/2 - 64 - 35;
 		TBYpos = handler.getHeight()/2 + 64 + 15;
@@ -45,6 +49,8 @@ public class Selector {
 		QBYpos2 =  handler.getHeight()/2 + 95;			//menu quit button
 		this.yPos2 = this.getSBYpos();					//menu y position
 		this.xPos2 = handler.getWidth()/2 - 400 - 150;	//menu x position
+		animSelector = new Animation(50, Images.IceSkill);
+
 
 	}
 
@@ -53,6 +59,7 @@ public class Selector {
 	public void tick() {
 
 		this.select();
+		animSelector.tick();
 
 	}
 
@@ -63,20 +70,16 @@ public class Selector {
 		Ellipse2D.Double selector;
 
 		if(State.getState().equals(handler.getGame().menuState)) {
-
-			selector = new Ellipse2D.Double(this.getxPos2(), this.getyPos2(), 100, 100);
-
+				g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos2() - 25, this.getyPos2() - 25, 150, 150, null);
 		}
 
 		else {
-
-			selector = new Ellipse2D.Double(this.getxPos(), this.getyPos(), 30, 30);
+		    int r = new Random().nextInt(8);
+            g.drawImage(Images.tint(animSelector.getCurrentFrame(),r, r, r), this.getxPos()-30, this.getyPos()-25, 80, 80, null);
 
 		}
 
-		g2.setColor(Color.WHITE);
 
-		g2.fill(selector);
 
 	}
 
@@ -93,7 +96,7 @@ public class Selector {
 
 				}
 
-				else {	
+				else {
 
 					this.setxPos(this.getQBpos());
 					this.setyPos(this.getRBYpos());
@@ -194,7 +197,7 @@ public class Selector {
 
 	public void setQBYpos2(int qBYpos2) {
 		QBYpos2 = qBYpos2;
-	}	
+	}
 
 	public int getxPos2() {
 		return xPos2;

@@ -96,17 +96,15 @@ public class UIManager {
 		private final static int playerXSpawn = -380, playerYSpawn = -3270;
 		Rectangle playerRect;
 		Random random = new Random();
-		public int xPos = random.nextInt(8000 - 100) + 100;
-		public int yPos = random.nextInt(6000 - 100) + 100;
+		public int xPos = random.nextInt(7000 - 100) + 100;
+		public int yPos = random.nextInt(5000 - 100) + 100;
 		private int width = 8000;
 		private int height = 6000;
+		public int counter = 0;
 		Animation enemyAnimation;
 		Animation enemySAnimation;
 		Rectangle rectangle;
-
-		Long time;
-		Boolean reset = true;
-
+		Rectangle rectangle2;
 
 		public ArrayList<InWorldWalls> areaWalls;
 
@@ -119,6 +117,7 @@ public class UIManager {
 			this.manager = entityManager;
 
 			rectangle = new Rectangle();
+			rectangle2 = new Rectangle();
 
 			enemyAnimation = new Animation(100, Images.Enemy);
 			enemySAnimation = new Animation(150, Images.SEnemy);
@@ -157,6 +156,7 @@ public class UIManager {
 			g2.drawImage(Images.ScaledArea, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
 
 			rectangle = new Rectangle(this.getxPos() + 425 + handler.getXInWorldDisplacement(), this.getyPos()  + 478 + handler.getYInWorldDisplacement(), 100, 100);
+			rectangle2 = new Rectangle( this.getxPos() + 290 - 50 + handler.getXInWorldDisplacement(), this.getyPos() + 330 - 50 + handler.getYInWorldDisplacement(), 450, 450);
 
 			g2.drawImage(this.enemyAnimation.getCurrentFrame(), this.getxPos() + handler.getXInWorldDisplacement(), this.getyPos() + handler.getYInWorldDisplacement(), 1000, 1000, null);
 
@@ -172,9 +172,10 @@ public class UIManager {
 					w.render(g2);
 
 				}
-				
+
 				g2.draw(this.rectangle);
-				
+				g2.draw(this.rectangle2);
+
 			}
 
 			g2.setColor(Color.WHITE);
@@ -213,19 +214,20 @@ public class UIManager {
 
 		public void respawnEnemyTick() {
 
-			if(this.reset) {
-				
-				time = System.currentTimeMillis();
-				this.reset = false;
-				
-			}
+			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter <= 10) {
 
-			if(System.currentTimeMillis() - this.time >= 10000) {		
-
-				this.setxPos( random.nextInt(8000 - 100) + 100);
-				this.setyPos(random.nextInt(6000 - 100) + 100);
+				this.setxPos( random.nextInt(7000 - 100) + 100);
+				this.setyPos(random.nextInt(5000 - 100) + 100);
 				
-				this.reset = true;
+				if(this.getxPos() > 8000 || this.getyPos() > 6000) {
+					
+					this.setxPos( random.nextInt(7000 - 100) + 100);
+					this.setyPos(random.nextInt(5000 - 100) + 100);
+					
+				}
+
+				this.counter++;
+
 			}
 
 		}
