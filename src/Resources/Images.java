@@ -44,15 +44,22 @@ public class Images {
 	public static BufferedImage[] Attack;
 	public static BufferedImage[] Defend;
 	public static BufferedImage[] Skill;
+	
 	public static BufferedImage[] IceSkill;
+	public static BufferedImage[] FireSkill;
 	public static BufferedImage[] DefenceMode;
+	public static BufferedImage[] AttackMode;
 
 	public static BufferedImage[] Enemy;
 	public static BufferedImage[] SEnemy;
 
 	public static SpriteSheet smokeHouseSheet;
+	
 	public static SpriteSheet iceSkillSheet;
+	public static SpriteSheet fireSkillSheet;
 	public static SpriteSheet defenceModeSheet;
+	public static SpriteSheet attackModeSheet;
+	
 	
 	public static BufferedImage[] smokeHouse;
 
@@ -79,7 +86,9 @@ public class Images {
 		Skill = new BufferedImage[1];
 
 		IceSkill = new BufferedImage[100];
+		FireSkill = new BufferedImage[70];
 		DefenceMode = new BufferedImage[100];
+		AttackMode = new BufferedImage[100];
 
 		Enemy = new BufferedImage[8];
 		SEnemy = new BufferedImage[8];
@@ -90,7 +99,9 @@ public class Images {
 			smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
 			
 			iceSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/iceSkill.png")));
+			fireSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/fireSkill.png")));
 			defenceModeSheet=  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/defenceMode.png")));
+			attackModeSheet=  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/attackMode.png")));
 			
 			CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
 			Area = ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
@@ -346,11 +357,183 @@ public class Images {
 			DefenceMode[99] = defenceModeSheet.crop( 0, 0, 50, 50);
 			
 			
+			AttackMode[0] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[1] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[2] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[3] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[4] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[5] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[6] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[7] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[8] = attackModeSheet.crop( 52, 0, 50, 50);
+			AttackMode[9] = attackModeSheet.crop( 0, 52 , 50, 50);
+			AttackMode[10] = attackModeSheet.crop( 52, 52 , 50, 50);
+			AttackMode[11] = attackModeSheet.crop( 104, 0, 50, 50);
+			AttackMode[12] = attackModeSheet.crop( 0, 104, 50, 50);
+			AttackMode[13] = attackModeSheet.crop( 52, 104, 50, 50);
+			AttackMode[14] = attackModeSheet.crop( 104, 52, 50, 50);
+			AttackMode[15] = attackModeSheet.crop( 104, 104, 50, 50);
+			AttackMode[16] = attackModeSheet.crop( 156, 0, 50, 50);
+			AttackMode[17] = attackModeSheet.crop( 0, 156, 50, 50);
+			AttackMode[18] = attackModeSheet.crop( 52, 156, 50, 50);
+			AttackMode[19] = attackModeSheet.crop( 156, 52, 50, 50);
+			AttackMode[20] = attackModeSheet.crop( 104, 156, 50, 50);
+			AttackMode[21] = attackModeSheet.crop( 156, 104, 50, 50);
+			AttackMode[22] = attackModeSheet.crop( 208, 0, 50, 50);
+			AttackMode[23] = attackModeSheet.crop( 0, 208, 50, 50);
+			AttackMode[24] = attackModeSheet.crop( 52, 208, 50, 50);
+			AttackMode[25] = attackModeSheet.crop( 208, 52, 50, 50);
+			AttackMode[26] = attackModeSheet.crop( 156, 156, 50, 50);
+			AttackMode[27] = attackModeSheet.crop( 104, 208, 50, 50);
+			AttackMode[28] = attackModeSheet.crop( 208, 104, 50, 50);
+			AttackMode[29] = attackModeSheet.crop( 156, 208, 50, 50);
+			AttackMode[30] = attackModeSheet.crop( 208, 156, 50, 50);
+			AttackMode[31] = attackModeSheet.crop( 260, 0, 50, 50);
+			AttackMode[32] = attackModeSheet.crop( 0, 260, 50, 50);
+			AttackMode[33] = attackModeSheet.crop( 52, 260, 50, 50);
+			AttackMode[34] = attackModeSheet.crop( 260, 52, 50, 50);
+			AttackMode[35] = attackModeSheet.crop( 104, 260, 50, 50);
+			AttackMode[36] = attackModeSheet.crop( 260, 104, 50, 50);
+			AttackMode[37] = attackModeSheet.crop( 208, 208, 50, 50);
+			AttackMode[38] = attackModeSheet.crop( 156, 260, 50, 50);
+			AttackMode[39] = attackModeSheet.crop( 260, 156, 50, 50);
+			AttackMode[40] = attackModeSheet.crop( 312, 0, 50, 50);
+			AttackMode[41] = attackModeSheet.crop( 0, 312, 50, 50);
+			AttackMode[42] = attackModeSheet.crop( 52, 312, 50, 50);
+			AttackMode[43] = attackModeSheet.crop( 312, 52, 50, 50);
+			AttackMode[44] = attackModeSheet.crop( 104, 312, 50, 50);
+			AttackMode[45] = attackModeSheet.crop( 312, 104, 50, 50);
+			AttackMode[46] = attackModeSheet.crop( 208, 260, 50, 50);
+			AttackMode[47] = attackModeSheet.crop( 260, 208, 50, 50);
+			AttackMode[48] = attackModeSheet.crop( 156, 312, 50, 50);
+			AttackMode[49] = attackModeSheet.crop( 312, 156, 50, 50);
+			AttackMode[50] = attackModeSheet.crop( 364, 0, 50, 50);
+			AttackMode[51] = attackModeSheet.crop( 0, 364, 50, 50);
+			AttackMode[52] = attackModeSheet.crop( 52, 364, 50, 50);
+			AttackMode[53] = attackModeSheet.crop( 260, 260, 50, 50);
+			AttackMode[54] = attackModeSheet.crop( 364, 52, 50, 50);
+			AttackMode[55] = attackModeSheet.crop( 208, 312, 50, 50);
+			AttackMode[56] = attackModeSheet.crop( 312, 208, 50, 50);
+			AttackMode[57] = attackModeSheet.crop( 104, 364, 50, 50);
+			AttackMode[58] = attackModeSheet.crop( 364, 104, 50, 50);
+			AttackMode[59] = attackModeSheet.crop( 156, 364, 50, 50);
+			AttackMode[60] = attackModeSheet.crop( 364, 156, 50, 50);
+			AttackMode[61] = attackModeSheet.crop( 260, 312, 50, 50);
+			AttackMode[62] = attackModeSheet.crop( 312, 260, 50, 50);
+			AttackMode[63] = attackModeSheet.crop( 416, 0, 50, 50);
+			AttackMode[64] = attackModeSheet.crop( 0, 416, 50, 50);
+			AttackMode[65] = attackModeSheet.crop( 52, 416, 50, 50);
+			AttackMode[66] = attackModeSheet.crop( 208, 364, 50, 50);
+			AttackMode[67] = attackModeSheet.crop( 364, 208, 50, 50);
+			AttackMode[68] = attackModeSheet.crop( 416, 52, 50, 50);
+			AttackMode[69] = attackModeSheet.crop( 104, 416, 50, 50);
+			AttackMode[70] = attackModeSheet.crop( 416, 104, 50, 50);
+			AttackMode[71] = attackModeSheet.crop( 312, 312, 50, 50);
+			AttackMode[72] = attackModeSheet.crop( 156, 416, 50, 50);
+			AttackMode[73] = attackModeSheet.crop( 416, 156, 50, 50);
+			AttackMode[74] = attackModeSheet.crop( 260, 364, 50, 50);
+			AttackMode[75] = attackModeSheet.crop( 364, 260, 50, 50);
+			AttackMode[76] = attackModeSheet.crop( 208, 416, 50, 50);
+			AttackMode[77] = attackModeSheet.crop( 416, 208, 50, 50);
+			AttackMode[78] = attackModeSheet.crop( 312, 364, 50, 50);
+			AttackMode[79] = attackModeSheet.crop( 364, 312, 50, 50);
+			AttackMode[80] = attackModeSheet.crop( 260, 416, 50, 50);
+			AttackMode[81] = attackModeSheet.crop( 416, 260, 50, 50);
+			AttackMode[82] = attackModeSheet.crop( 364, 364, 50, 50);
+			AttackMode[83] = attackModeSheet.crop( 312, 416, 50, 50);
+			AttackMode[84] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[85] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[86] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[87] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[88] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[89] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[90] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[91] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[92] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[93] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[94] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[95] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[96] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[97] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[98] = attackModeSheet.crop( 0, 0, 50, 50);
+			AttackMode[99] = attackModeSheet.crop( 0, 0, 50, 50);
+			
+			FireSkill[0] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[1] = fireSkillSheet.crop( 52, 0, 50, 50);
+			FireSkill[2] = fireSkillSheet.crop( 0, 52 , 50, 50);
+			FireSkill[3] = fireSkillSheet.crop( 52, 52 , 50, 50);
+			FireSkill[4] = fireSkillSheet.crop( 104, 0, 50, 50);
+			FireSkill[5] = fireSkillSheet.crop( 0, 104, 50, 50);
+			FireSkill[6] = fireSkillSheet.crop( 52, 104, 50, 50);
+			FireSkill[7] = fireSkillSheet.crop( 104, 52, 50, 50);
+			FireSkill[8] = fireSkillSheet.crop( 104, 104, 50, 50);
+			FireSkill[9] = fireSkillSheet.crop( 156, 0, 50, 50);
+			FireSkill[10] = fireSkillSheet.crop( 0, 156, 50, 50);
+			FireSkill[11] = fireSkillSheet.crop( 52, 156, 50, 50);
+			FireSkill[12] = fireSkillSheet.crop( 156, 52, 50, 50);
+			FireSkill[13] = fireSkillSheet.crop( 104, 156, 50, 50);
+			FireSkill[14] = fireSkillSheet.crop( 156, 104, 50, 50);
+			FireSkill[15] = fireSkillSheet.crop( 208, 0, 50, 50);
+			FireSkill[16] = fireSkillSheet.crop( 0, 208, 50, 50);
+			FireSkill[17] = fireSkillSheet.crop( 52, 208, 50, 50);
+			FireSkill[18] = fireSkillSheet.crop( 208, 52, 50, 50);
+			FireSkill[19] = fireSkillSheet.crop( 156, 156, 50, 50);
+			FireSkill[20] = fireSkillSheet.crop( 104, 208, 50, 50);
+			FireSkill[21] = fireSkillSheet.crop( 208, 104, 50, 50);
+			FireSkill[22] = fireSkillSheet.crop( 156, 208, 50, 50);
+			FireSkill[23] = fireSkillSheet.crop( 208, 156, 50, 50);
+			FireSkill[24] = fireSkillSheet.crop( 260, 0, 50, 50);
+			FireSkill[25] = fireSkillSheet.crop( 0, 260, 50, 50);
+			FireSkill[26] = fireSkillSheet.crop( 52, 260, 50, 50);
+			FireSkill[27] = fireSkillSheet.crop( 260, 52, 50, 50);
+			FireSkill[28] = fireSkillSheet.crop( 104, 260, 50, 50);
+			FireSkill[29] = fireSkillSheet.crop( 260, 104, 50, 50);
+			FireSkill[30] = fireSkillSheet.crop( 208, 208, 50, 50);
+			FireSkill[31] = fireSkillSheet.crop( 156, 260, 50, 50);
+			FireSkill[32] = fireSkillSheet.crop( 260, 156, 50, 50);
+			FireSkill[33] = fireSkillSheet.crop( 312, 0, 50, 50);
+			FireSkill[34] = fireSkillSheet.crop( 0, 312, 50, 50);
+			FireSkill[35] = fireSkillSheet.crop( 52, 312, 50, 50);
+			FireSkill[36] = fireSkillSheet.crop( 312, 52, 50, 50);
+			FireSkill[37] = fireSkillSheet.crop( 104, 312, 50, 50);
+			FireSkill[38] = fireSkillSheet.crop( 312, 104, 50, 50);
+			FireSkill[39] = fireSkillSheet.crop( 208, 260, 50, 50);
+			FireSkill[40] = fireSkillSheet.crop( 260, 208, 50, 50);
+			FireSkill[41] = fireSkillSheet.crop( 156, 312, 50, 50);
+			FireSkill[42] = fireSkillSheet.crop( 312, 156, 50, 50);
+			FireSkill[43] = fireSkillSheet.crop( 260, 260, 50, 50);
+			FireSkill[44] = fireSkillSheet.crop( 208, 312, 50, 50);
+			FireSkill[45] = fireSkillSheet.crop( 312, 208, 50, 50);
+			FireSkill[46] = fireSkillSheet.crop( 260, 312, 50, 50);
+			FireSkill[47] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[48] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[49] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[50] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[51] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[52] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[53] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[54] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[55] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[56] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[57] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[58] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[59] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[60] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[61] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[62] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[63] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[64] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[65] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[66] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[67] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[68] = fireSkillSheet.crop( 0, 0, 50, 50);
+			FireSkill[69] = fireSkillSheet.crop( 0, 0, 50, 50);
+
 
 			icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 			if (processPixelSheet) {
-				PrintCropList("DefenceMode", "defenceModeSheet", "/EffectCrops/defenceModeCropCoords.txt", 50, 50);
+				PrintCropList("FireSkill", "fireSkillSheet", "/EffectCrops/fireSkillCropCoords.txt", 50, 50);
 			}
 
 		} catch (IOException e) {
@@ -363,9 +546,8 @@ public class Images {
 	}
 
 	/*
-	 * Given a File containing a list of crop coordinate systems, this will output a
-	 * File with all the crop coordinates in an orderly fashion like to later
-	 * Copy/Paste.
+	 * Given a File containing a list of crop coordinate systems, this will output in console
+	 * all the crop coordinates in an orderly fashion to copy/paste.
 	 * 
 	 * @param String skill is the name of the array that will hold the frames of a
 	 * skill

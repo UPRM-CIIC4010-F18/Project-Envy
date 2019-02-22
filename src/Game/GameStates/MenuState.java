@@ -138,11 +138,15 @@ public class MenuState extends State {
 						g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
 					}
 					break;
-
-
 			}
 		}
 
+		g.setFont(new Font("Bank Gothic",3,30));
+		g.setColor(new Color(4, 82, 98));
+		g.drawString("Music composed by Emmanuel Segarra", 50 , handler.getHeight()-75);
+		g.setFont(new Font("Bank Gothic",3,15));
+		g.drawString("www.emmanuelsegarramusic.com", 75 , handler.getHeight()-58);
+        
 
 	}
 
