@@ -672,7 +672,7 @@ public class FightState extends InWorldState{
         g.setColor( new Color(Math.max(0,red--), Math.max(0,green--),Math.max(0,blue--)));
         g.drawImage(Images.tint(Images.player_attack,Math.max(0,red--),0,0),playerRect.x,playerRect.y,playerRect.width,playerRect.height,null);
 
-        g.drawImage((enemyFireSkill.getCurrentFrame()),(handler.getWidth()/ 5)-93,entityY-93,256,256,null);
+        g.drawImage((enemyFireSkill.getCurrentFrame()),(handler.getWidth()/ 5)-93,entityY-105,256,256,null);
 
         int accc=new Random().nextInt((int)enemy.getAcc());
         int ev=new Random().nextInt((int)handler.getEntityManager().getPlayer().getEvs());
