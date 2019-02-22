@@ -35,8 +35,8 @@ public class CaveArea extends BaseArea {
 
         
 
-        this.entityManager.AddEntity(handler.newEnemy(Images.PEnemyIdle,handler,700, 2000,"InWorldState","Sergio","Cave","EnemyOne",150,75,0,1,7,16,25,20,13,2,5,"None","Thunder",null,null));
-
+        this.entityManager.AddEntity(handler.newEnemy(Images.PEnemyIdle,handler,700, 2000,"InWorldState","Sergio","Cave","EnemyOne",150,25,0,1,8,12,20,10,20,10,1,5,"None","Thunder",null,null)); //lvl 2 difficulty
+        this.entityManager.AddEntity(handler.newEnemy(Images.PEnemyIdle,handler,3000, 1000,"InWorldState","Cave Dweller","Cave","EnemyOne",100,25,0,1,2,12,20,10,20,13,1,5,"None","Thunder",null,null)); // lvl 1 difficulty
 
         caveWalls = new ArrayList<>();
         AddWalls();

@@ -37,11 +37,11 @@ public class Handler {
 
 /*      If your game display seems zoomed out, usually the case on 4k screens, 
  * 		remove the comments on the following two lines of code and comment out the height and width declaration in this method*/
-//		height =( DEFAULTHEIGHT/1080)*1080;
-//		width = (DEFAULTWIDTH/1920)*1920;
+		height =( DEFAULTHEIGHT/1080)*1080;
+		width = (DEFAULTWIDTH/1920)*1920;
 		
-		height = DEFAULTHEIGHT;
-		width = DEFAULTWIDTH;
+//		height = DEFAULTHEIGHT;
+//		width = DEFAULTWIDTH;
 
 	}
 
@@ -131,7 +131,7 @@ public class Handler {
 
 	public BaseHostileEntity newEnemy(BufferedImage[] images,Handler handler, int xPosition, int yPosition, String state, String name, String area,
 									  String typeOfEnemy, double hp, double mana, double xp, double lvl, double str, double def,
-									  double intl, double cons, double acc, double evs, double initiative,
+									  double intl, double mr, double cons, double acc, double evs, double initiative,
 									  String Class, String Skill, String[] buffs, String[] debuffs){
 		if(typeOfEnemy.equals("EnemyOne")) {
 			EnemyOne n = new EnemyOne(handler, xPosition, yPosition, state, name, area,images);
@@ -146,6 +146,7 @@ public class Handler {
             n.setMaxHealth(hp);
 			n.setInitiative(initiative);
 			n.setIntl(intl);
+			n.setMr(mr);
 			n.setLvl(lvl);
 			n.setMana(mana);
 			n.setSkill(Skill);
@@ -165,6 +166,7 @@ public class Handler {
             n.setMaxHealth(hp);
 			n.setInitiative(initiative);
 			n.setIntl(intl);
+			n.setMr(mr);
 			n.setLvl(lvl);
 			n.setMana(mana);
 			n.setSkill(Skill);
