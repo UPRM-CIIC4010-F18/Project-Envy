@@ -16,6 +16,7 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 public class Player extends BaseDynamicEntity implements Fighter{
 
@@ -32,7 +33,7 @@ public class Player extends BaseDynamicEntity implements Fighter{
 	private int animWalkingSpeed = 150;
 
 	public Player(Handler handler, int xPosition, int yPosition) {
-		super(handler, yPosition, yPosition);
+		super(handler, yPosition, yPosition,null);
 
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
@@ -113,6 +114,11 @@ public class Player extends BaseDynamicEntity implements Fighter{
 
 			break;
 		}
+	}
+
+	@Override
+	public BufferedImage getIdle() {
+		return Images.player_attack;
 	}
 
 	private void PlayerInput() {

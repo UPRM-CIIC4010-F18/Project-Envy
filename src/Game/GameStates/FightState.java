@@ -68,7 +68,7 @@ public class FightState extends InWorldState{
 
         inStateEnemy=enemy;
 
-        this.enemy = (handler.newEnemy(handler,handler.getWidth() * 4/ 5, entityY,enemy.foundState,enemy.name,enemy.Area,
+        this.enemy = (handler.newEnemy(enemy.frames,handler,handler.getWidth() * 4/ 5, entityY,enemy.foundState,enemy.name,enemy.Area,
                 enemy.type,enemy.getHealth(),enemy.getMana(),enemy.getXp(),enemy.getLvl(),enemy.getStr(),enemy.getDefense(),
                 enemy.getIntl(),enemy.getCons(),enemy.getAcc(),enemy.getEvs(),enemy.getInitiative(),enemy.getclass(),enemy.getSkill(),
                 enemy.getBuffs(),enemy.getDebuffs()));
@@ -85,10 +85,10 @@ public class FightState extends InWorldState{
         playerIceSkill = new Animation(20,Images.IceSkill);
         playerDefenceMode = new Animation(15, Images.DefenceMode);
         playerAttackMode = new Animation(15, Images.AttackMode);
-        
+
         enemyFireSkill = new Animation(20,Images.FireSkill); // @Sergio: "Replace this with Images.FireSkill so u can do ur stuff"
-        
-        
+
+
         chooseTurn();
 
 //        Possibly need to add the more of the same image on the attack image array for the mouse to work with the UIManager
@@ -112,9 +112,9 @@ public class FightState extends InWorldState{
         if(turn>numOfEnemies){
             turn=0;
         }
-
-
-
+        if(!enemy.PEnemyIdle.getCurrentFrame().equals(null)) {
+            enemy.PEnemyIdle.tick();
+        }
         ///TEMP CODE TO EXIT FIGHT///
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             handler.getGame().pauseState.lastState = State.getState();
@@ -223,9 +223,9 @@ public class FightState extends InWorldState{
 
     private void drawEntities(Graphics2D g2) {
         //Draws entities
-    	 g2.drawImage(Images.player_attack, playerRect.x, playerRect.y, playerRect.width, playerRect.height, null);
+        g2.drawImage(handler.getEntityManager().getPlayer().getIdle(), playerRect.x, playerRect.y, playerRect.width, playerRect.height, null);
         g2.setColor(Color.BLACK);
-        g2.fill(enemyRect);
+        g2.drawImage(enemy.getIdle(), enemyRect.x, enemyRect.y, enemyRect.width, enemyRect.height, null);
     }
 
     private void drawDebug(Graphics g) {
@@ -475,42 +475,42 @@ public class FightState extends InWorldState{
             playerAttackMode.tick();
             g.drawImage(playerAttackMode.getCurrentFrame(),playerRect.x,playerRect.y,playerRect.width,playerRect.height,null);
         }
-       else{
+        else{
 
-           playerRect.x += attackSpeed;
-           if (playerRect.x >= handler.getWidth()) {
-               playerRect.x = 0 - 70;
-           }
+            playerRect.x += attackSpeed;
+            if (playerRect.x >= handler.getWidth()) {
+                playerRect.x = 0 - 70;
+            }
 
-           int accc = new Random().nextInt((int) handler.getEntityManager().getPlayer().getAcc());
-           int ev = new Random().nextInt((int) enemy.getEvs());
+            int accc = new Random().nextInt((int) handler.getEntityManager().getPlayer().getAcc());
+            int ev = new Random().nextInt((int) enemy.getEvs());
 
-           if (accc >= ev && !attacked && enemy.getHealth() - (handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()) >= 0) {
-               enemy.setHealth(enemy.getHealth() - Math.abs(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()));
-               attacked = true;
-           } else if (accc >= ev && !attacked && enemy.getHealth() - (handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()) < 0) {
-               enemy.setHealth(0);
-               attacked = true;
-           }
+            if (accc >= ev && !attacked && enemy.getHealth() - (handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()) >= 0) {
+                enemy.setHealth(enemy.getHealth() - Math.abs(handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()));
+                attacked = true;
+            } else if (accc >= ev && !attacked && enemy.getHealth() - (handler.getEntityManager().getPlayer().getStr() - enemy.getDefense()) < 0) {
+                enemy.setHealth(0);
+                attacked = true;
+            }
 
-           if (playerRect.x <= (handler.getWidth() / 5) - 10 && playerRect.x >= (handler.getWidth() / 5) - 110) {
-               playerRect.x = (handler.getWidth() / 5);
-               attacking = false;
-               endTurn = true;
-           }
+            if (playerRect.x <= (handler.getWidth() / 5) - 10 && playerRect.x >= (handler.getWidth() / 5) - 110) {
+                playerRect.x = (handler.getWidth() / 5);
+                attacking = false;
+                endTurn = true;
+            }
 
-           if (endTurn || battleOver) {
-               attacking = false;
-               endTurn = false;
-               turn++;
-               attacked = false;
-               playerAttackMode.reset();
-               if (EisDefense) {
-                   enemy.setDefense(enemy.getDefense() - 20);
-                   EisDefense = false;
-               }
-           }
-       }
+            if (endTurn || battleOver) {
+                attacking = false;
+                endTurn = false;
+                turn++;
+                attacked = false;
+                playerAttackMode.reset();
+                if (EisDefense) {
+                    enemy.setDefense(enemy.getDefense() - 20);
+                    EisDefense = false;
+                }
+            }
+        }
 
     }
 
@@ -535,11 +535,11 @@ public class FightState extends InWorldState{
     }
 
     private void callSkill(Graphics g) {
-    	
+
         playerIceSkill.tick();
-        
+
         g.setColor( new Color(Math.max(0,red--),Math.max(0, green--),Math.max(0, blue--)));
-        ((Graphics2D)g).fill(enemyRect);
+        g.drawImage(Images.tint(enemy.getIdle(),0,0,Math.max(0, blue--)),enemyRect.x,enemyRect.y,enemyRect.width,enemyRect.height,null);
 
         g.drawImage(playerIceSkill.getCurrentFrame(),(handler.getWidth() * 4/ 5)-93,entityY-93,256,256,null);
 
@@ -571,8 +571,8 @@ public class FightState extends InWorldState{
         }
     }
 
-    
-    
+
+
     private void enemyTurn() {
 
         if(!Eskill&&!Edefense&&!Eattacking && enemy.getMana()>=25) {
@@ -610,7 +610,7 @@ public class FightState extends InWorldState{
 
         if(!playerAttackMode.end){
             playerAttackMode.tick();
-            g.drawImage(Images.tint(playerAttackMode.getCurrentFrame(),0,0,2),enemyRect.x-5,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
+            g.drawImage(Images.tint(playerAttackMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
         }
         else {
 
@@ -653,7 +653,7 @@ public class FightState extends InWorldState{
 
 
         playerDefenceMode.tick();
-        g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-5,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
+        g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
 
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             enemy.setDefense(enemy.getDefense()+20);

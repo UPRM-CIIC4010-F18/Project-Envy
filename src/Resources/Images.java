@@ -59,9 +59,13 @@ public class Images {
 	public static BufferedImage[] AttackMode;
 
 	public static BufferedImage[] Enemy;
+	public static BufferedImage[] PEnemyIdle;
+	public static BufferedImage[] WEnemyIdle;
 	public static BufferedImage[] SEnemy;
 
 	public static SpriteSheet smokeHouseSheet;
+	public static SpriteSheet PEnemySheet;
+	public static SpriteSheet WEnemySheet;
 
 	public static SpriteSheet iceSkillSheet;
 	public static SpriteSheet fireSkillSheet;
@@ -104,14 +108,16 @@ public class Images {
 		player_back = new BufferedImage[4];
 
 		Enemy = new BufferedImage[8];
-
-		Enemy = new BufferedImage[8];
+		PEnemyIdle = new BufferedImage[7];
+		WEnemyIdle = new BufferedImage[3];
 		SEnemy = new BufferedImage[8];
 
 		smokeHouse = new BufferedImage[7];
 		try {
 			map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
 			smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
+			PEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/P-enemy.png")));
+			WEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/W-enemy.png")));
 
 			iceSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/iceSkill.png")));
 			fireSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/fireSkill.png")));
@@ -158,6 +164,14 @@ public class Images {
 			smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20);
 			smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20);
 			smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20);
+
+			PEnemyIdle[0] = PEnemySheet.crop(0, 0, 38, 40);
+			PEnemyIdle[1] = PEnemySheet.crop(39, 0, 39, 40);
+			PEnemyIdle[2] = PEnemySheet.crop(78, 0, 39, 40);
+			PEnemyIdle[3] = PEnemySheet.crop(118, 0, 36, 40);
+			PEnemyIdle[4] = PEnemySheet.crop(155, 0, 36, 40);
+			PEnemyIdle[5] = PEnemySheet.crop(192, 0, 37, 40);
+			PEnemyIdle[6] = PEnemySheet.crop(233, 0, 37, 40);
 			
 			playerSheet =  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/player.png")));
 
