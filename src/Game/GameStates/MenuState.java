@@ -5,6 +5,7 @@ import Main.GameSetUp;
 import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
+import sun.font.FontScaler;
 import Display.UI.UIManager;
 import Display.UI.Selector;
 
@@ -26,9 +27,13 @@ public class MenuState extends State {
 	public int yPos;
 	public int width;
 	public int height;
+	public int titleXPos;
+	public int titleYPos;
+	public int EyPos, NyPos, VyPos, YyPos; 
 	public int menuSpeed = 3;
 	public int imageSpeed = 15;
 
+	public boolean eDown , nDown, vDown, yDown;
 	Selector selector = new Selector(this.handler);
 	private boolean statics=false;
 	private int staticsCounter=0;
@@ -43,6 +48,11 @@ public class MenuState extends State {
 		this.yPos = 0;
 		this.width = handler.getWidth();
 		this.height = handler.getHeight();
+		this.titleXPos = 200;
+		this.titleYPos = 0 - 250;
+		this.EyPos = this.NyPos = this.VyPos = this.YyPos = 0 - 300;
+		this.eDown = this.nDown = this.vDown = this.yDown = false;
+		
 
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUimanager(uiManager);
@@ -70,31 +80,40 @@ public class MenuState extends State {
 	public void render(Graphics g) {
 		g.setColor(Color.darkGray);
 
+
 		g.fillRect(0,0,handler.getWidth(),handler.getHeight());
 
 		g.drawImage(Images.title,this.xPos, this.yPos, this.width, this.height, null);
 		g.drawImage(Images.title,this.xPos2, this.yPos, this.width, this.height, null);
+		g.drawImage(Images.projectTitle, this.titleXPos, this.titleYPos, 600, 300, null);
+		g.setFont(new Font("AR ESSENCE", Font.PLAIN, 300));
+		g.setColor(Color.YELLOW);
+		g.drawString("E", this.titleXPos + 600 + 30, this.EyPos);
+		g.drawString("N", this.titleXPos + 600 + 165, this.NyPos);
+		g.drawString("V", this.titleXPos + 600 + 320, this.VyPos);
+		g.drawString("Y", this.titleXPos + 600 + 475, this.YyPos);
+
 		if(selector.getyPos2() == selector.getSBYpos()) {
 
-			g.drawImage(Images.butstart[1], handler.getWidth()/2 - 400, handler.getHeight()/2 - 328, 400, 300, null);
+			g.drawImage(Images.butstart[1], handler.getWidth()/2 - 400, handler.getHeight()/2 - 150, 400, 300, null);
 
 		}
 
 		else {
 
-			g.drawImage(Images.butstart[0], handler.getWidth()/2 - 400, handler.getHeight()/2 - 328, 400, 300, null);
+			g.drawImage(Images.butstart[0], handler.getWidth()/2 - 400, handler.getHeight()/2 - 150, 400, 300, null);
 
 		}
 
 		if(selector.getyPos2() == selector.getQBYpos2()) {
 
-			g.drawImage(Images.Quit[1],handler.getWidth()/2 - 425, handler.getHeight()/2, 450, 300, null);
+			g.drawImage(Images.Quit[1],handler.getWidth()/2 - 425, handler.getHeight()/2 + 100, 450, 300, null);
 
 		}
 
 		else {
 
-			g.drawImage(Images.Quit[0],handler.getWidth()/2 - 425, handler.getHeight()/2, 450, 300, null);
+			g.drawImage(Images.Quit[0],handler.getWidth()/2 - 425, handler.getHeight()/2 + 100, 450, 300, null);
 
 		}
 
@@ -115,29 +134,29 @@ public class MenuState extends State {
 				statics=false;
 			}
 			switch (staticsChoice){
-				case 0:
+			case 0:
 
-					if(staticsCounter%2==0) {
-						g.drawImage(Images.title2, 0, 0, handler.getWidth(), handler.getHeight(), null);
-					}else{
-						g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
-					}
+				if(staticsCounter%2==0) {
+					g.drawImage(Images.title2, 0, 0, handler.getWidth(), handler.getHeight(), null);
+				}else{
+					g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
+				}
 
-					break;
-				case 1:
-					if(staticsCounter%2==0) {
-						g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
-					}else{
-						g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
-					}
-					break;
-				case 2:
-					if(staticsCounter%2==0) {
-						g.drawImage(Images.title4, 0, 0, handler.getWidth(), handler.getHeight(), null);
-					}else{
-						g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
-					}
-					break;
+				break;
+			case 1:
+				if(staticsCounter%2==0) {
+					g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
+				}else{
+					g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
+				}
+				break;
+			case 2:
+				if(staticsCounter%2==0) {
+					g.drawImage(Images.title4, 0, 0, handler.getWidth(), handler.getHeight(), null);
+				}else{
+					g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
+				}
+				break;
 			}
 		}
 
@@ -146,7 +165,7 @@ public class MenuState extends State {
 		g.drawString("Music composed by Emmanuel Segarra", 50 , handler.getHeight()-75);
 		g.setFont(new Font("Bank Gothic",3,15));
 		g.drawString("www.emmanuelsegarramusic.com", 75 , handler.getHeight()-58);
-        
+
 
 	}
 
@@ -155,9 +174,10 @@ public class MenuState extends State {
 		this.setxPos(this.getxPos() - this.menuSpeed);
 		this.setxPos2(this.getxPos2() - this.menuSpeed);
 		this.setImageX(this.getImageX() - this.imageSpeed);
+		this.setTitleYPos(this.getTitleYPos() + this.imageSpeed);
 
-		if(this.getImageX() <= handler.getWidth() - 700) {
-			this.setImageX(handler.getWidth() - 700);
+		if(this.getImageX() <= handler.getWidth() - 600) {
+			this.setImageX(handler.getWidth() - 600);
 		}
 
 		if(this.getxPos() + handler.getWidth() <= 0) {
@@ -167,6 +187,46 @@ public class MenuState extends State {
 			this.setxPos2(handler.getWidth());
 		}
 
+		if(this.getTitleYPos() + 300 >= 400) {
+			this.setTitleYPos(400 - 300);
+			this.eDown = true;
+		}
+		
+		this.moveTitleLetters();
+
+	}
+	
+	public void moveTitleLetters() {
+		
+		if(this.EyPos > this.getTitleYPos() + 175) {
+			this.EyPos = this.getTitleYPos() + 175;
+			this.nDown = true;
+		}
+		if(this.NyPos > this.getTitleYPos() + 175) {
+			this.NyPos = this.getTitleYPos() + 175;
+			this.vDown = true;
+		}
+		if(this.VyPos > this.getTitleYPos() + 175) {
+			this.VyPos = this.getTitleYPos() + 175;
+			this.yDown = true;
+		}
+		if(this.YyPos > this.getTitleYPos() + 175) {
+			this.YyPos = this.getTitleYPos() + 175;
+		}
+		
+		if(this.eDown) {
+			this.EyPos += 40;			
+		}
+		if(this.nDown) {
+			this.NyPos += 40;			
+		}
+		if(this.vDown) {
+			this.VyPos += 40;			
+		}
+		if(this.yDown) {
+			this.YyPos += 40;			
+		}
+		
 	}
 
 	public void choose() {
@@ -238,5 +298,20 @@ public class MenuState extends State {
 		this.menuSpeed = menuSpeed;
 	}
 
+	public int getTitleXPos() {
+		return titleXPos;
+	}
+
+	public void setTitleXPos(int titleXPos) {
+		this.titleXPos = titleXPos;
+	}
+
+	public int getTitleYPos() {
+		return titleYPos;
+	}
+
+	public void setTitleYPos(int titleYPos) {
+		this.titleYPos = titleYPos;
+	}
 
 }

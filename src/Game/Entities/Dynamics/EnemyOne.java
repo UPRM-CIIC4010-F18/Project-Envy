@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import Game.GameStates.FightState;
 import Game.GameStates.State;
@@ -14,8 +15,8 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
     Rectangle enemyOne;
     int width, height;
 
-    public EnemyOne(Handler handler, int xPosition, int yPosition, String state,String name,String area) {
-        super(handler, yPosition, yPosition,state,name,area);
+    public EnemyOne(Handler handler, int xPosition, int yPosition, String state, String name, String area, BufferedImage[] animFrames) {
+        super(handler, yPosition, yPosition,state,name,area,animFrames);
         width = 30;
         height = 30;
         speed = 1;
