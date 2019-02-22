@@ -3,6 +3,7 @@ package Game.Entities.Dynamics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import Game.GameStates.FightState;
@@ -28,8 +29,8 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 	public String Area;//None for MapState
     public String type;//class it is ex: "EnemyOne"
 
-	public BaseHostileEntity(Handler handler, int xPosition, int yPosition, String state,String name,String area) {
-		super(handler, xPosition, yPosition);
+	public BaseHostileEntity(Handler handler, int xPosition, int yPosition, String state,String name,String area, BufferedImage[] animFrames) {
+		super(handler, xPosition, yPosition,animFrames);
 		this.foundState = state;
 		chasingPlayer = false;
 		Area=area;

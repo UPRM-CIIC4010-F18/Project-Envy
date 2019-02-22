@@ -42,6 +42,14 @@ public class Images {
 	public static BufferedImage map;
 	public static Image Scaledmap;
 
+	public static SpriteSheet playerSheet;
+	public static BufferedImage[] player_front;
+	public static BufferedImage[] player_left;
+	public static BufferedImage[] player_right;
+	public static BufferedImage[] player_back;
+	public static BufferedImage player_attack;
+
+
 	public static BufferedImage[] battleBackground;
 	public static BufferedImage[] Attack;
 	public static BufferedImage[] Defend;
@@ -53,16 +61,20 @@ public class Images {
 	public static BufferedImage[] AttackMode;
 
 	public static BufferedImage[] Enemy;
+	public static BufferedImage[] PEnemyIdle;
+	public static BufferedImage[] WEnemyIdle;
 	public static BufferedImage[] SEnemy;
 
 	public static SpriteSheet smokeHouseSheet;
-	
+	public static SpriteSheet PEnemySheet;
+	public static SpriteSheet WEnemySheet;
+
 	public static SpriteSheet iceSkillSheet;
 	public static SpriteSheet fireSkillSheet;
 	public static SpriteSheet defenceModeSheet;
 	public static SpriteSheet attackModeSheet;
-	
-	
+
+
 	public static BufferedImage[] smokeHouse;
 
 	public static BufferedImage CaveMap;
@@ -92,19 +104,28 @@ public class Images {
 		DefenceMode = new BufferedImage[100];
 		AttackMode = new BufferedImage[100];
 
+		player_front = new BufferedImage[4];
+		player_right = new BufferedImage[4];
+		player_left = new BufferedImage[4];
+		player_back = new BufferedImage[4];
+
 		Enemy = new BufferedImage[8];
+		PEnemyIdle = new BufferedImage[7];
+		WEnemyIdle = new BufferedImage[3];
 		SEnemy = new BufferedImage[8];
 
 		smokeHouse = new BufferedImage[7];
 		try {
 			map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
 			smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
-			
+			PEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/P-enemy.png")));
+			WEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/W-enemy.png")));
+
 			iceSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/iceSkill.png")));
 			fireSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/fireSkill.png")));
 			defenceModeSheet=  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/defenceMode.png")));
 			attackModeSheet=  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/attackMode.png")));
-			
+
 			CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
 			Area = ImageIO.read(getClass().getResourceAsStream("/Worlds/area.png"));
 			tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tree.png"));
@@ -148,6 +169,39 @@ public class Images {
 			smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20);
 			smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20);
 
+			PEnemyIdle[0] = PEnemySheet.crop(0, 0, 38, 40);
+			PEnemyIdle[1] = PEnemySheet.crop(39, 0, 39, 40);
+			PEnemyIdle[2] = PEnemySheet.crop(78, 0, 39, 40);
+			PEnemyIdle[3] = PEnemySheet.crop(118, 0, 36, 40);
+			PEnemyIdle[4] = PEnemySheet.crop(155, 0, 36, 40);
+			PEnemyIdle[5] = PEnemySheet.crop(192, 0, 37, 40);
+			PEnemyIdle[6] = PEnemySheet.crop(233, 0, 37, 40);
+			
+			playerSheet =  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/player.png")));
+
+			player_front[0] = playerSheet.crop(1, 6, 15, 27);
+			player_front[1] = playerSheet.crop(17, 7, 15, 27);
+			player_front[2] = playerSheet.crop(33, 6, 15, 27);
+			player_front[3] = playerSheet.crop(49, 7, 15, 27);
+
+			player_left[0] = playerSheet.crop(1, 102, 13, 22);
+			player_left[1] = playerSheet.crop(17, 102, 13, 22);
+			player_left[2] = playerSheet.crop(33, 102, 13, 22);
+			player_left[3] = playerSheet.crop(49, 102, 13, 22);
+
+			player_right[0] = playerSheet.crop(2, 38, 13, 22);
+			player_right[1] = playerSheet.crop(18, 38, 13, 22);
+			player_right[2] = playerSheet.crop(34, 38, 13, 22);
+			player_right[3] = playerSheet.crop(50, 38, 13, 22);
+
+			player_back[0] = playerSheet.crop(0, 69, 15, 23);
+			player_back[1] = playerSheet.crop(16, 69, 15, 23);
+			player_back[2] = playerSheet.crop(32, 69, 15, 23);
+			player_back[3] = playerSheet.crop(48, 69, 15, 23);
+
+			player_attack = ImageIO.read(getClass().getResourceAsStream("/Sheets/playerAttack.png"));
+
+
 			Enemy[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
 			Enemy[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
 			Enemy[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
@@ -156,7 +210,7 @@ public class Images {
 			Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
 			Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
 			Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
-			
+
 			IceSkill[0] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[1] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[2] = iceSkillSheet.crop( 52, 0, 50, 50);
@@ -257,8 +311,8 @@ public class Images {
 			IceSkill[97] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[98] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[99] = iceSkillSheet.crop( 0, 0, 50, 50);
-			
-			
+
+
 			DefenceMode[0] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[1] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[2] = defenceModeSheet.crop( 0, 0, 50, 50);
@@ -359,8 +413,8 @@ public class Images {
 			DefenceMode[97] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[98] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[99] = defenceModeSheet.crop( 0, 0, 50, 50);
-			
-			
+
+
 			AttackMode[0] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[1] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[2] = attackModeSheet.crop( 0, 0, 50, 50);
@@ -461,7 +515,7 @@ public class Images {
 			AttackMode[97] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[98] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[99] = attackModeSheet.crop( 0, 0, 50, 50);
-			
+
 			FireSkill[0] = fireSkillSheet.crop( 0, 0, 50, 50);
 			FireSkill[1] = fireSkillSheet.crop( 52, 0, 50, 50);
 			FireSkill[2] = fireSkillSheet.crop( 0, 52 , 50, 50);
@@ -547,6 +601,7 @@ public class Images {
 		ScaledCave = Images.CaveMap.getScaledInstance(3680, 4000, Image.SCALE_SMOOTH); // 368x400 pixel image
 		ScaledArea = Images.Area.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
 
+
 	}
 
 	/*
@@ -563,6 +618,9 @@ public class Images {
 	 */
 	public void PrintCropList(String skill, String sheet, String path, int width, int height) throws IOException {
 
+
+		icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
+
 		Scanner in = new Scanner(getClass().getResourceAsStream(path));
 		String line;
 
@@ -572,18 +630,18 @@ public class Images {
 		int indexCounter = 0;
 
 		while (in.hasNextLine()) {							//			     11111111112222222   <---LINE INDEX REFERENCE
-															//     012345678901234567890123456	 <---
+			//     012345678901234567890123456	 <---
 			line = in.nextLine();							// EX: frame0005 = 104 156 100 100
 
-															////////FOR X////////
+			////////FOR X////////
 			xPos = line.substring(12, 15);
 			if (xPos.startsWith("0")) { 					// EX: 0 156 100 100
 				xPos = "0";
 			} else if (xPos.endsWith(" ")) { 				// EX: 52 0 50 50
 				xPos = xPos.substring(0, 2);
 			}
-															////////FOR Y////////
-													 
+			////////FOR Y////////
+
 			if (xPos.length() == 1) {						// EX: 0 0 50 50		EX: 0 208 50 50
 				if (line.charAt(14) == '0') {
 					yPos = "0";
@@ -597,16 +655,16 @@ public class Images {
 					yPos = "0";								// Now y = 0
 				}
 			} else {     // xPos.length() == 3			 	EX: 104 0 100 100    EX: 156 52 50 50     EX: 104 156 100 100
-					
-					if (line.charAt(16) == '0'){			// Then y = 0			Then y = 52 		 Then y = 156					
-						yPos = line.charAt(16) + "";
-					}
-					else if (line.charAt(18) == ' ') {
-						yPos = line.substring(16, 18);
-					}
-					else {
-						yPos = line.substring(16, 19);
-					}			
+
+				if (line.charAt(16) == '0'){			// Then y = 0			Then y = 52 		 Then y = 156					
+					yPos = line.charAt(16) + "";
+				}
+				else if (line.charAt(18) == ' ') {
+					yPos = line.substring(16, 18);
+				}
+				else {
+					yPos = line.substring(16, 19);
+				}			
 			}
 
 			System.out.println(skill + "[" + indexCounter + "]" + " = " + sheet + ".crop( " + xPos + ", " + yPos + ", " + width + ", " + height + ");");
