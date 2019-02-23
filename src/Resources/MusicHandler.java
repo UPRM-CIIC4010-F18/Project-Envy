@@ -84,7 +84,7 @@ public class MusicHandler {
 		mediaE = new Media(new File(EPath).toURI().toString());
 		playerE.add(index, new MediaPlayer(mediaE));
 		if(getPlayer().getVolume()>0) {
-			playerE.get(index).setVolume(getPlayer().getVolume()+0.25);
+			playerE.get(index).setVolume(getPlayer().getVolume());
 		}else{
 			playerE.get(index).setVolume(0);
 		}
