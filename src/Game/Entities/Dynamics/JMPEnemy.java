@@ -1,82 +1,46 @@
 package Game.Entities.Dynamics;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
+import java.util.Random;
 
-import Display.UI.UIListener;
-import Game.GameStates.FightState;
-import Game.GameStates.State;
 import Main.Handler;
 
-public class EnemyOne extends BaseHostileEntity implements Fighter{
 
-    Rectangle enemyOne;
-    int width, height;
+public class JMPEnemy implements Fighter{
 
-    public EnemyOne(Handler handler, int xPosition, int yPosition, String state, String name, String area, BufferedImage[] animFrames) {
-        super(handler, yPosition, yPosition,state,name,area,animFrames);
-        width = 30;
-        height = 30;
-        speed = 1;
-        type="EnemyOne";
-        this.setXOffset(xPosition);
-        this.setYOffset(yPosition);
+	private Random rand;
+	double health, mana, xp,lvl,defense,str,intl,cons,acc,evs,initiative, maxHealth;
+	Handler handler;
+	public String name;
 
-        this.foundState = state;
-        enemyOne = new Rectangle();
-    }
+	public JMPEnemy(String name, Handler handler) {
 
-    @Override
-    public void tick() {
-
-        if(!Player.isinArea)super.tick();
-
-    }
-
-    @Override
-    public void render(Graphics g) {
-        super.render(g);
-
-        Graphics2D g2 = (Graphics2D) g;
+		this.name = name;
+		rand = new Random();
+		this.handler = handler;
+		
+		if(this.handler.getEntityManager().getPlayer().getWeaken()) {
+			
+			health=100;mana=80;xp=0l;lvl=1;defense=16;str=6;intl=23;cons=15;acc=10;evs=2;initiative=1; maxHealth = 100;		    
+			
+		}
+		
+		else{
+			
+			health=100;mana=100;xp=100;lvl=100;defense=100;str=100;intl=100;cons=100;acc=100;evs=100;initiative=100; maxHealth = 100;
+		    		
+		}
 
 
-        if(handler.getArea().equals(this.Area)) {
-            if (!Player.checkInWorld) {
-                enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
-                        (int) (handler.getYDisplacement() + getYOffset()), 30, 30);
+	}
 
-            } else {
-                enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
-                        (int) (handler.getYInWorldDisplacement() + getYOffset()), 70, 70);
-
-            }
-
-            g2.setColor(Color.black);
-
-            g2.fill(enemyOne);
-
-            if (enemyOne.intersects(handler.getEntityManager().getPlayer().getCollision())) {
-                handler.getEntityManager().getPlayer().facing = "Left";
-                State.setState(new FightState(handler, this, this.Area));
-            }
-        }
-
-
-    }
-
-    @Override
-    public Rectangle getCollision() {
-        return enemyOne;
-    }
-
-    //GETTERS AND SETTERS FOR FIGHT STATS
-
-    double health=100,mana=25,xp=0l,lvl=1,defense=12,str=8,intl=20, mr = 10,cons=20,acc=10,evs=1,initiative=1, maxHealth = 100;
+	boolean isDead = false;
     String Class = "none",skill = "none";
     String[] buffs = {},debuffs = {};
+
+    @Override
+    public double getHealth() {
+        return health;
+    }
 
     @Override
     public double getMaxHealth() {
@@ -86,18 +50,15 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
     public double getMaxMana() {
         return 100;
     }
-    @Override
-    public double getHealth() {
-        return health;
-    }
 
     @Override
     public void setHealth(double health) {
         this.health=health;
     }
     
-    public void setMaxHealth(double maxHP) {
-        this.maxHealth=maxHP;
+    
+    public void setMaxHealth(double maxHealth) {
+        this.maxHealth=maxHealth;
     }
 
     @Override
@@ -159,16 +120,6 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
     public void setIntl(double intl) {
         this.intl=intl;
     }
-    
-    @Override
-	public double getMr() {
-		return mr;
-	}
-	
-	@Override
-	public void setMr(double mr) {
-		this.mr = mr;	
-	}
 
     @Override
     public double getCons() {
@@ -248,6 +199,14 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
     @Override
     public void setDebuffs(String[] debuffs) {
         this.debuffs=debuffs;
+    }
+    
+    public boolean isDead() {
+    	return isDead;
+    }
+    
+    public void kill() {
+    	isDead = true;
     }
 
 }

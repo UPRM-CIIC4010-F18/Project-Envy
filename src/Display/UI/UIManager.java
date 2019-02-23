@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Game.Entities.EntityManager;
+import Game.GameStates.State;
 import Game.World.Walls;
 import Game.World.InWorldAreas.BaseArea;
 import Game.World.InWorldAreas.InWorldWalls;
@@ -206,7 +207,7 @@ public class UIManager {
 
 			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle)) {
 
-				System.exit(0);
+				State.setState(new UIListener(handler));
 
 			}
 
@@ -214,7 +215,7 @@ public class UIManager {
 
 		public void respawnEnemyTick() {
 
-			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter <= 10) {
+			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter < 1) {
 
 				this.setxPos( random.nextInt(7000 - 100) + 100);
 				this.setyPos(random.nextInt(5000 - 100) + 100);
