@@ -72,16 +72,19 @@ public class Images {
 	public static BufferedImage[] EnemyS;
 	public static BufferedImage[] SSkill;
 	public static BufferedImage[] aura;
-
-	public static SpriteSheet smokeHouseSheet;
 	
 	public static SpriteSheet iceSkillSheet;
 	public static SpriteSheet fireSkillSheet;
 	public static SpriteSheet defenceModeSheet;
 	public static SpriteSheet attackModeSheet;
 	
+	public static SpriteSheet smokeHouseSheet;
+	public static SpriteSheet statueSheet;
 	
 	public static BufferedImage[] smokeHouse;
+	public static BufferedImage[] lightStatue;
+
+	
 
 	public static BufferedImage CaveMap;
 	public static BufferedImage Area;
@@ -126,9 +129,13 @@ public class Images {
 		aura = new BufferedImage[4];
 
 		smokeHouse = new BufferedImage[7];
+		lightStatue = new BufferedImage[10];
+		
 		try {
 			map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
+			
 			smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
+			statueSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/statueSheet.png")));
 			
 			iceSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/iceSkill.png")));
 			fireSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/fireSkill.png")));
@@ -183,6 +190,18 @@ public class Images {
 			smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20);
 			smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20);
 			smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20);
+						
+			lightStatue[0] = statueSheet.crop(0, 0, 16, 48);
+			lightStatue[1] = statueSheet.crop(16, 0, 16, 48);
+			lightStatue[2] = statueSheet.crop(32, 0, 16, 48);
+			lightStatue[3] = statueSheet.crop(48, 0, 16, 48);
+			lightStatue[4] = statueSheet.crop(0, 48, 16, 48);
+			lightStatue[5] = statueSheet.crop(16, 48, 16, 48);
+			lightStatue[6] = statueSheet.crop(32, 48, 16, 48);
+			lightStatue[7] = statueSheet.crop(48, 48, 16, 48);
+			lightStatue[8] = statueSheet.crop(0, 96, 16, 48);
+			lightStatue[9] = statueSheet.crop(0, 96, 16, 48);
+			
 
 			PEnemyIdle[0] = PEnemySheet.crop(0, 0, 38, 40);
 			PEnemyIdle[1] = PEnemySheet.crop(39, 0, 39, 40);
