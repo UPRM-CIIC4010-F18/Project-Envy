@@ -128,10 +128,15 @@ public class PauseState extends State {
 
 	public void choose() {
 
-		if(selector.getxPos() == selector.getRBpos()) {
+		if(selector.getxPos() == selector.pauseXPositions[0] && selector.getyPos() == selector.pauseYPositions[0]) {
 			returnToGame();
 
-		}else if(selector.getxPos() == selector.getTBXpos()) {
+		}
+		else if(selector.getxPos() == selector.pauseXPositions[1] && selector.getyPos() == selector.pauseYPositions[1]) {	
+			//nothing yet
+			
+		}
+		else if(selector.getxPos() == selector.pauseXPositions[2] && selector.getyPos() == selector.pauseYPositions[2]) {
 			handler.setArea("None");
 			handler.getGame().reStart();
 			State.setState(handler.getGame().menuState);

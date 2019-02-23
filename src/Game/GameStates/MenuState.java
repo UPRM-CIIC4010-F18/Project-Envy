@@ -231,7 +231,7 @@ public class MenuState extends State {
 
 	public void choose() {
 
-		if(selector.getyPos2() == selector.getSBYpos()) {
+		if(selector.getxPos2() == selector.menuXPositions[0] && selector.getyPos2() == selector.menuYPositions[0]) {
 
 			GameSetUp.LOADING=true;
 			State.setState(handler.getGame().mapState);
