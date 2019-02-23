@@ -59,9 +59,10 @@ public class Player extends BaseDynamicEntity implements Fighter {
 
 	@Override
 	public void tick() {
-
+		
 		if (!GameSetUp.LOADING) {
-
+			levelUP();
+			
 			animDown.tick();
 			animUp.tick();
 			animRight.tick();
@@ -89,6 +90,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 				System.out.println(" x: " + this.getXOffset() + " y: " + this.getYOffset());
 		}
 	}
+
 
 	@Override
 	public void render(Graphics g) {
@@ -363,7 +365,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	// GETTERS AND SETTERS FOR FIGHT STATS
 
 	double health = 200, mana = 100, xp = 0l, lvl = 1, defense = 16, str = 10, intl = 25, mr = 12, cons = 20, acc = 12, evs = 4,
-			initiative = 20, maxHealth = 200;
+			initiative = 20, maxHealth = 200, maxMana = 100, lvlUpExp = 200;
 
 	String Class = "none", skill = "Ice";
 	String[] buffs = {}, debuffs = {};
@@ -375,7 +377,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 
 	@Override
 	public double getMaxMana() {
-		return 100;
+		return maxMana;
 	}
 
 	@Override
@@ -541,6 +543,36 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	public boolean getWeaken() {
 		
 		return this.weakenS;
+		
+	}
+	
+	public void addXp(double xp) {
+		this.xp += xp;
+	}
+	
+	public double getLvlUpXp() {
+		return lvlUpExp;
+	}
+	
+	private void levelUP() {
+		if(xp >= lvlUpExp) {
+			xp-= lvlUpExp;
+			lvlUpExp *= 1.4;
+			maxHealth += 15 + 5*(lvl-1);
+			maxMana += 5 + 5*(lvl-1);
+			str += 1 + 1 *(int)((lvl - 1)/2);
+			acc += 1 + 1 *(int)((lvl - 1)/2);
+			defense += 1 + 1 *(int)((lvl - 1)/2);
+			intl += 1 + 1 *(int)((lvl - 1)/2);
+			mr += 1 + 1 *(int)((lvl - 1)/2);
+			cons += 1 + 1 *(int)((lvl - 1)/2);
+			if(lvl%4 ==0)
+				evs++;
+			
+			lvl++;
+			
+			
+		}
 		
 	}
 
