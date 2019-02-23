@@ -138,15 +138,17 @@ public class UIListener extends InWorldState{
     @Override
     public void render(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
-
-        drawInfoSquare(g2);
+        
+     
 
         g2.setFont(new Font("Bank Gothic",3,15));
         g2.setStroke(new BasicStroke(1));
+        
         drawCharacterInfo(g2);
-
+        g2.drawImage(background, 0, 0,handler.getWidth(),handler.getHeight(), null);
+        
         drawEntities(g2);
-
+        drawInfoSquare(g2);
         Color color = new Color(0 , 0 , 0 , .5f); // transparentBlack
         drawFightBanner(g2,color);
 
@@ -342,7 +344,6 @@ public class UIListener extends InWorldState{
     private void drawInfoSquare(Graphics2D g2) {
 
         g2.setBackground(new Color(61,68,128));
-        g2.drawImage(background, 0, 0,handler.getWidth(),handler.getHeight(), null);
 
         g2.setColor(new Color(51, 96, 178));
         g2.setComposite(AlphaComposite.SrcOver.derive(0.8f));
