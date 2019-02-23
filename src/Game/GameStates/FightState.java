@@ -75,6 +75,7 @@ public class FightState extends InWorldState{
                 enemy.getIntl(),enemy.getMr(),enemy.getCons(),enemy.getAcc(),enemy.getEvs(),enemy.getInitiative(),enemy.getclass(),enemy.getSkill(),
                 enemy.getBuffs(),enemy.getDebuffs()));
 
+        this.enemy.lvlAdjust();
         playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 100, 100);
         enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5 - 70,entityY, 70, 70);
 
@@ -325,16 +326,18 @@ public class FightState extends InWorldState{
                 g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
                 g2.drawString(String.valueOf(enemy.getHealth()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
 
-                //Draws MP Information
-                g2.setColor(Color.BLUE);
-                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, (int)((handler.getWidth() * 2 / 20)*(enemy.getMana()/enemy.getMaxMana())), 17);
-                g2.setColor(Color.WHITE);
-                g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
-                g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
-                g2.drawString(String.valueOf(enemy.getMana()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
-
-                g2.drawString("Skill: " + String.valueOf(enemy.getSkill()), entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
-                g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
+                if(GameSetUp.DEBUGMODE) {
+	                //Draws MP Information
+	                g2.setColor(Color.BLUE);
+	                g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, (int)((handler.getWidth() * 2 / 20)*(enemy.getMana()/enemy.getMaxMana())), 17);
+	                g2.setColor(Color.WHITE);
+	                g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
+	                g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
+	                g2.drawString(String.valueOf(enemy.getMana()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
+	
+	                g2.drawString("Skill: " + String.valueOf(enemy.getSkill()), entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
+	                g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
+                }
             }else{//player
                 g2.drawString("Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 

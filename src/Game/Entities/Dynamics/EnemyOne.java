@@ -249,5 +249,24 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
     public void setDebuffs(String[] debuffs) {
         this.debuffs=debuffs;
     }
+    
+    public void lvlAdjust() {
+    	if(lvl > 1) {
+	    	health += 10 + 5*(lvl-1);
+			maxHealth = health;
+			mana += 10 + 5*(lvl-1);
+			if(mana > 100)
+				mana = 100;
+			str += 1 + 1 *(int)((lvl - 1)/2);
+			acc += 1 + 1 *(int)((lvl - 1)/2);
+			defense += 1 + 1 *(int)((lvl - 1)/2);
+			intl += 1 + 1 *(int)((lvl - 1)/2);
+			mr += 1 + 1 *(int)((lvl - 1)/2);
+			cons += 1 + 1 *(int)((lvl - 1)/2);
+			if(lvl%4 ==0)
+				evs += (lvl -lvl%4)/4;
+			xp += 20 *(lvl);
+    	}
+    }
 
 }
