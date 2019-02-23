@@ -15,18 +15,16 @@ public class InWorldState extends State{
 
 
     public EntityManager entityManager;	// To manager the entities within the InWorld
-    private UIManager uM ;
     public static BaseArea currentArea;
     public static BaseArea caveArea;
     public static BaseArea SArea;
 
     public InWorldState(Handler handler) {
         super(handler);
-        uM= new UIManager(handler);
         entityManager = new EntityManager(handler, handler.getEntityManager().getPlayer());
 
         caveArea = new CaveArea(handler, entityManager);
-        SArea = uM.new Area(handler, entityManager);
+        SArea = this.handler.getKeyManager().new Area(handler, entityManager);
 
     }
 
