@@ -8,7 +8,7 @@ import Main.Handler;
 public class JMPEnemy implements Fighter{
 
 	private Random rand;
-	double health, mana, xp,lvl,defense,str,intl,cons,acc,evs,initiative, maxHealth;
+	double health, mana, xp,lvl,defense,str,intl,cons,acc,evs,initiative,mr, maxHealth;
 	Handler handler;
 	public String name;
 
@@ -20,13 +20,13 @@ public class JMPEnemy implements Fighter{
 		
 		if(this.handler.getEntityManager().getPlayer().getWeaken()) {
 			
-			health=100;mana=80;xp=0l;lvl=1;defense=16;str=6;intl=23;cons=15;acc=10;evs=2;initiative=1; maxHealth = 100;		    
+			health=100;mana=80;xp=0l;lvl=1;defense=16;str=6;intl=23;cons=15;acc=10;mr= 10;evs=2;initiative=1; maxHealth = 100;		    
 			
 		}
 		
 		else{
 			
-			health=100;mana=100;xp=100;lvl=100;defense=100;str=100;intl=100;cons=100;acc=100;evs=100;initiative=100; maxHealth = 100;
+			health=100;mana=100;xp=100;lvl=100;defense=100;str=100;intl=100;cons=100;acc=100;mr=100;evs=100;initiative=100; maxHealth = 100;
 		    		
 		}
 
@@ -208,5 +208,16 @@ public class JMPEnemy implements Fighter{
     public void kill() {
     	isDead = true;
     }
+
+	@Override
+	public double getMr() {
+		return this.mr;
+	}
+
+	@Override
+	public void setMr(double intl) {
+		this.mr = intl;
+		
+	}
 
 }
