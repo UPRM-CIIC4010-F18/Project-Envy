@@ -133,7 +133,7 @@ public class Selector {
 			}
 
 			this.setxPos(this.pauseXPositions[pauseSelectorIndex]);
-			this.setyPos2(this.pauseYPositions[pauseSelectorIndex]);
+			this.setyPos(this.pauseYPositions[pauseSelectorIndex]);
 
 		}
 
