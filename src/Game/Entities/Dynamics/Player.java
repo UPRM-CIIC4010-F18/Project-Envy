@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import Game.GameStates.InWorldState;
-import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Game.World.Walls;
 import Game.World.InWorldAreas.CaveArea;
@@ -31,6 +30,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 
 	private int currentWidth, currentHeight;
 	public static boolean isinArea = false;
+	private boolean weakenS = false;
 	private int switchingCoolDown = 0;
 
 	// Animations
@@ -536,6 +536,12 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	@Override
 	public void setDebuffs(String[] debuffs) {
 		this.debuffs = debuffs;
+	}
+
+	public boolean getWeaken() {
+		
+		return this.weakenS;
+		
 	}
 
 }

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Display.UI.UIListener;
 import Game.GameStates.FightState;
 import Game.GameStates.State;
 import Main.Handler;
