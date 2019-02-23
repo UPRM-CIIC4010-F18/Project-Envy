@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
+import Game.Entities.Statics.LightStatue;
 import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
 import Main.GameSetUp;

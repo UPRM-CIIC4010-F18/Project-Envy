@@ -105,16 +105,17 @@ public class Player extends BaseDynamicEntity implements Fighter {
 
 		if (GameSetUp.DEBUGMODE) {
 			g2.draw(nextArea);
+			g2.draw(getCollision());
 		}
 	}
 
 	private void UpdateNextMove() {
 		switch (facing) {
 		case "Up":
-			nextArea = new Rectangle((int) xPosition, (int) yPosition - speed, currentWidth, currentHeight / 2);
+			nextArea = new Rectangle((int) xPosition + 10, (int) yPosition - speed, currentWidth/2, currentHeight / 2);
 			break;
 		case "Down":
-			nextArea = new Rectangle((int) xPosition, (int) yPosition + currentHeight, currentWidth, speed);
+			nextArea = new Rectangle((int) xPosition + 10, (int) yPosition + currentHeight, currentWidth/2, speed);
 
 			break;
 		case "Left":
@@ -228,7 +229,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 		{
 			if (CaveArea.isInCave) {
 				for (InWorldWalls iw : CaveArea.caveWalls) {
-					if (iw.intersects(player)) {
+					if (nextArea.intersects(iw)) {
 						if (iw.getType().equals("Wall"))
 							PushPlayerBack();
 						else {
@@ -261,7 +262,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 
 				for (InWorldWalls iw : InWorldState.SArea.getWalls()) {
 
-					if (iw.intersects(player)) {
+					if (nextArea.intersects(iw)) {
 						if (iw.getType().equals("Wall"))
 							PushPlayerBack();
 
