@@ -243,7 +243,7 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 
     //GETTERS AND SETTERS FOR FIGHT STATS
 
-    double health=100,mana=25,xp=0l,lvl=1,defense=12,str=8,intl=20, mr = 10,cons=20,acc=10,evs=1,initiative=1, maxHealth = 100;;
+    double health=100,mana=25,xp=0l,lvl=1,defense=12,str=8,intl=20, mr = 10,cons=20,acc=10,evs=1,initiative=1, maxHealth = 100, maxMana = 100;
     boolean isDead = false;
     String Class = "none",skill = "none";
     String[] buffs = {},debuffs = {};
@@ -259,7 +259,7 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
     }
     @Override
     public double getMaxMana() {
-        return 100;
+        return maxMana;
     }
 
     @Override
@@ -428,6 +428,25 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
     
     public void kill() {
     	isDead = true;
+    }
+    
+    public void lvlAdjust() {
+    	if(lvl > 1) {
+	    	health += 10 + 5*(lvl-1);
+			maxHealth = health;
+			mana += 10 + 5*(lvl-1);
+			if(mana > 100)
+				mana = 100;
+			str += 1 + 1 *(int)((lvl - 1)/2);
+			acc += 1 + 1 *(int)((lvl - 1)/2);
+			defense += 1 + 1 *(int)((lvl - 1)/2);
+			intl += 1 + 1 *(int)((lvl - 1)/2);
+			mr += 1 + 1 *(int)((lvl - 1)/2);
+			cons += 1 + 1 *(int)((lvl - 1)/2);
+			if(lvl%4 ==0)
+				evs += (lvl -lvl%4)/4;
+			xp += 20 *(lvl);
+    	}
     }
 
 
