@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
+import Game.Entities.Statics.LightStatue;
 import Game.World.Walls;
 
 public class CaveArea extends BaseArea {
@@ -38,7 +39,8 @@ public class CaveArea extends BaseArea {
 
         this.entityManager.AddEntity(handler.newEnemy(Images.PEnemyIdle,handler,700, 2000,"InWorldState","Sergio","Cave","EnemyOne",150,25,0,1,8,12,20,10,20,10,1,5,"None","Thunder",null,null)); //lvl 2 difficulty
         this.entityManager.AddEntity(handler.newEnemy(Images.PEnemyIdle,handler,3000, 1000,"InWorldState","Cave Dweller","Cave","EnemyOne",100,25,0,1,2,12,20,10,20,13,1,5,"None","Thunder",null,null)); // lvl 1 difficulty
-
+        this.entityManager.AddEntity(new LightStatue (handler, 2080, 1820));
+        
         caveWalls = new ArrayList<>();
         AddWalls();
 
@@ -47,14 +49,12 @@ public class CaveArea extends BaseArea {
     public void tick() {
         super.tick();
 
-
         for (Walls w : caveWalls) {
             w.tick();
         }
         if(!GameSetUp.LOADING) {
             entityManager.tick();
         }
-
 
     }
 
@@ -119,7 +119,7 @@ public class CaveArea extends BaseArea {
 
 
         caveWalls.add(new InWorldWalls(handler, 1940, 2130, 100, 100, "Wall"));									// Pond next to Statue
-        caveWalls.add(new InWorldWalls(handler, 2076, 1850, 150, 330, "Wall"));									// Statue
+        caveWalls.add(new InWorldWalls(handler, 2066, 1820, 180, 360, "Wall"));									// Statue
 
         caveWalls.add(new InWorldWalls(handler, 3380, 510, 120, 100, "Wall"));									// Hole next to Exit
         caveWalls.add(new InWorldWalls(handler, 2744, 140, 200, 300, "Wall"));									// Left wall relative to Exit
