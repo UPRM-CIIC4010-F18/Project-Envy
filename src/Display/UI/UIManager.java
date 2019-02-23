@@ -206,8 +206,11 @@ public class UIManager {
 		public void collidedWithEnemy() {
 
 			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle)) {
-
+				handler.getGame().getMusicHandler().setVolume(1);
+				handler.getGame().getMusicHandler().set_changeMusic("res/icons/LGS.wav");
+				handler.getGame().getMusicHandler().play();
 				State.setState(new UIListener(handler));
+
 
 			}
 
@@ -215,7 +218,7 @@ public class UIManager {
 
 		public void respawnEnemyTick() {
 
-			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter < 10) {
+			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter < 1) {
 
 				this.setxPos( random.nextInt(7000 - 100) + 100);
 				this.setyPos(random.nextInt(5000 - 100) + 100);

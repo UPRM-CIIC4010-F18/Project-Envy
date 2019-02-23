@@ -141,7 +141,11 @@ public class Player extends BaseDynamicEntity implements Fighter {
 		if (handler.getKeyManager().runbutt) {
 			speed = 2;
 		} else {
-			speed = 8;
+			if(GameSetUp.DEBUGMODE){
+				speed = 18;
+			}else{
+				speed = 8;
+			}
 		}
 
 		CheckForWalls();
