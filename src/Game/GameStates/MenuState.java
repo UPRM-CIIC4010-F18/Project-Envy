@@ -1,6 +1,7 @@
 package Game.GameStates;
 
 
+import Display.UI.UIListener;
 import Main.GameSetUp;
 import Main.Handler;
 import Resources.Animation;
@@ -121,43 +122,9 @@ public class MenuState extends State {
 
 		selector.render(g);
 		uiManager.Render(g);
-		if(!statics){
-			int x = new Random().nextInt(5000);
-			staticsChoice = new Random().nextInt(3);
-			if (x <= 5) {
-				statics=true;
-			}
-		}else{
-			staticsCounter++;
-			if(staticsCounter>=60){
-				staticsCounter=0;
-				statics=false;
-			}
-			switch (staticsChoice){
-			case 0:
 
-				if(staticsCounter%2==0) {
-					g.drawImage(Images.title2, 0, 0, handler.getWidth(), handler.getHeight(), null);
-				}else{
-					g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
-				}
-
-				break;
-			case 1:
-				if(staticsCounter%2==0) {
-					g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
-				}else{
-					g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
-				}
-				break;
-			case 2:
-				if(staticsCounter%2==0) {
-					g.drawImage(Images.title4, 0, 0, handler.getWidth(), handler.getHeight(), null);
-				}else{
-					g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
-				}
-				break;
-			}
+		if(UIListener.asset){
+			standarize(g);
 		}
 
 		g.setFont(new Font("Bank Gothic",3,30));
@@ -194,6 +161,47 @@ public class MenuState extends State {
 		
 		this.moveTitleLetters();
 
+	}
+
+	public void standarize(Graphics g){
+		if(!statics){
+			int x = new Random().nextInt(5000);
+			staticsChoice = new Random().nextInt(3);
+			if (x <= 5) {
+				statics=true;
+			}
+		}else{
+			staticsCounter++;
+			if(staticsCounter>=60){
+				staticsCounter=0;
+				statics=false;
+			}
+			switch (staticsChoice){
+				case 0:
+
+					if(staticsCounter%2==0) {
+						g.drawImage(Images.title2, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}else{
+						g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}
+
+					break;
+				case 1:
+					if(staticsCounter%2==0) {
+						g.drawImage(Images.title3, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}else{
+						g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}
+					break;
+				case 2:
+					if(staticsCounter%2==0) {
+						g.drawImage(Images.title4, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}else{
+						g.drawImage(Images.title, 0, 0, handler.getWidth(), handler.getHeight(), null);
+					}
+					break;
+			}
+		}
 	}
 	
 	public void moveTitleLetters() {

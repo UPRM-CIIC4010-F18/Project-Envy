@@ -143,14 +143,14 @@ public class Selector {
 
 		else if(State.getState().equals(handler.getGame().menuState)) {
 
-			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)) {
+			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
 
 				if(this.menuSelectorIndex == 0) this.menuSelectorIndex = 1;
 				else this.menuSelectorIndex--;
 
 			}
 
-			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)) {
+			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
 
 				if(this.menuSelectorIndex == 1) this.menuSelectorIndex = 0;
 				else this.menuSelectorIndex++;

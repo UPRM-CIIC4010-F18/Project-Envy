@@ -22,6 +22,7 @@ public class UIListener extends InWorldState{
 
     Selector.PauseSelector enemy;
     Rectangle enemyRect, playerRect;
+    public static boolean asset=false;
 
     public int fightWordXPos = handler.getWidth()/2 - 250;
     public int fightWordYPos = 0 - 80;
@@ -77,7 +78,7 @@ public class UIListener extends InWorldState{
         playerDefenceMode = new Animation(15, Images.DefenceMode);
         playerAttackMode = new Animation(15, Images.AttackMode);
 
-        enemySkill = new Animation(50,Images.SSkill); 
+        enemySkill = new Animation(50,Images.SSkill);
         Senemy = new Animation(100, Images.EnemyS);
         Saura = new Animation(70, Images.aura);
 
@@ -102,10 +103,11 @@ public class UIListener extends InWorldState{
         /////////////////////////////
 
         else {
-            if(!attacking&&!defense&&!skill&&turn>0&&enemy.getHealth()<=0){
+            if(!attacking&&!defense&&!skill&&turn>0&&enemy.getHealth()<=0&&!battleOver){
+                UIListener.asset=true;
                 battleOver=true;
             }
-            if(!Eattacking&&!Edefense&&!Eskill&&turn==0&&handler.getEntityManager().getPlayer().getHealth()<=0){
+            if(!Eattacking&&!Edefense&&!Eskill&&turn==0&&handler.getEntityManager().getPlayer().getHealth()<=0&&!battleOver){
                 battleOver=true;
             }
             if (!battleOver) {
@@ -134,7 +136,7 @@ public class UIListener extends InWorldState{
         g2.drawImage(background, 0, 0,handler.getWidth(),handler.getHeight(), null);
         g2.setFont(new Font("Bank Gothic",3,15));
         g2.setStroke(new BasicStroke(1));
- 
+
         drawEntities(g2);
         drawInfoSquare(g2);
         drawCharacterInfo(g2);
@@ -186,24 +188,19 @@ public class UIListener extends InWorldState{
                     handler.getGame().reStart();
                     State.setState(handler.getGame().menuState);
                 }else{
-                	//restores an amount on hp
-                	handler.getEntityManager().getPlayer().setHealth((int)(handler.getEntityManager().getPlayer().getHealth()+ ((handler.getEntityManager().getPlayer().getMaxHealth() - 
-                			handler.getEntityManager().getPlayer().getHealth())* handler.getEntityManager().getPlayer().getCons()/100)));
-                	if(handler.getEntityManager().getPlayer().getHealth() > handler.getEntityManager().getPlayer().getMaxHealth())
-                		handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getMaxHealth());
-                	//Restores an amount of mp
-                	handler.getEntityManager().getPlayer().setMana((int)(handler.getEntityManager().getPlayer().getMana()+ ((handler.getEntityManager().getPlayer().getMaxMana() - 
-                			handler.getEntityManager().getPlayer().getMana())* handler.getEntityManager().getPlayer().getIntl()/100)));
-                	if(handler.getEntityManager().getPlayer().getMana() > handler.getEntityManager().getPlayer().getMaxMana())
-                		handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMaxMana());
-                	
-////                    if(prevState.equals("None")){
-////                        State.setState(handler.getGame().mapState);
-////                    }else{
-////                        State.setState(handler.getGame().inWorldState);
-//
-//                    }
+                    //restores an amount on hp
+                    handler.getEntityManager().getPlayer().setHealth((int)(handler.getEntityManager().getPlayer().getHealth()+ ((handler.getEntityManager().getPlayer().getMaxHealth() -
+                            handler.getEntityManager().getPlayer().getHealth())* handler.getEntityManager().getPlayer().getCons()/100)));
+                    if(handler.getEntityManager().getPlayer().getHealth() > handler.getEntityManager().getPlayer().getMaxHealth())
+                        handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getMaxHealth());
+                    //Restores an amount of mp
+                    handler.getEntityManager().getPlayer().setMana((int)(handler.getEntityManager().getPlayer().getMana()+ ((handler.getEntityManager().getPlayer().getMaxMana() -
+                            handler.getEntityManager().getPlayer().getMana())* handler.getEntityManager().getPlayer().getIntl()/100)));
+                    if(handler.getEntityManager().getPlayer().getMana() > handler.getEntityManager().getPlayer().getMaxMana())
+                        handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMaxMana());
+
                 }
+                State.setState(handler.getGame().menuState);
             }
         }
     }
@@ -213,7 +210,7 @@ public class UIListener extends InWorldState{
         g2.drawImage(handler.getEntityManager().getPlayer().getIdle(), playerRect.x, playerRect.y, playerRect.width, playerRect.height, null);
         g2.drawImage(this.Saura.getCurrentFrame(), enemyRect.x - 100, enemyRect.y - 400, enemyRect.width * 2, enemyRect.height * 2, null);
         g2.drawImage(this.Senemy.getCurrentFrame(), enemyRect.x, enemyRect.y, enemyRect.width, enemyRect.height, null);
-       
+
     }
 
     private void drawDebug(Graphics g) {
@@ -322,7 +319,7 @@ public class UIListener extends InWorldState{
                 g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
                 g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
                 g2.drawString(String.valueOf(handler.getEntityManager().getPlayer().getMana()), entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
-                
+
                 g2.drawString("Skill: " + String.valueOf(handler.getEntityManager().getPlayer().getSkill()), entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
                 g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
             }
@@ -433,7 +430,7 @@ public class UIListener extends InWorldState{
     //Sets the background according to the previous state
     private void backgroundSelect() {
 
-       background = Images.battleBackground[2];
+        background = Images.battleBackground[2];
 
     }
 
@@ -465,13 +462,13 @@ public class UIListener extends InWorldState{
 
             int ev=(int)enemy.getEvs();
             int evade=new Random().nextInt(100);
-            
+
             int atk = (int) handler.getEntityManager().getPlayer().getStr() * 2;
             for(int i = 0; i < 6;i++) {
-            	if(new Random().nextInt(20) <= (int)handler.getEntityManager().getPlayer().getAcc())
-            		atk+= (int) handler.getEntityManager().getPlayer().getStr();
+                if(new Random().nextInt(20) <= (int)handler.getEntityManager().getPlayer().getAcc())
+                    atk+= (int) handler.getEntityManager().getPlayer().getStr();
             }
-            
+
             if(evade>ev &&!attacked && enemy.getHealth()-(atk - enemy.getDefense())>=0) {
                 enemy.setHealth(enemy.getHealth() - Math.abs(atk - enemy.getDefense()));
                 attacked=true;
@@ -480,7 +477,7 @@ public class UIListener extends InWorldState{
                 attacked = true;
             }
 
-            
+
             if (playerRect.x <= (handler.getWidth() / 5) - 10 && playerRect.x >= (handler.getWidth() / 5) - 110) {
                 playerRect.x = (handler.getWidth() / 5);
                 attacking = false;
@@ -488,9 +485,9 @@ public class UIListener extends InWorldState{
             }
 
             if (endTurn || battleOver) {
-            	//addMana
+                //addMana
                 if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
-                	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
+                    handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
                 attacking = false;
                 endTurn = false;
                 turn++;
@@ -501,10 +498,10 @@ public class UIListener extends InWorldState{
                     EisDefense = false;
                 }
             }
-            
+
         }
-        
-       
+
+
 
     }
 
@@ -518,9 +515,9 @@ public class UIListener extends InWorldState{
 
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()+20);
-          //addMana
+            //addMana
             if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
-            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
+                handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
             defense=false;
             endTurn=false;
             turn++;
@@ -528,9 +525,9 @@ public class UIListener extends InWorldState{
                 enemy.setDefense(enemy.getDefense()-20);
                 EisDefense = false;
             }
-            
+
         }
-       
+
 
     }
 
@@ -543,11 +540,11 @@ public class UIListener extends InWorldState{
 
         g.drawImage(playerIceSkill.getCurrentFrame(),(handler.getWidth() * 4/ 5)-93,entityY-93,256,256,null);
 
-        
+
         int ev=(int)enemy.getEvs();
         int evade=new Random().nextInt(125);
         int skillAtk = (int) handler.getEntityManager().getPlayer().getIntl() * 2;
-        
+
         if(100>ev &&!attacked && enemy.getHealth()-(skillAtk - enemy.getDefense()/2)>=0) {
             enemy.setHealth(enemy.getHealth() - Math.abs(skillAtk - enemy.getDefense()/2));
             attacked=true;
@@ -563,7 +560,7 @@ public class UIListener extends InWorldState{
         }
 
         if(endTurn|| battleOver){
-        	attacked=false;
+            attacked=false;
             skill=false;
             endTurn=false;
             turn++;
@@ -628,19 +625,19 @@ public class UIListener extends InWorldState{
 
             int ev=(int)handler.getEntityManager().getPlayer().getEvs();
             int evade=new Random().nextInt(100);
-            
+
             int atk = (int) enemy.getStr() * 2;
             for(int i = 0; i < 6;i++) {
-            	if(new Random().nextInt(20) <= (int)enemy.getAcc())
-            		atk+= (int) enemy.getStr();
+                if(new Random().nextInt(20) <= (int)enemy.getAcc())
+                    atk+= (int) enemy.getStr();
             }
-            
-	        if(evade <ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())>=0) {
-	            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - this.enemy.getStr());
-	            Eattacked=true;
-	        }else  if(evade<ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())<0){
-	            handler.getEntityManager().getPlayer().setHealth(0);
-	        }
+
+            if(evade <ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())>=0) {
+                handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - this.enemy.getStr());
+                Eattacked=true;
+            }else  if(evade<ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())<0){
+                handler.getEntityManager().getPlayer().setHealth(0);
+            }
 
 
             if (enemyRect.x >= (handler.getWidth() * 4 / 5) + 10 && enemyRect.x <= (handler.getWidth() * 4 / 5) + 110) {
@@ -688,7 +685,7 @@ public class UIListener extends InWorldState{
 
         g.drawImage((enemySkill.getCurrentFrame()), 0 - 100, entityY-105,this.enemyRect.x , 256, null);
 
-        
+
         int ev=(int)handler.getEntityManager().getPlayer().getEvs();
         int evade=new Random().nextInt(125);
         int skillAtk = (int) enemy.getIntl() * 2;
@@ -699,7 +696,7 @@ public class UIListener extends InWorldState{
         }else  if(evade>ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(skillAtk - handler.getEntityManager().getPlayer().getDefense()/2)<0){
             handler.getEntityManager().getPlayer().setHealth(0);
         }
-        
+
         if(enemySkill.getIndex()>=22){
             EendTurn=true;
             green= 255;
@@ -708,13 +705,13 @@ public class UIListener extends InWorldState{
         }
 
         if(EendTurn || battleOver){
-        	Eattacked=false;
+            Eattacked=false;
             Eskill=false;
             EendTurn=false;
             turn++;
             if(this.handler.getEntityManager().getPlayer().getWeaken()) {
-            enemy.setMana(enemy.getMana()-25);
-        	}
+                enemy.setMana(enemy.getMana()-25);
+            }
             if(isDefense){
                 handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()-20);
                 isDefense = false;
