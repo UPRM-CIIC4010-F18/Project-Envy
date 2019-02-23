@@ -1,7 +1,6 @@
 package Display.UI;
 
 import Game.Entities.Dynamics.BaseHostileEntity;
-import Game.Entities.Dynamics.JMPEnemy;
 import Game.Entities.Dynamics.Player;
 import Game.GameStates.InWorldState;
 import Game.GameStates.State;
@@ -21,7 +20,7 @@ public class UIListener extends InWorldState{
     private UIManager uiManager;
     private int entityY;
 
-    JMPEnemy enemy;
+    Selector.JMPEnemy enemy;
     Rectangle enemyRect, playerRect;
 
     public int fightWordXPos = handler.getWidth()/2 - 250;
@@ -32,6 +31,7 @@ public class UIListener extends InWorldState{
 
     private int optionSelect, inputCoolDown;
     private int[] entityInfoX;
+    Selector sel = new Selector(this.handler);
     Image background;
 
     public int turn=0,numOfEnemies=1; // 0= player ; else is enemy
@@ -48,7 +48,7 @@ public class UIListener extends InWorldState{
 
     private boolean Eattacking=false,Edefense=false,Eskill=false,EendTurn=false,Eattacked=false,EisDefense=false,battleOver =false;
 
-    private int EattackSpeed =40;
+    private int EattackSpeed =100;
 
     private int green= 255,red=95,blue=255,alpha=0;
 
@@ -63,7 +63,7 @@ public class UIListener extends InWorldState{
         //enemy info square coordinate
         entityInfoX[1] = handler.getWidth() * 14/20 + 4;
 
-        this.enemy = new JMPEnemy("???", this.handler);
+        this.enemy = sel.new JMPEnemy("???", this.handler);
 
         playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 100, 100);
         enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5, entityY - 200, 400 / 2, 400);
@@ -82,18 +82,10 @@ public class UIListener extends InWorldState{
         Saura = new Animation(70, Images.aura);
 
         this.backgroundSelect();
-        chooseTurn();
+        this.turn = 0;
 
     }
 
-    private void chooseTurn() {
-        if(handler.getEntityManager().getPlayer().getInitiative()>=enemy.getInitiative()){
-            turn = 0;
-        }else{
-            turn = 1;
-        }
-
-    }
 
     @Override
     public void tick() {
@@ -629,7 +621,7 @@ public class UIListener extends InWorldState{
         }
         else {
 
-            enemyRect.x -= attackSpeed;
+            enemyRect.x -= this.EattackSpeed;
             if (enemyRect.x + 70 < 0) {
                 enemyRect.x = handler.getWidth();
             }
@@ -644,7 +636,7 @@ public class UIListener extends InWorldState{
             }
             
 	        if(evade <ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())>=0) {
-	            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - Math.abs(atk - handler.getEntityManager().getPlayer().getDefense()));
+	            handler.getEntityManager().getPlayer().setHealth(handler.getEntityManager().getPlayer().getHealth() - this.enemy.getStr());
 	            Eattacked=true;
 	        }else  if(evade<ev &&!Eattacked && handler.getEntityManager().getPlayer().getHealth()-(atk - handler.getEntityManager().getPlayer().getDefense())<0){
 	            handler.getEntityManager().getPlayer().setHealth(0);
