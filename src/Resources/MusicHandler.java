@@ -85,6 +85,11 @@ public class MusicHandler {
         pathE=EPath;
         mediaE = new Media(new File(EPath).toURI().toString());
         playerE.add(index, new MediaPlayer(mediaE));
+        if(getPlayer().getVolume()>0) {
+            playerE.get(index).setVolume(getPlayer().getVolume()+0.25);
+        }else{
+            playerE.get(index).setVolume(0);
+        }
         playerE.get(index).play();
 
 
@@ -93,6 +98,17 @@ public class MusicHandler {
     public void stopEffect(int index){
 
         playerE.get(index).stop();
+
+    }
+    public MediaPlayer getEffect(int index){
+
+        return playerE.get(index);
+
+    }
+
+    public ArrayList<MediaPlayer> getEPlayer(){
+
+        return playerE;
 
     }
 

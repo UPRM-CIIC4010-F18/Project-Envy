@@ -126,10 +126,11 @@ public class FightState extends InWorldState{
         /////////////////////////////
 
         else {
-            if(!attacking&&!defense&&!skill&&turn>0&&enemy.getHealth()<=0){
+            if(!attacking&&!defense&&!skill&&turn>0&&enemy.getHealth()<=0&&!battleOver){
                 battleOver=true;
+                handler.getGame().getMusicHandler().playEffect("res/music/victory.mp3",0);
             }
-            if(!Eattacking&&!Edefense&&!Eskill&&turn==0&&handler.getEntityManager().getPlayer().getHealth()<=0){
+            if(!Eattacking&&!Edefense&&!Eskill&&turn==0&&handler.getEntityManager().getPlayer().getHealth()<=0&&!battleOver){
                 battleOver=true;
             }
             if (!battleOver) {
