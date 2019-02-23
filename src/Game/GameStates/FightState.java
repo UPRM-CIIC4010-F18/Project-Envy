@@ -236,7 +236,10 @@ public class FightState extends InWorldState{
                 	
                     if(prevState.equals("None")){
                         State.setState(handler.getGame().mapState);
+                        handler.setArea("None");
+
                     }else{
+                        handler.setArea(InWorldState.currentArea.name);
                         State.setState(handler.getGame().inWorldState);
 
                     }

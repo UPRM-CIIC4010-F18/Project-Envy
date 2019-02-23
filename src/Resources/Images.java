@@ -31,6 +31,7 @@ public class Images {
 	public static BufferedImage[] titleChoose;
 	public static BufferedImage titleImage;
 	public static BufferedImage Pause;
+	public static BufferedImage Stats;
 	public static BufferedImage[] Resume;
 	public static BufferedImage[] Quit;
 	public static BufferedImage[] BTitle;
@@ -159,6 +160,7 @@ public class Images {
 			title4 = ImageIO.read(getClass().getResourceAsStream("/Sheets/static1.jpg"));
 			Loading = ImageIO.read(getClass().getResourceAsStream("/Sheets/loading.jpg"));
 			titleImage = ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
+			Stats = ImageIO.read(getClass().getResourceAsStream("/Sheets/Cartel Nota.png"));
 
 			Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
 			Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));

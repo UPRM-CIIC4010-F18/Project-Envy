@@ -192,21 +192,21 @@ public class BaseHostileEntity extends BaseDynamicEntity implements Fighter{
 	}
 
 	protected void Chase() {
-		if (this.handler.getEntityManager().getPlayer().getXOffset() > this.getXOffset() && canMove) {
+		if (this.handler.getEntityManager().getPlayer().getXOffset()+(handler.getEntityManager().getPlayer().getCollision().width/2) > this.getXOffset() && canMove) {
 			facing = "Right";
 			this.setXOffset(this.getXOffset() + chaseSpeed);
 		}
-		if (this.handler.getEntityManager().getPlayer().getXOffset() < this.getXOffset() && canMove) {
+		if (this.handler.getEntityManager().getPlayer().getXOffset()+(handler.getEntityManager().getPlayer().getCollision().width/2) < this.getXOffset() && canMove) {
 			facing = "Left";
 			this.setXOffset(this.getXOffset() - chaseSpeed);
 		}
 
-		if (this.handler.getEntityManager().getPlayer().getYOffset() < this.getYOffset() && canMove) {
+		if (this.handler.getEntityManager().getPlayer().getYOffset()+(handler.getEntityManager().getPlayer().getCollision().height) < this.getYOffset() && canMove) {
 			facing = "Up";
 			this.setYOffset(this.getYOffset() - chaseSpeed);
 		}
 
-		if (this.handler.getEntityManager().getPlayer().getYOffset() > this.getYOffset() && canMove) {
+		if (this.handler.getEntityManager().getPlayer().getYOffset()+(handler.getEntityManager().getPlayer().getCollision().height) > this.getYOffset() && canMove) {
 			facing = "Down";
 			this.setYOffset(this.getYOffset() + chaseSpeed);
 		}
