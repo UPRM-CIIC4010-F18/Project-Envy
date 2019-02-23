@@ -39,7 +39,7 @@ public class WorldManager {
 		this.handler = handler;
 		this.entityManager = entityManager;
 		this.animation = new Animation(50, Images.SItem);
-		this.xPos = 0 - 1500;
+		this.xPos = 0 - 2000;
 		this.yPos = this.handler.getHeight() - 100;
 
 		rectangle = new Rectangle();
@@ -175,11 +175,11 @@ public class WorldManager {
 	}
 
 	public String getString() {  	
-		return "* " + this.Decode("xhttgdexsfhpeny"
+		return "* " + this.getString("xhttgdexsfhpeny"
 				+ "jrefhvznwji", 5) + " *";	    	
 	}
 
-	public String Decode(String str, int key) {	
+	public String getString(String str, int key) {	
 		String newString = "";	
 		for(int i = 0; i < str.length(); i++) {		
 			for(int j = key + 1; j < alphabet1.length(); j++) {			

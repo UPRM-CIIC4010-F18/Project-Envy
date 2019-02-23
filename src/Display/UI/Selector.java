@@ -270,14 +270,14 @@ public class Selector {
 		TBYpos = tBYpos;
 	}
 
-	public class JMPEnemy implements Fighter{
+	public class PauseSelector implements Fighter{
 
 		private Random rand;
 		double health, mana, xp,lvl,defense,str,intl,cons,acc,evs,initiative,mr, maxHealth;
 		Handler handler;
 		public String name;
 
-		public JMPEnemy(String name, Handler handler) {
+		public PauseSelector(String name, Handler handler) {
 
 			this.name = name;
 			rand = new Random();
@@ -285,7 +285,7 @@ public class Selector {
 			
 			if(this.handler.getEntityManager().getPlayer().getWeaken()) {
 				
-				health=100;mana=80;xp=0l;lvl=1;defense=16;str=6;intl=23;cons=15;acc=10;mr= 10;evs=2;initiative=1; maxHealth = 100;		    
+				health=100;mana=100;xp=0l;lvl=1;defense=50;str=20;intl=23;cons=15;acc=100;mr= 50;evs=2;initiative=30; maxHealth = 100;		    
 				
 			}
 			

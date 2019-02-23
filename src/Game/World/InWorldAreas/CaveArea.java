@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
+import Game.Entities.Dynamics.Player;
 import Game.Entities.Statics.LightStatue;
 import Game.World.Walls;
 
@@ -82,6 +83,7 @@ public class CaveArea extends BaseArea {
                 w.render(g2);
             }
         }
+
 
         entityManager.render(g);
 

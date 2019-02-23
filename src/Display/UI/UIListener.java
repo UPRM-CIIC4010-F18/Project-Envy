@@ -20,7 +20,7 @@ public class UIListener extends InWorldState{
     private UIManager uiManager;
     private int entityY;
 
-    Selector.JMPEnemy enemy;
+    Selector.PauseSelector enemy;
     Rectangle enemyRect, playerRect;
 
     public int fightWordXPos = handler.getWidth()/2 - 250;
@@ -63,7 +63,7 @@ public class UIListener extends InWorldState{
         //enemy info square coordinate
         entityInfoX[1] = handler.getWidth() * 14/20 + 4;
 
-        this.enemy = sel.new JMPEnemy("???", this.handler);
+        this.enemy = sel.new PauseSelector("???", this.handler);
 
         playerRect = new Rectangle( (int) handler.getWidth() / 5, entityY, 100, 100);
         enemyRect = new Rectangle((int) handler.getWidth() * 4/ 5, entityY - 200, 400 / 2, 400);
