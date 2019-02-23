@@ -1,9 +1,14 @@
 package Game.World;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+
+import javax.print.DocFlavor.STRING;
 
 import Game.Entities.EntityManager;
 import Game.Entities.Dynamics.EnemyOne;
@@ -12,6 +17,7 @@ import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
 import Main.GameSetUp;
 import Main.Handler;
+import Resources.Animation;
 import Resources.Images;
 import Resources.MusicHandler;
 import Resources.MusicHandler.Circle;
@@ -21,13 +27,22 @@ public class WorldManager {
 	protected Handler handler;
 	private Circle circle;
 	public EntityManager entityManager;
+	Animation animation;
+	Rectangle rectangle;
+	private int xPos;
+	private int yPos;
+	String alphabet1 = " abcdefghijklmnopqrstuvwxyzabcd";
 
 	ArrayList<Game.World.Walls> worldWalls;
 
 	public WorldManager(Handler handler, EntityManager entityManager) {
 		this.handler = handler;
 		this.entityManager = entityManager;
+		this.animation = new Animation(50, Images.SItem);
+		this.xPos = 0 - 1500;
+		this.yPos = this.handler.getHeight() - 100;
 
+		rectangle = new Rectangle();
 		circle = handler.getGame().getMusicHandler().new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
@@ -44,39 +59,53 @@ public class WorldManager {
 
 	public void tick() {
 
-        for (Walls w: this.worldWalls) {
-            w.tick();
-        }
-        
+		for (Walls w: this.worldWalls) {
+			w.tick();
+		}
+		this.animation.tick();
+		this.collidedWithWall();
+		this.moveString();
+
 	}
 
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		if(!this.handler.getEntityManager().getPlayer().getWeaken()) {
+		g2.drawImage(this.animation.getCurrentFrame(),
+		3027 + handler.getXDisplacement(), 3875 + 
+		handler.getYDisplacement(), 30, 30, null);}
+		rectangle = new Rectangle( 3027 + 
+		handler.getXDisplacement(), 3875 + 
+		handler.getYDisplacement(), 30, 30);
+		g2.setColor(Color.ORANGE);
+		g2.setFont(new Font("AR ESSENCE", Font.PLAIN, 100));
+		g2.drawString(this.getString(), this.xPos,this.yPos);
 
+		if(GameSetUp.DEBUGMODE){
 
-		
-		  if(GameSetUp.DEBUGMODE){
-	            for (Walls w: this.worldWalls) {
-	            	
-	            	if (w.getType().equals("Wall"))
-	            		g2.setColor(Color.black);
-	            	else
-	            		g2.setColor(Color.PINK);
-	            	
-	                w.render(g2);
-	            }
-	        }
+			g2.setColor(Color.BLACK);
+			g2.draw(rectangle);
+			for (Walls w: this.worldWalls) {
+
+				if (w.getType().equals("Wall"))
+					g2.setColor(Color.black);
+				else
+					g2.setColor(Color.PINK);
+
+				w.render(g2);
+			}
+		}
 	}
-	
+
 	// adds all the walls in game
 	private void AddWalls() {
 		worldWalls = new ArrayList<>();
-		
+
 		//Bridge Walls
 		worldWalls.add(new Walls(handler, 150, 120, 210, 360, "Wall"));
 		worldWalls.add(new Walls(handler, 150, 600, 210, 495, "Wall"));
 		worldWalls.add(new Walls(handler, 0, 450, 150, 200, "Wall"));
-		
+
 		//Walls of the Island
 		///Left Bottom Border of the Island
 		worldWalls.add(new Walls(handler, 360, 950, 480, 5, "Wall" ));
@@ -95,7 +124,7 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 3000, -400, 5, 450, "Wall"));
 		worldWalls.add(new Walls(handler, 1365, -380, 1650, 5, "Wall"));
 		///Top of the Island
-		//worldWalls.add(new Walls(handler, 1365, -380, 5, 250, "Wall"));
+		worldWalls.add(new Walls(handler,1365,-290,5,160,"Wall"));
 		worldWalls.add(new Walls(handler, 670, -130, 700, 5, "Wall"));
 		///Top right of the Island
 		worldWalls.add(new Walls(handler, 670, -130, 5, 250, "Wall"));
@@ -109,23 +138,57 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 1662, -60, 50, 80, "Wall"));
 		worldWalls.add(new Walls(handler, 1950, -270, 200, 50, "Wall"));
 		worldWalls.add(new Walls(handler, 1950, -300, 100, 50, "Wall"));
-		
+
 		worldWalls.add(new Walls(handler, 1980, -350, 50, 50, "Wall"));
 		worldWalls.add(new Walls(handler, 1950, -250, 200, 100, "Wall"));	
 		worldWalls.add(new Walls(handler, 1960, -150, 120, 100, "Wall"));
-				
+
 		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Door Cave"));
 		worldWalls.add(new Walls(handler, 5627,380, 20, 20, "Door S"));	
-		
+
 		///Left Mountains
 		worldWalls.add(new Walls(handler, 700, 180, 140, 200, "Wall"));
 		worldWalls.add(new Walls(handler, 620, 210, 80, 160, "Wall"));
 		worldWalls.add(new Walls(handler, 840, 240, 120, 110, "Wall"));
 		worldWalls.add(new Walls(handler, 580, 300, 40, 50, "Wall"));
 	}
-	
-    public ArrayList<Walls> getWalls() {
-        return worldWalls;
-    }
+
+	public void collidedWithWall() {
+		if(this.handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle)) {
+			handler.getEntityManager().getPlayer().setWeaken(true);
+		}
+
+	}
+
+	public void moveString() {
+		if(this.handler.getEntityManager().getPlayer().getWeaken()) {
+			this.xPos += 10;
+		}
+		if(this.xPos > this.handler.getWidth() + 100) {
+			this.xPos = this.handler.getWidth() + 100;
+		}
+
+	}
+
+	public ArrayList<Walls> getWalls() {
+		return worldWalls;
+	}
+
+	public String getString() {  	
+		return "* " + this.Decode("xhttgdexsfhpeny"
+				+ "jrefhvznwji", 5) + " *";	    	
+	}
+
+	public String Decode(String str, int key) {	
+		String newString = "";	
+		for(int i = 0; i < str.length(); i++) {		
+			for(int j = key + 1; j < alphabet1.length(); j++) {			
+				if(str.charAt(i) == alphabet1.charAt(j)) {				
+					newString += alphabet1.charAt(j - key);				
+				}		
+			}
+		}		
+		return newString.toUpperCase();		
+	}
 
 }

@@ -50,7 +50,7 @@ public class Images {
 	public static BufferedImage[] player_right;
 	public static BufferedImage[] player_back;
 	public static BufferedImage player_attack;
-
+	
 	public static BufferedImage[] PEnemyIdle;
 	public static BufferedImage[] WEnemyIdle;
 
@@ -82,9 +82,10 @@ public class Images {
 	public static SpriteSheet statueSheet;
 	
 	public static BufferedImage[] smokeHouse;
+
 	public static BufferedImage[] lightStatue;
 
-	
+	public static BufferedImage[] SItem;
 
 	public static BufferedImage CaveMap;
 	public static BufferedImage Area;
@@ -127,6 +128,7 @@ public class Images {
 		EnemyS = new BufferedImage[16];
 		SSkill = new BufferedImage[23];
 		aura = new BufferedImage[4];
+		SItem = new BufferedImage[16];
 
 		smokeHouse = new BufferedImage[7];
 		lightStatue = new BufferedImage[10];
@@ -292,6 +294,23 @@ public class Images {
 			SSkill[20] = SSkill[2];
 			SSkill[21] = SSkill[1];
 			SSkill[22] = SSkill[0];
+			
+			SItem[0] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS1.png"));
+			SItem[1] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS2.png"));
+			SItem[2] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS3.png"));
+			SItem[3] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS4.png"));
+			SItem[4] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS5.png"));
+			SItem[5] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS6.png"));
+			SItem[6] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS7.png"));
+			SItem[7] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS8.png"));
+			SItem[8] = SItem[7];
+			SItem[9] = SItem[6];
+			SItem[10] = SItem[5];
+			SItem[11] = SItem[4];
+			SItem[12] = SItem[3];
+			SItem[13] = SItem[2];
+			SItem[14] = SItem[1];
+			SItem[15] = SItem[1];
 			
 			IceSkill[0] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[1] = iceSkillSheet.crop( 0, 0, 50, 50);

@@ -540,6 +540,9 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	public void setDebuffs(String[] debuffs) {
 		this.debuffs = debuffs;
 	}
+	public void setWeaken(boolean arg) {
+		this.weakenS = arg;
+	}
 
 	public boolean getWeaken() {
 		
