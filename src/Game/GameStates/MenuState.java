@@ -40,7 +40,7 @@ public class MenuState extends State {
 	private int staticsCounter=0;
 	private int staticsChoice;
 
-	public MenuState(Handler handler) {
+    public MenuState(Handler handler) {
 		super(handler);
 
 		this.xPos = 0;
@@ -169,7 +169,8 @@ public class MenuState extends State {
 			staticsChoice = new Random().nextInt(3);
 			if (x <= 5) {
 				statics=true;
-			}
+                handler.getGame().getMusicHandler().playEffect(GameSetUp.resList[new Random().nextInt(GameSetUp.resList.length)],handler.getGame().getMusicHandler().getEPlayer().size());
+            }
 		}else{
 			staticsCounter++;
 			if(staticsCounter>=60){
@@ -178,7 +179,6 @@ public class MenuState extends State {
 			}
 			switch (staticsChoice){
 				case 0:
-
 					if(staticsCounter%2==0) {
 						g.drawImage(Images.title2, 0, 0, handler.getWidth(), handler.getHeight(), null);
 					}else{
