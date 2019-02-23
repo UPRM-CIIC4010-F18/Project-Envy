@@ -164,6 +164,11 @@ public class PauseState extends State {
 
 
 	public void choose() {
+		
+		if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+			handler.getGame().getMusicHandler().stopEffect(0);
+		}
+		handler.getGame().getMusicHandler().playEffect("res/music/enterSelect.wav",0);
 
 		if(selector.getxPos() == selector.pauseXPositions[0] && selector.getyPos() == selector.pauseYPositions[0]) {
 			returnToGame();

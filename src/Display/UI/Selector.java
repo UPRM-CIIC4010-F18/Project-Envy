@@ -114,7 +114,7 @@ public class Selector {
 				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
 					handler.getGame().getMusicHandler().stopEffect(0);
 				}
-				handler.getGame().getMusicHandler().playEffect("res/music/victory.mp3",0);
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 
 				if(pauseSelectorIndex == 3) pauseSelectorIndex = 0;				
 				else pauseSelectorIndex++;
@@ -123,8 +123,10 @@ public class Selector {
 
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
-
-
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+					handler.getGame().getMusicHandler().stopEffect(0);
+				}
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 				if(pauseSelectorIndex == 0) pauseSelectorIndex = 3;
 				else pauseSelectorIndex--;
 
@@ -138,14 +140,20 @@ public class Selector {
 		else if(State.getState().equals(handler.getGame().menuState)) {
 
 			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
-
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+					handler.getGame().getMusicHandler().stopEffect(0);
+				}
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 				if(this.menuSelectorIndex == 0) this.menuSelectorIndex = 1;
 				else this.menuSelectorIndex--;
 
 			}
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
-
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+					handler.getGame().getMusicHandler().stopEffect(0);
+				}
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 				if(this.menuSelectorIndex == 1) this.menuSelectorIndex = 0;
 				else this.menuSelectorIndex++;
 
