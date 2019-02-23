@@ -49,6 +49,7 @@ public class FightState extends InWorldState{
 
     private int EattackSpeed =40;
     private String dmg = "";
+    private double lvlUp = 0;
 
     private int green= 255,red=95,blue=255,alpha=0;
 
@@ -83,6 +84,7 @@ public class FightState extends InWorldState{
         optionSelect = 0;
         inputCoolDown = 0;
         dmg = "";
+        lvlUp = handler.getEntityManager().getPlayer().getLvlUpXp();
 
         playerIceSkill = new Animation(20,Images.IceSkill);
         playerDefenceMode = new Animation(15, Images.DefenceMode);
@@ -191,20 +193,28 @@ public class FightState extends InWorldState{
 
             g2.setFont(new Font("IMPACT", 3, this.wordHeight));
             if(handler.getEntityManager().getPlayer().getHealth()==0){
-                g.setColor(new Color(0,0,0,alpha++));
+                g.setColor(new Color(0,0,0,alpha+=2));
                 g.fillRect(0,0,handler.getWidth(),handler.getHeight());
                 g2.setColor(Color.RED);
-                g.drawString("Winner is: "+enemy.name,handler.getWidth()/4,handler.getHeight()/2);
+                g.drawString("DEFEAT!",handler.getWidth()/3 - 50,handler.getHeight()/2);
 
             }else{
-                g.setColor(new Color(255,255,255,alpha++));
+                g.setColor(new Color(255,255,255,alpha+=2));
                 g.fillRect(0,0,handler.getWidth(),handler.getHeight());
                 g2.setColor(Color.GREEN);
-                g.drawString("Winner is: Player",handler.getWidth()/4,handler.getHeight()/2);
+                g.drawString("VICTORY!",handler.getWidth()/3 - 50,handler.getHeight()/2);
+                g2.setFont(new Font("IMPACT", 3, this.wordHeight/3));
+                g.drawString("Experience gained: " + (int) enemy.getXp(),handler.getWidth()/3 + 10,handler.getHeight()/2 + 70);
+                if(handler.getEntityManager().getPlayer().getXp() + enemy.getXp() >= lvlUp) {
+                	 g2.setFont(new Font("IMPACT", 3, this.wordHeight/2));
+                     g.drawString("LEVEL UP!",handler.getWidth()/3 + 100,handler.getHeight()/2 + 155);
+                     g2.setFont(new Font("IMPACT", 3, this.wordHeight/3));
+                     g.drawString( handler.getEntityManager().getPlayer().getLvl() + "  -> " + (handler.getEntityManager().getPlayer().getLvl()+1),handler.getWidth()/3 + 150,handler.getHeight()/2 + 230);
+                }
                 enemy.kill();
                 inStateEnemy.kill();
             }
-            if(alpha==255){
+            if(alpha>=254){
                 if(handler.getEntityManager().getPlayer().getHealth()==0){
                     handler.getGame().reStart();
                     State.setState(handler.getGame().menuState);
@@ -217,6 +227,9 @@ public class FightState extends InWorldState{
                 	//Restores an amount of mp
                 	handler.getEntityManager().getPlayer().setMana((int)(handler.getEntityManager().getPlayer().getMana()+ ((handler.getEntityManager().getPlayer().getMaxMana() - 
                 			handler.getEntityManager().getPlayer().getMana())* handler.getEntityManager().getPlayer().getIntl()/100)));
+                	//Gives XP to the player
+                	handler.getEntityManager().getPlayer().addXp(enemy.getXp());
+                	
                 	if(handler.getEntityManager().getPlayer().getMana() > handler.getEntityManager().getPlayer().getMaxMana())
                 		handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMaxMana());
                 	
@@ -256,6 +269,7 @@ public class FightState extends InWorldState{
             g.drawString("Class: "+String.valueOf(handler.getEntityManager().getPlayer().getclass()),0,225);
             g.drawString("Buffs: "+ Arrays.toString(handler.getEntityManager().getPlayer().getBuffs()),0,250);
             g.drawString("Debuffs: "+ Arrays.toString(handler.getEntityManager().getPlayer().getDebuffs()),0,275);
+            g.drawString("Magic Resist: "+ String.valueOf(handler.getEntityManager().getPlayer().getMr()),0,325);
             //enemy
             g.drawString("Accuracy: "+String.valueOf(enemy.getAcc()),handler.getWidth()-200,300);
             g.drawString("XP: "+String.valueOf(enemy.getXp()),handler.getWidth()-200,25);
@@ -269,6 +283,7 @@ public class FightState extends InWorldState{
             g.drawString("Class: "+String.valueOf(enemy.getclass()),handler.getWidth()-200,225);
             g.drawString("Buffs: "+ Arrays.toString(enemy.getBuffs()),handler.getWidth()-200,250);
             g.drawString("Debuffs: "+ Arrays.toString(enemy.getDebuffs()),handler.getWidth()-200,275);
+            g.drawString("Magic Resist: "+ String.valueOf(enemy.getMr()),handler.getWidth()-200,325);
         }
     }
 
@@ -294,7 +309,7 @@ public class FightState extends InWorldState{
          */
         for(int i = 0; i < 2;i++) {
             if(i==1) {//enemy
-                g2.drawString("Name: " + enemy.name, entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
+                g2.drawString(enemy.name, entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
                 //draws health info
                 if(enemy.getHealth()>=enemy.getMaxHealth() * 3/4){
@@ -321,7 +336,7 @@ public class FightState extends InWorldState{
                 g2.drawString("Skill: " + String.valueOf(enemy.getSkill()), entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
                 g2.drawString("Mana Cost: " + "25 MP", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
             }else{//player
-                g2.drawString("Name: "+"Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
+                g2.drawString("Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 
                 //draws health info
                 if(handler.getEntityManager().getPlayer().getHealth()>= handler.getEntityManager().getPlayer().getMaxHealth() * 3/4){
@@ -510,7 +525,7 @@ public class FightState extends InWorldState{
                 dmg = String.valueOf(atk);
             }else if( !(evade>ev) && !attacked)
             	dmg = "Evaded!";
-            
+            g.setFont((new Font("IMPACT", Font.ITALIC, 25)));
             g.drawString(dmg , (int)enemy.getXOffset(), (int) enemy.getYOffset() - 20); 
             
 
@@ -522,8 +537,8 @@ public class FightState extends InWorldState{
 
             if (endTurn || battleOver) {
             	//addMana
-                if(handler.getEntityManager().getPlayer().getMana() <= handler.getEntityManager().getPlayer().getMaxMana()-2)
-                	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
+                if(handler.getEntityManager().getPlayer().getMana() <= handler.getEntityManager().getPlayer().getMaxMana()- 5)
+                	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + (int)(10 * (handler.getEntityManager().getPlayer().getIntl()/100)));
                 attacking = false;
                 endTurn = false;
                 turn++;
@@ -531,6 +546,7 @@ public class FightState extends InWorldState{
                 playerAttackMode.reset();
                 if (EisDefense) {
                     enemy.setDefense(enemy.getDefense() - 15);
+                    enemy.setMr(enemy.getMr()-4);
                     EisDefense = false;
                 }
             }
@@ -551,14 +567,16 @@ public class FightState extends InWorldState{
 
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()+15);
+            handler.getEntityManager().getPlayer().setMr(handler.getEntityManager().getPlayer().getMr()+ 4);
           //addMana
-            if(handler.getEntityManager().getPlayer().getMana() <= handler.getEntityManager().getPlayer().getMaxMana()-4)
-            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 4);
+            if(handler.getEntityManager().getPlayer().getMana() <= handler.getEntityManager().getPlayer().getMaxMana()- 10)
+            	handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + (int)(10 * (handler.getEntityManager().getPlayer().getIntl()* 2/100)));
             defense=false;
             endTurn=false;
             turn++;
             if(EisDefense){
                 enemy.setDefense(enemy.getDefense()-15);
+                enemy.setMr(enemy.getMr()-4);
                 EisDefense = false;
             }
             
@@ -594,6 +612,7 @@ public class FightState extends InWorldState{
         }else if( !(evade>ev) && !attacked)
         	dmg = "Evaded!";
         
+        g.setFont((new Font("IMPACT", Font.ITALIC, 25)));
         g.drawString(dmg , (int)enemy.getXOffset(), (int) enemy.getYOffset() - 20);  
 
         if(playerIceSkill.getIndex()>=99){
@@ -611,6 +630,7 @@ public class FightState extends InWorldState{
             handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana()-25);
             if(EisDefense){
                 enemy.setDefense(enemy.getDefense()-15);
+                enemy.setMr(enemy.getMr()-4);
                 EisDefense = false;
             }
         }
@@ -689,6 +709,7 @@ public class FightState extends InWorldState{
 	        	dmg = "Evaded!";
             
 	        g.setColor(Color.RED);
+	        g.setFont((new Font("IMPACT", Font.ITALIC, 25)));
 	        g.drawString(dmg , playerRect.x, playerRect.y - 20);
 
 
@@ -706,6 +727,7 @@ public class FightState extends InWorldState{
                 playerAttackMode.reset();
                 if (isDefense) {
                     handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense() - 15);
+                    handler.getEntityManager().getPlayer().setMr(handler.getEntityManager().getPlayer().getMr()- 4);
                     isDefense = false;
                 }
             }
@@ -717,14 +739,18 @@ public class FightState extends InWorldState{
 
         playerDefenceMode.tick();
         g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
-
+        
+        EisDefense = true;
+        
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             enemy.setDefense(enemy.getDefense()+15);
+            enemy.setMr(enemy.getMr()+4);
             Edefense=false;
             EendTurn=false;
             turn++;
-            if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
+            if(isDefense){
                 handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()- 15);
+                handler.getEntityManager().getPlayer().setMr(handler.getEntityManager().getPlayer().getMr()- 4);
                 isDefense = false;
             }
         }
@@ -753,7 +779,9 @@ public class FightState extends InWorldState{
             dmg = String.valueOf(skillAtk);
         }else if( !(evade>ev) && !Eattacked)
         	dmg = "Evaded!";
+        
         g.setColor(Color.RED);
+        g.setFont((new Font("IMPACT", Font.ITALIC, 25)));
         g.drawString(dmg , playerRect.x, playerRect.y - 20);
         
         if(enemyFireSkill.getIndex()>=69){
@@ -771,6 +799,7 @@ public class FightState extends InWorldState{
             enemy.setMana(enemy.getMana()-25);
             if(isDefense){
                 handler.getEntityManager().getPlayer().setDefense(handler.getEntityManager().getPlayer().getDefense()-15);
+                handler.getEntityManager().getPlayer().setMr(handler.getEntityManager().getPlayer().getMr()- 4);
                 isDefense = false;
             }
         }
