@@ -19,7 +19,6 @@ import Main.GameSetUp;
 import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
-import Resources.MusicHandler;
 import Resources.MusicHandler.Circle;
 
 public class WorldManager {

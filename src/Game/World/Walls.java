@@ -4,7 +4,6 @@ import Main.Handler;
 
 import java.awt.*;
 
-import Game.GameStates.State;
 
 /**
  * Two types of walls:

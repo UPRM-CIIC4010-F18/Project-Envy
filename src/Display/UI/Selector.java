@@ -1,11 +1,9 @@
 package Display.UI;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 import java.util.Random;
 
 import Game.Entities.Dynamics.Fighter;
@@ -94,10 +92,6 @@ public class Selector {
 
 	public void render(Graphics g) {
 
-		Graphics2D g2 = (Graphics2D) g;
-
-		Ellipse2D.Double selector;
-
 		if(State.getState().equals(handler.getGame().menuState)) {
 			g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos2() - 25, this.getyPos2() - 25, 150, 150, null);
 		}
@@ -120,7 +114,8 @@ public class Selector {
 				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
 					handler.getGame().getMusicHandler().stopEffect(0);
 				}
-				handler.getGame().getMusicHandler().playEffect("res/music/victory.mp3",0);
+
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 
 				if(pauseSelectorIndex == 3) pauseSelectorIndex = 0;				
 				else pauseSelectorIndex++;
@@ -129,8 +124,10 @@ public class Selector {
 
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
-
-
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+					handler.getGame().getMusicHandler().stopEffect(0);
+				}
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 				if(pauseSelectorIndex == 0) pauseSelectorIndex = 3;
 				else pauseSelectorIndex--;
 
@@ -144,14 +141,20 @@ public class Selector {
 		else if(State.getState().equals(handler.getGame().menuState)) {
 
 			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
-
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+					handler.getGame().getMusicHandler().stopEffect(0);
+				}
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 				if(this.menuSelectorIndex == 0) this.menuSelectorIndex = 1;
 				else this.menuSelectorIndex--;
 
 			}
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
-
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+					handler.getGame().getMusicHandler().stopEffect(0);
+				}
+				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
 				if(this.menuSelectorIndex == 1) this.menuSelectorIndex = 0;
 				else this.menuSelectorIndex++;
 

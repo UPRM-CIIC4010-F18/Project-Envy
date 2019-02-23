@@ -1,7 +1,6 @@
 package Game.GameStates;
 
 import Game.Entities.Dynamics.BaseHostileEntity;
-import Game.Entities.Dynamics.Player;
 import Main.GameSetUp;
 import Main.Handler;
 
@@ -413,6 +412,12 @@ public class FightState extends InWorldState{
         if (handler.getKeyManager().down || handler.getKeyManager().up) {}
         if (handler.getKeyManager().right && inputCoolDown > 15){
 //        	choose options to the right
+        	if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+    			handler.getGame().getMusicHandler().stopEffect(0);
+    		}
+        	
+    		handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
+    		
             if(optionSelect < uiManager.getObjects().size()-1 ) {
                 optionSelect++;
                 inputCoolDown = 0;
@@ -421,6 +426,13 @@ public class FightState extends InWorldState{
         }
         if (handler.getKeyManager().left && inputCoolDown > 15){
 //        	choose options to the left
+        	
+        	if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+    			handler.getGame().getMusicHandler().stopEffect(0);
+    		}
+        	
+    		handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
+    		
             if(optionSelect > 0){
                 optionSelect -= 1;
                 inputCoolDown = 0;
@@ -430,8 +442,12 @@ public class FightState extends InWorldState{
 
         uiManager.getObjects().get(optionSelect);
 
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER))
-            uiManager.getObjects().get(optionSelect).onClick();
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
+        	if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+    			handler.getGame().getMusicHandler().stopEffect(0);
+    		}
+    		handler.getGame().getMusicHandler().playEffect("res/music/enterSelect.wav",0);
+            uiManager.getObjects().get(optionSelect).onClick();}
 
 
     }

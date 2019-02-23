@@ -1,6 +1,5 @@
 package Resources;
 
-import Game.GameStates.PauseState;
 import Main.Handler;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
@@ -9,7 +8,6 @@ import javafx.scene.media.MediaPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.io.*;
 import java.util.ArrayList;
@@ -23,170 +21,169 @@ import Game.GameStates.State;
 public class MusicHandler {
 
 
-    private Media media;
-    private MediaPlayer player;
-    public boolean isPlaying = false;
-    private String path;
-    public boolean alreadyStarted = false;
-    private boolean Loop = false;
+	private Media media;
+	private MediaPlayer player;
+	public boolean isPlaying = false;
+	private String path;
+	public boolean alreadyStarted = false;
+	private boolean Loop = false;
 
-    private ArrayList<MediaPlayer> playerE = new ArrayList<>();
-    private Media mediaE;
-    private String pathE;
+	private ArrayList<MediaPlayer> playerE = new ArrayList<>();
+	private Media mediaE;
+	private String pathE;
 
-    private Handler handler;
-
-
-    public static final double MUTE = 0.0;
-
-    public MusicHandler(Handler handler){
-        this.handler = handler;
-        final JFXPanel fxPanel = new JFXPanel();
-
-    }
-
-    public void play(){
-        if(!isPlaying){
-            if(!alreadyStarted) {
-                player = new MediaPlayer(media);
-                player.play();
-                isPlaying = true;
-                alreadyStarted = true;
-            }else{
-                player.play();
-            }
-        }
-
-    }
+	private Handler handler;
 
 
-    public void pause(){
+	public static final double MUTE = 0.0;
 
-        if(isPlaying){
-            player.pause();
-            isPlaying = false;
-        }
+	public MusicHandler(Handler handler){
+		this.handler = handler;
+		final JFXPanel fxPanel = new JFXPanel();
 
-    }
+	}
 
-    public void set_changeMusic(String Path){
+	public void play(){
+		if(!isPlaying){
+			if(!alreadyStarted) {
+				player = new MediaPlayer(media);
+				player.play();
+				isPlaying = true;
+				alreadyStarted = true;
+			}else{
+				player.play();
+			}
+		}
 
-        if(isPlaying){
-            pause();
-            alreadyStarted = false;
-        }
-        path= Path;
-        media = new Media(new File(Path).toURI().toString());
-
-    }
-
-    public void playEffect(String EPath,int index){
-
-        pathE=EPath;
-        mediaE = new Media(new File(EPath).toURI().toString());
-        playerE.add(index, new MediaPlayer(mediaE));
-        if(getPlayer().getVolume()>0) {
-            playerE.get(index).setVolume(getPlayer().getVolume()+0.25);
-        }else{
-            playerE.get(index).setVolume(0);
-        }
-        playerE.get(index).play();
+	}
 
 
-    }
+	public void pause(){
 
-    public void stopEffect(int index){
+		if(isPlaying){
+			player.pause();
+			isPlaying = false;
+		}
 
-        playerE.get(index).stop();
+	}
 
-    }
-    public MediaPlayer getEffect(int index){
+	public void set_changeMusic(String Path){
 
-        return playerE.get(index);
+		if(isPlaying){
+			pause();
+			alreadyStarted = false;
+		}
+		path= Path;
+		media = new Media(new File(Path).toURI().toString());
 
-    }
+	}
 
-    public ArrayList<MediaPlayer> getEPlayer(){
+	public void playEffect(String EPath,int index){
 
-        return playerE;
+		pathE=EPath;
+		mediaE = new Media(new File(EPath).toURI().toString());
+		playerE.add(index, new MediaPlayer(mediaE));
+		if(getPlayer().getVolume()>0) {
+			playerE.get(index).setVolume(getPlayer().getVolume());
+		}else{
+			playerE.get(index).setVolume(0);
+		}
+		playerE.get(index).play();
 
-    }
 
-    public MediaPlayer getPlayer() {
-        return player;
-    }
+	}
 
-    public void setPlayer(MediaPlayer player) {
-        this.player = player;
-    }
+	public void stopEffect(int index){
 
-    public void setLoop(boolean loop){
-        Loop = loop;
-        if(loop){
-            player.setCycleCount(-1);
-        }else{
-            player.setCycleCount(1);
-            player.setOnEndOfMedia(() -> {
-                alreadyStarted = false;
-                isPlaying = false;
-            });
-        }
-    }
+		playerE.get(index).stop();
 
-    public void setVolume (double volume){
-        player.setVolume(volume);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    public class Circle extends BaseStaticEntity{
-    	
-    	private int cWidth = 20;
-    	private int cHeight = 20;
-    	private Handler handler;
-    	private Random random = new Random();
-    	
-    	public Circle(int x, int y, Handler handler) {
-    		super(handler, x, y);
-    		
-    		this.setXOffset(x);
-    		this.setYOffset(y);
-    		this.handler = handler;
-    		
-    	}
-    	
-    	public void tick() {
-    		
-    		if(this.handler.getEntityManager().getPlayer().getCollision().intersects(this.getCollision())) {
-    			
-    			InWorldState.SArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
+	}
+	public MediaPlayer getEffect(int index){
+
+		return playerE.get(index);
+
+	}
+
+	public ArrayList<MediaPlayer> getEPlayer(){
+
+		return playerE;
+
+	}
+
+	public MediaPlayer getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(MediaPlayer player) {
+		this.player = player;
+	}
+
+	public void setLoop(boolean loop){
+		Loop = loop;
+		if(loop){
+			player.setCycleCount(-1);
+		}else{
+			player.setCycleCount(1);
+			player.setOnEndOfMedia(() -> {
+				alreadyStarted = false;
+				isPlaying = false;
+			});
+		}
+	}
+
+	public void setVolume (double volume){
+		player.setVolume(volume);
+	}
+
+
+	public class Circle extends BaseStaticEntity{
+
+		private int cWidth = 20;
+		private int cHeight = 20;
+		private Handler handler;
+		private Random random = new Random();
+
+		public Circle(int x, int y, Handler handler) {
+			super(handler, x, y);
+
+			this.setXOffset(x);
+			this.setYOffset(y);
+			this.handler = handler;
+
+		}
+
+		public void tick() {
+
+			if(this.handler.getEntityManager().getPlayer().getCollision().intersects(this.getCollision())) {
+
+
+//				handler.getGame().getMusicHandler().set_changeMusic("res/music/Realm-of-Fantasy.mp3");
+//				handler.getGame().getMusicHandler().setVolume(1);
+//				handler.getGame().getMusicHandler().play();
+
+				InWorldState.SArea.oldPlayerXCoord = (int) (handler.getXDisplacement());
 				InWorldState.SArea.oldPlayerYCoord = (int) (handler.getYDisplacement());
 
-				handler.getEntityManager().getPlayer().setWidthAndHeight(25, 25);
-                State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
-                Player.isinArea = true;
+				handler.getEntityManager().getPlayer().setWidthAndHeight(25, 25); 
+				Player.isinArea = true;
+				State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
 
-    			
-    		}
-    		
-    	}
-    	
-    	public void render(Graphics g) {
-    		
-    		Graphics2D g2 = (Graphics2D) g;
-    		
-    		Ellipse2D.Double circle = new Ellipse2D.Double((int) (this.handler.getXDisplacement() + this.xPosition), (int) (this.handler.getYDisplacement() + this.yPosition), this.getcWidth(), this.getcHeight());
-    		
-    		g2.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-    		
-    		g2.draw(circle);
-    		
-    	}
+
+
+			}
+
+		}
+
+		public void render(Graphics g) {
+
+			Graphics2D g2 = (Graphics2D) g;
+
+			Ellipse2D.Double circle = new Ellipse2D.Double((int) (this.handler.getXDisplacement() + this.xPosition), (int) (this.handler.getYDisplacement() + this.yPosition), this.getcWidth(), this.getcHeight());
+
+			g2.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));   		
+			g2.draw(circle);
+
+		}
 
 		public int getcWidth() {
 			return cWidth;
@@ -203,8 +200,8 @@ public class MusicHandler {
 		public void setcHeight(int cHeight) {
 			this.cHeight = cHeight;
 		}
-    	
-    	
-    }
+
+
+	}
 
 }

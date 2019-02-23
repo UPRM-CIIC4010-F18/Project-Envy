@@ -1,6 +1,5 @@
 package Display.UI;
 
-import Game.Entities.Dynamics.BaseHostileEntity;
 import Game.Entities.Dynamics.Player;
 import Game.GameStates.InWorldState;
 import Game.GameStates.State;
@@ -94,13 +93,11 @@ public class UIListener extends InWorldState{
             turn=0;
         }
 
-        ///TEMP CODE TO EXIT FIGHT///
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             handler.getGame().pauseState.lastState = State.getState();
             GameSetUp.SWITCHING=true;
             State.setState(handler.getGame().pauseState);
         }
-        /////////////////////////////
 
         else {
             if(!attacking&&!defense&&!skill&&turn>0&&enemy.getHealth()<=0&&!battleOver){
@@ -201,6 +198,10 @@ public class UIListener extends InWorldState{
 
                 }
                 State.setState(handler.getGame().menuState);
+                handler.getGame().getMusicHandler().setVolume(0.5);
+                handler.getGame().getMusicHandler().set_changeMusic("res/music/Overture.mp3");
+				handler.getGame().getMusicHandler().play();
+				Player.isinArea = false;
             }
         }
     }
@@ -346,17 +347,14 @@ public class UIListener extends InWorldState{
         g2.drawRect(entityInfoX[1], handler.getHeight()* 4/5, handler.getWidth() * 3/20- 8, handler.getHeight()/7);
         g2.setComposite(AlphaComposite.SrcOver);
 
-        //Draws the options
+
         uiManager.Render(g2);
         g2.setColor(Color.white);
-        //Draws the rectangle around the current option
+
         g2.drawRect((int) uiManager.getObjects().get(optionSelect).getX(), 5*handler.getHeight()/6 + 10, 128, 44);
 
     }
 
-    /*
-     * Disables player movement.  W and S no longer do anything, A and D move between the options
-     */
     private void PlayerInput() {
 
         if(inputCoolDown <= 15){
@@ -364,7 +362,7 @@ public class UIListener extends InWorldState{
         }
         if (handler.getKeyManager().down || handler.getKeyManager().up) {}
         if (handler.getKeyManager().right && inputCoolDown > 15){
-//        	choose options to the right
+
             if(optionSelect < uiManager.getObjects().size()-1 ) {
                 optionSelect++;
                 inputCoolDown = 0;
@@ -372,7 +370,7 @@ public class UIListener extends InWorldState{
 
         }
         if (handler.getKeyManager().left && inputCoolDown > 15){
-//        	choose options to the left
+
             if(optionSelect > 0){
                 optionSelect -= 1;
                 inputCoolDown = 0;
@@ -410,7 +408,7 @@ public class UIListener extends InWorldState{
             }
         }));
 
-        //Skills
+        //Skill
         uiManager.addObjects(new UIImageButton(handler.getWidth() * 38/60 - 128/2, 5*handler.getHeight()/6, 128, 64, Images.Skill, new ClickListlener() {
             @Override
             public void onClick() {
@@ -427,7 +425,6 @@ public class UIListener extends InWorldState{
     }
 
 
-    //Sets the background according to the previous state
     private void backgroundSelect() {
 
         background = Images.battleBackground[2];
@@ -485,7 +482,6 @@ public class UIListener extends InWorldState{
             }
 
             if (endTurn || battleOver) {
-                //addMana
                 if(handler.getEntityManager().getPlayer().getMana() < handler.getEntityManager().getPlayer().getMaxMana()-2)
                     handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMana() + 2);
                 attacking = false;

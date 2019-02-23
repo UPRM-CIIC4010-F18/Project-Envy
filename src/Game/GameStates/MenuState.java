@@ -4,9 +4,7 @@ package Game.GameStates;
 import Display.UI.UIListener;
 import Main.GameSetUp;
 import Main.Handler;
-import Resources.Animation;
 import Resources.Images;
-import sun.font.FontScaler;
 import Display.UI.UIManager;
 import Display.UI.Selector;
 
@@ -40,7 +38,7 @@ public class MenuState extends State {
 	private int staticsCounter=0;
 	private int staticsChoice;
 
-	public MenuState(Handler handler) {
+    public MenuState(Handler handler) {
 		super(handler);
 
 		this.xPos = 0;
@@ -169,7 +167,8 @@ public class MenuState extends State {
 			staticsChoice = new Random().nextInt(3);
 			if (x <= 5) {
 				statics=true;
-			}
+                handler.getGame().getMusicHandler().playEffect(GameSetUp.resList[new Random().nextInt(GameSetUp.resList.length)],handler.getGame().getMusicHandler().getEPlayer().size());
+            }
 		}else{
 			staticsCounter++;
 			if(staticsCounter>=60){
@@ -178,7 +177,6 @@ public class MenuState extends State {
 			}
 			switch (staticsChoice){
 				case 0:
-
 					if(staticsCounter%2==0) {
 						g.drawImage(Images.title2, 0, 0, handler.getWidth(), handler.getHeight(), null);
 					}else{
@@ -238,6 +236,11 @@ public class MenuState extends State {
 	}
 
 	public void choose() {
+		
+		if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+			handler.getGame().getMusicHandler().stopEffect(0);
+		}
+		handler.getGame().getMusicHandler().playEffect("res/music/enterSelect.wav",0);
 
 		if(selector.getxPos2() == selector.menuXPositions[0] && selector.getyPos2() == selector.menuYPositions[0]) {
 
