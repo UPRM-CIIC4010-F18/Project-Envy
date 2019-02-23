@@ -114,7 +114,7 @@ public class Selector {
 				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
 					handler.getGame().getMusicHandler().stopEffect(0);
 				}
-				handler.getGame().getMusicHandler().playEffect("res/music/victory.mp3",0);
+				//handler.getGame().getMusicHandler().playEffect("res/music/victory.mp3",0);//for selecter sound effect
 
 				if(pauseSelectorIndex == 3) pauseSelectorIndex = 0;				
 				else pauseSelectorIndex++;

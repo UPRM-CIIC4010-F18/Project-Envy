@@ -51,6 +51,9 @@ public class Images {
 	public static SpriteSheet PEnemySheet;
 	public static SpriteSheet WEnemySheet;
 
+	public static BufferedImage QST;
+
+
 	public static BufferedImage[] battleBackground;
 	public static BufferedImage[] Attack;
 	public static BufferedImage[] Defend;
@@ -154,6 +157,7 @@ public class Images {
 			Loading = ImageIO.read(getClass().getResourceAsStream("/Sheets/loading.jpg"));
 			titleImage = ImageIO.read(getClass().getResourceAsStream("/Sheets/Main3.png"));
 			Stats = ImageIO.read(getClass().getResourceAsStream("/Sheets/Cartel Nota.png"));
+			QST = ImageIO.read(getClass().getResourceAsStream("/Sheets/QST.png")); //Things sometimes just dont fit
 
 			Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
 			Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton3.png"));
