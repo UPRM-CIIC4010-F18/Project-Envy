@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.Random;
 
 import Game.Entities.Dynamics.Fighter;
@@ -28,8 +29,14 @@ public class Selector {
 	public int QBYpos2;
 	public int TBXpos;
 	public int TBYpos;
+	public int TBY2pos;
 	private Animation animSelector;
-
+	public int[] pauseXPositions;
+	public int[] pauseYPositions;
+	public int[] menuXPositions;
+	public int[] menuYPositions;
+	int pauseSelectorIndex = 0;
+	int menuSelectorIndex = 0;
 
 	public Selector(Handler handler){
 
@@ -41,6 +48,7 @@ public class Selector {
 		QBXpos = handler.getWidth()/2 + 128 - 10;		//pause quit button
 		TBXpos = handler.getWidth()/2 - 64 - 35;
 		TBYpos = handler.getHeight()/2 + 64 + 15;
+		TBY2pos = handler.getHeight()/2 - 125;
 		this.xPos = this.getRBpos();					//pause x position
 		this.yPos = handler.getHeight()/2 - 20;			//pause y position
 
@@ -52,6 +60,26 @@ public class Selector {
 		this.xPos2 = handler.getWidth()/2 - 400 - 150;	//menu x position
 		animSelector = new Animation(50, Images.IceSkill);
 
+		this.pauseXPositions = new int[4];
+		this.pauseYPositions = new int[4];
+		this.menuXPositions = new int[2];
+		this.menuYPositions = new int[2];
+
+		this.pauseXPositions[0] = this.RBXpos;
+		this.pauseXPositions[1] = this.TBXpos;
+		this.pauseXPositions[2] = this.TBXpos;
+		this.pauseXPositions[3] = this.QBXpos;
+
+		this.pauseYPositions[0] = this.RBYpos;
+		this.pauseYPositions[1] = this.TBY2pos;
+		this.pauseYPositions[2] = this.TBYpos;
+		this.pauseYPositions[3] = this.RBYpos;
+
+		this.menuXPositions[0] = this.xPos2;
+		this.menuXPositions[1] = this.xPos2;
+
+		this.menuYPositions[0] = this.SBYpos;
+		this.menuYPositions[1] = this.QBYpos2;
 
 	}
 
@@ -71,12 +99,12 @@ public class Selector {
 		Ellipse2D.Double selector;
 
 		if(State.getState().equals(handler.getGame().menuState)) {
-				g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos2() - 25, this.getyPos2() - 25, 150, 150, null);
+			g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos2() - 25, this.getyPos2() - 25, 150, 150, null);
 		}
 
 		else {
-		    int r = new Random().nextInt(8);
-            g.drawImage(Images.tint(animSelector.getCurrentFrame(),r, r, r), this.getxPos()-30, this.getyPos()-25, 80, 80, null);
+			int r = new Random().nextInt(8);
+			g.drawImage(Images.tint(animSelector.getCurrentFrame(),r, r, r), this.getxPos()-30, this.getyPos()-25, 80, 80, null);
 
 		}
 
@@ -90,55 +118,43 @@ public class Selector {
 
 			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
 
-				if(this.getxPos() == this.getRBpos()) {
-
-					this.setxPos(this.getTBXpos());
-					this.setyPos(this.getTBYpos());
-
-				}
-
-				else {
-
-					this.setxPos(this.getQBpos());
-					this.setyPos(this.getRBYpos());
-
-				}
+				if(pauseSelectorIndex == 3) pauseSelectorIndex = 0;				
+				else pauseSelectorIndex++;
 
 			}
 
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
 
-				if(this.getxPos() == this.getQBpos()) {
 
-					this.setxPos(this.getTBXpos());
-					this.setyPos(this.getTBYpos());
-
-				}
-
-				else {
-
-					this.setxPos(this.getRBpos());
-					this.setyPos(this.getRBYpos());
-
-				}
+				if(pauseSelectorIndex == 0) pauseSelectorIndex = 3;
+				else pauseSelectorIndex--;
 
 			}
+
+			this.setxPos(this.pauseXPositions[pauseSelectorIndex]);
+			this.setyPos2(this.pauseYPositions[pauseSelectorIndex]);
+
 		}
 
 		else if(State.getState().equals(handler.getGame().menuState)) {
 
 			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)) {
 
-				this.setyPos2(this.getSBYpos());
+				if(this.menuSelectorIndex == 0) this.menuSelectorIndex = 1;
+				else this.menuSelectorIndex--;
 
 			}
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)) {
 
-				this.setyPos2(this.getQBYpos2());
+				if(this.menuSelectorIndex == 1) this.menuSelectorIndex = 0;
+				else this.menuSelectorIndex++;
 
 			}
+
+			this.setxPos(this.menuXPositions[this.menuSelectorIndex]);
+			this.setyPos2(this.menuYPositions[this.menuSelectorIndex]);
 
 		}
 
@@ -282,197 +298,197 @@ public class Selector {
 			this.name = name;
 			rand = new Random();
 			this.handler = handler;
-			
+
 			if(this.handler.getEntityManager().getPlayer().getWeaken()) {
-				
+
 				health=100;mana=100;xp=0l;lvl=1;defense=50;str=20;intl=23;cons=15;acc=100;mr= 50;evs=2;initiative=30; maxHealth = 100;		    
-				
+
 			}
-			
+
 			else{
-				
+
 				health=100;mana=100;xp=100;lvl=100;defense=100;str=100;intl=100;cons=100;acc=100;mr=100;evs=100;initiative=100; maxHealth = 100;
-			    		
+
 			}
 
 
 		}
 
 		boolean isDead = false;
-	    String Class = "none",skill = "none";
-	    String[] buffs = {},debuffs = {};
+		String Class = "none",skill = "none";
+		String[] buffs = {},debuffs = {};
 
-	    @Override
-	    public double getHealth() {
-	        return health;
-	    }
+		@Override
+		public double getHealth() {
+			return health;
+		}
 
-	    @Override
-	    public double getMaxHealth() {
-	        return maxHealth;
-	    }
-	    @Override
-	    public double getMaxMana() {
-	        return 100;
-	    }
+		@Override
+		public double getMaxHealth() {
+			return maxHealth;
+		}
+		@Override
+		public double getMaxMana() {
+			return 100;
+		}
 
-	    @Override
-	    public void setHealth(double health) {
-	        this.health=health;
-	    }
-	    
-	    
-	    public void setMaxHealth(double maxHealth) {
-	        this.maxHealth=maxHealth;
-	    }
+		@Override
+		public void setHealth(double health) {
+			this.health=health;
+		}
 
-	    @Override
-	    public double getMana() {
-	        return mana;
-	    }
 
-	    @Override
-	    public void setMana(double mana) {
-	        this.mana=mana;
-	    }
+		public void setMaxHealth(double maxHealth) {
+			this.maxHealth=maxHealth;
+		}
 
-	    @Override
-	    public double getXp() {
-	        return xp;
-	    }
+		@Override
+		public double getMana() {
+			return mana;
+		}
 
-	    @Override
-	    public void setXp(double xp) {
-	        this.xp=xp;
-	    }
+		@Override
+		public void setMana(double mana) {
+			this.mana=mana;
+		}
 
-	    @Override
-	    public double getLvl() {
-	        return lvl;
-	    }
+		@Override
+		public double getXp() {
+			return xp;
+		}
 
-	    @Override
-	    public void setLvl(double lvl) {
-	        this.lvl=lvl;
-	    }
+		@Override
+		public void setXp(double xp) {
+			this.xp=xp;
+		}
 
-	    @Override
-	    public double getDefense() {
-	        return defense;
-	    }
+		@Override
+		public double getLvl() {
+			return lvl;
+		}
 
-	    @Override
-	    public void setDefense(double defense) {
-	        this.defense=defense;
-	    }
+		@Override
+		public void setLvl(double lvl) {
+			this.lvl=lvl;
+		}
 
-	    @Override
-	    public double getStr() {
-	        return this.str;
-	    }
+		@Override
+		public double getDefense() {
+			return defense;
+		}
 
-	    @Override
-	    public void setStr(double str) {
-	        this.str=str;
-	    }
+		@Override
+		public void setDefense(double defense) {
+			this.defense=defense;
+		}
 
-	    @Override
-	    public double getIntl() {
-	        return intl;
-	    }
+		@Override
+		public double getStr() {
+			return this.str;
+		}
 
-	    @Override
-	    public void setIntl(double intl) {
-	        this.intl=intl;
-	    }
+		@Override
+		public void setStr(double str) {
+			this.str=str;
+		}
 
-	    @Override
-	    public double getCons() {
-	        return cons;
-	    }
+		@Override
+		public double getIntl() {
+			return intl;
+		}
 
-	    @Override
-	    public void setCons(double cons) {
-	        this.cons=cons;
-	    }
+		@Override
+		public void setIntl(double intl) {
+			this.intl=intl;
+		}
 
-	    @Override
-	    public double getAcc() {
-	        return this.acc;
-	    }
+		@Override
+		public double getCons() {
+			return cons;
+		}
 
-	    @Override
-	    public void setAcc(double acc) {
-	        this.acc=acc;
-	    }
+		@Override
+		public void setCons(double cons) {
+			this.cons=cons;
+		}
 
-	    @Override
-	    public double getEvs() {
-	        return evs;
-	    }
+		@Override
+		public double getAcc() {
+			return this.acc;
+		}
 
-	    @Override
-	    public void setEvs(double evs) {
-	        this.evs=evs;
-	    }
+		@Override
+		public void setAcc(double acc) {
+			this.acc=acc;
+		}
 
-	    @Override
-	    public double getInitiative() {
-	        return initiative;
-	    }
+		@Override
+		public double getEvs() {
+			return evs;
+		}
 
-	    @Override
-	    public void setInitiative(double initiative) {
-	        this.initiative=initiative;
-	    }
+		@Override
+		public void setEvs(double evs) {
+			this.evs=evs;
+		}
 
-	    @Override
-	    public String getclass() {
-	        return Class;
-	    }
+		@Override
+		public double getInitiative() {
+			return initiative;
+		}
 
-	    @Override
-	    public void setClass(String aClass) {
-	        this.Class=aClass;
-	    }
+		@Override
+		public void setInitiative(double initiative) {
+			this.initiative=initiative;
+		}
 
-	    @Override
-	    public String getSkill() {
-	        return this.skill;
-	    }
+		@Override
+		public String getclass() {
+			return Class;
+		}
 
-	    @Override
-	    public void setSkill(String skill) {
-	        this.skill=skill;
-	    }
+		@Override
+		public void setClass(String aClass) {
+			this.Class=aClass;
+		}
 
-	    @Override
-	    public String[] getBuffs() {
-	        return buffs;
-	    }
+		@Override
+		public String getSkill() {
+			return this.skill;
+		}
 
-	    @Override
-	    public void setBuffs(String[] buffs) {
-	        this.buffs=buffs;
-	    }
+		@Override
+		public void setSkill(String skill) {
+			this.skill=skill;
+		}
 
-	    @Override
-	    public String[] getDebuffs() {
-	        return debuffs;
-	    }
+		@Override
+		public String[] getBuffs() {
+			return buffs;
+		}
 
-	    @Override
-	    public void setDebuffs(String[] debuffs) {
-	        this.debuffs=debuffs;
-	    }
-	    
-	    public boolean isDead() {
-	    	return isDead;
-	    }
-	    
-	    public void kill() {
-	    	isDead = true;
-	    }
+		@Override
+		public void setBuffs(String[] buffs) {
+			this.buffs=buffs;
+		}
+
+		@Override
+		public String[] getDebuffs() {
+			return debuffs;
+		}
+
+		@Override
+		public void setDebuffs(String[] debuffs) {
+			this.debuffs=debuffs;
+		}
+
+		public boolean isDead() {
+			return isDead;
+		}
+
+		public void kill() {
+			isDead = true;
+		}
 
 		@Override
 		public double getMr() {
@@ -482,7 +498,7 @@ public class Selector {
 		@Override
 		public void setMr(double intl) {
 			this.mr = intl;
-			
+
 		}
 
 	}
