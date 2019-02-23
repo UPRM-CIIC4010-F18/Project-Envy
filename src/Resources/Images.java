@@ -4,16 +4,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.BufferedReader;
+
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -51,7 +44,7 @@ public class Images {
 	public static BufferedImage[] player_right;
 	public static BufferedImage[] player_back;
 	public static BufferedImage player_attack;
-	
+
 	public static BufferedImage[] PEnemyIdle;
 	public static BufferedImage[] WEnemyIdle;
 
@@ -62,7 +55,7 @@ public class Images {
 	public static BufferedImage[] Attack;
 	public static BufferedImage[] Defend;
 	public static BufferedImage[] Skill;
-	
+
 	public static BufferedImage[] IceSkill;
 	public static BufferedImage[] FireSkill;
 	public static BufferedImage[] DefenceMode;
@@ -73,15 +66,15 @@ public class Images {
 	public static BufferedImage[] EnemyS;
 	public static BufferedImage[] SSkill;
 	public static BufferedImage[] aura;
-	
+
 	public static SpriteSheet iceSkillSheet;
 	public static SpriteSheet fireSkillSheet;
 	public static SpriteSheet defenceModeSheet;
 	public static SpriteSheet attackModeSheet;
-	
+
 	public static SpriteSheet smokeHouseSheet;
 	public static SpriteSheet statueSheet;
-	
+
 	public static BufferedImage[] smokeHouse;
 
 	public static BufferedImage[] lightStatue;
@@ -133,13 +126,13 @@ public class Images {
 
 		smokeHouse = new BufferedImage[7];
 		lightStatue = new BufferedImage[10];
-		
+
 		try {
 			map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
-			
+
 			smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
 			statueSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/statueSheet.png")));
-			
+
 			iceSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/iceSkill.png")));
 			fireSkillSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/fireSkill.png")));
 			defenceModeSheet=  new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/defenceMode.png")));
@@ -194,7 +187,7 @@ public class Images {
 			smokeHouse[4] = smokeHouseSheet.crop(212, 7, 19, 20);
 			smokeHouse[5] = smokeHouseSheet.crop(260, 7, 19, 20);
 			smokeHouse[6] = smokeHouseSheet.crop(308, 7, 19, 20);
-						
+
 			lightStatue[0] = statueSheet.crop(0, 0, 16, 48);
 			lightStatue[1] = statueSheet.crop(16, 0, 16, 48);
 			lightStatue[2] = statueSheet.crop(32, 0, 16, 48);
@@ -205,7 +198,7 @@ public class Images {
 			lightStatue[7] = statueSheet.crop(48, 48, 16, 48);
 			lightStatue[8] = statueSheet.crop(0, 96, 16, 48);
 			lightStatue[9] = statueSheet.crop(0, 96, 16, 48);
-			
+
 
 			PEnemyIdle[0] = PEnemySheet.crop(0, 0, 38, 40);
 			PEnemyIdle[1] = PEnemySheet.crop(39, 0, 39, 40);
@@ -250,12 +243,12 @@ public class Images {
 			Enemy[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E3.png"));
 			Enemy[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E2.png"));
 			Enemy[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/E1.png"));
-			
+
 			aura[0] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura1.png"));
 			aura[1] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura2.png"));
 			aura[2] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura3.png"));
 			aura[3] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/Saura4.png"));
-			
+
 			EnemyS[0] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.1.png"));
 			EnemyS[1] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.2.png"));
 			EnemyS[2] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.3.png"));
@@ -272,7 +265,7 @@ public class Images {
 			EnemyS[13] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.3.png"));
 			EnemyS[14] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.2.png"));
 			EnemyS[15] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/S1.1.png"));
-			
+
 			SSkill[0] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack0.png"));
 			SSkill[1] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack1.png"));
 			SSkill[2] =  ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SAttack2.png"));
@@ -296,7 +289,7 @@ public class Images {
 			SSkill[20] = SSkill[2];
 			SSkill[21] = SSkill[1];
 			SSkill[22] = SSkill[0];
-			
+
 			SItem[0] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS1.png"));
 			SItem[1] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS2.png"));
 			SItem[2] = ImageIO.read(getClass().getResourceAsStream("/PixelEffects/README/SS3.png"));
@@ -313,7 +306,7 @@ public class Images {
 			SItem[13] = SItem[2];
 			SItem[14] = SItem[1];
 			SItem[15] = SItem[1];
-			
+
 			IceSkill[0] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[1] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[2] = iceSkillSheet.crop( 52, 0, 50, 50);
@@ -414,8 +407,8 @@ public class Images {
 			IceSkill[97] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[98] = iceSkillSheet.crop( 0, 0, 50, 50);
 			IceSkill[99] = iceSkillSheet.crop( 0, 0, 50, 50);
-			
-			
+
+
 			DefenceMode[0] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[1] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[2] = defenceModeSheet.crop( 0, 0, 50, 50);
@@ -516,8 +509,8 @@ public class Images {
 			DefenceMode[97] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[98] = defenceModeSheet.crop( 0, 0, 50, 50);
 			DefenceMode[99] = defenceModeSheet.crop( 0, 0, 50, 50);
-			
-			
+
+
 			AttackMode[0] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[1] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[2] = attackModeSheet.crop( 0, 0, 50, 50);
@@ -618,7 +611,7 @@ public class Images {
 			AttackMode[97] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[98] = attackModeSheet.crop( 0, 0, 50, 50);
 			AttackMode[99] = attackModeSheet.crop( 0, 0, 50, 50);
-			
+
 			FireSkill[0] = fireSkillSheet.crop( 0, 0, 50, 50);
 			FireSkill[1] = fireSkillSheet.crop( 52, 0, 50, 50);
 			FireSkill[2] = fireSkillSheet.crop( 0, 52 , 50, 50);
@@ -709,12 +702,12 @@ public class Images {
 	/*
 	 * Given a File containing a list of crop coordinate systems, this will output in console
 	 * all the crop coordinates in an orderly fashion to copy/paste.
-	 * 
+	 *
 	 * @param String skill is the name of the array that will hold the frames of a
 	 * skill
-	 * 
+	 *
 	 * @param String sheet is the sheet to which the frames are located
-	 * 
+	 *
 	 * Compatible only with
 	 * https://untiedgames.itch.io/wills-magic-pixel-particle-effects
 	 */
@@ -731,24 +724,24 @@ public class Images {
 		int indexCounter = 0;
 
 		while (in.hasNextLine()) {							//			     11111111112222222   <---LINE INDEX REFERENCE
-															//     012345678901234567890123456	 <---
+			//     012345678901234567890123456	 <---
 			line = in.nextLine();							// EX: frame0005 = 104 156 100 100
 
-															////////FOR X////////
+			////////FOR X////////
 			xPos = line.substring(12, 15);
 			if (xPos.startsWith("0")) { 					// EX: 0 156 100 100
 				xPos = "0";
 			} else if (xPos.endsWith(" ")) { 				// EX: 52 0 50 50
 				xPos = xPos.substring(0, 2);
 			}
-															////////FOR Y////////
-													 
+			////////FOR Y////////
+
 			if (xPos.length() == 1) {						// EX: 0 0 50 50		EX: 0 208 50 50
 				if (line.charAt(14) == '0') {
 					yPos = "0";
 				} else {
-					yPos = line.substring(14, 17);	
-				}										
+					yPos = line.substring(14, 17);
+				}
 			}
 			else if (xPos.length() == 2) {					// EX: 52 0 50 50		EX: 52 104 100 100
 				yPos = line.substring(15, 18);				// Then y = 0 5			Then y = 104
@@ -756,16 +749,16 @@ public class Images {
 					yPos = "0";								// Now y = 0
 				}
 			} else {     // xPos.length() == 3			 	EX: 104 0 100 100    EX: 156 52 50 50     EX: 104 156 100 100
-					
-					if (line.charAt(16) == '0'){			// Then y = 0			Then y = 52 		 Then y = 156					
-						yPos = line.charAt(16) + "";
-					}
-					else if (line.charAt(18) == ' ') {
-						yPos = line.substring(16, 18);
-					}
-					else {
-						yPos = line.substring(16, 19);
-					}			
+
+				if (line.charAt(16) == '0'){			// Then y = 0			Then y = 52 		 Then y = 156
+					yPos = line.charAt(16) + "";
+				}
+				else if (line.charAt(18) == ' ') {
+					yPos = line.substring(16, 18);
+				}
+				else {
+					yPos = line.substring(16, 19);
+				}
 			}
 
 			System.out.println(skill + "[" + indexCounter + "]" + " = " + sheet + ".crop( " + xPos + ", " + yPos + ", " + width + ", " + height + ");");

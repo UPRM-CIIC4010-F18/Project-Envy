@@ -1,6 +1,5 @@
 package Resources;
 
-import Game.GameStates.PauseState;
 import Main.Handler;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
@@ -9,7 +8,6 @@ import javafx.scene.media.MediaPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.io.*;
 import java.util.ArrayList;

@@ -6,9 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import Game.GameStates.FightState;
 import Game.GameStates.InWorldState;
-import Game.GameStates.State;
 import Game.World.InWorldAreas.InWorldWalls;
 import Game.World.Walls;
 import Main.GameSetUp;

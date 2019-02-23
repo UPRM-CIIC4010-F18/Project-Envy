@@ -1,7 +1,5 @@
 package Display.UI;
 
-import Game.Entities.Dynamics.BaseHostileEntity;
-import Game.Entities.Dynamics.Player;
 import Game.GameStates.InWorldState;
 import Game.GameStates.State;
 import Main.GameSetUp;

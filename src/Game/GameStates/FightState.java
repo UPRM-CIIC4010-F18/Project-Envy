@@ -1,7 +1,6 @@
 package Game.GameStates;
 
 import Game.Entities.Dynamics.BaseHostileEntity;
-import Game.Entities.Dynamics.Player;
 import Main.GameSetUp;
 import Main.Handler;
 

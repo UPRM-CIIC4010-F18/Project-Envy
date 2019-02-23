@@ -4,9 +4,7 @@ package Game.GameStates;
 import Display.UI.UIListener;
 import Main.GameSetUp;
 import Main.Handler;
-import Resources.Animation;
 import Resources.Images;
-import sun.font.FontScaler;
 import Display.UI.UIManager;
 import Display.UI.Selector;
 

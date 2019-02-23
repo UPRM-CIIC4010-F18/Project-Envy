@@ -16,8 +16,6 @@ import Game.World.Walls;
 import Game.World.InWorldAreas.BaseArea;
 import Game.World.InWorldAreas.InWorldWalls;
 
-import javax.swing.*;
-
 /**
  * Created by AlexVR on 7/1/2018.
  */
@@ -28,7 +26,7 @@ public class UIManager {
 
 	public UIManager(Handler handler){
 		this.handler=handler;
-		objects = new ArrayList<UIObject>();
+		objects = new ArrayList<>();
 	}
 
 	public void tick(){

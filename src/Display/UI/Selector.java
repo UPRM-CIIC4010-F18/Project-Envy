@@ -1,11 +1,9 @@
 package Display.UI;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 import java.util.Random;
 
 import Game.Entities.Dynamics.Fighter;
@@ -93,10 +91,6 @@ public class Selector {
 	}
 
 	public void render(Graphics g) {
-
-		Graphics2D g2 = (Graphics2D) g;
-
-		Ellipse2D.Double selector;
 
 		if(State.getState().equals(handler.getGame().menuState)) {
 			g.drawImage(Images.tint(animSelector.getCurrentFrame(), new Random().nextInt(200), new Random().nextInt(200), new Random().nextInt(200)), this.getxPos2() - 25, this.getyPos2() - 25, 150, 150, null);

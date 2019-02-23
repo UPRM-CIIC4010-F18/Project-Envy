@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import Game.Entities.Dynamics.BaseHostileEntity;
 import Game.Entities.Dynamics.Player;
 import Game.Entities.Statics.BaseStaticEntity;
-import Game.GameStates.FightState;
-import Game.GameStates.State;
 import Main.GameSetUp;
 import Main.Handler;
 
