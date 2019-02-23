@@ -103,7 +103,7 @@ public class PauseState extends State {
             g.fillRect(0, 0, this.handler.getWidth(), this.handler.getHeight());
             g.drawImage(Images.battleBackground[0], 0, 0, handler.getWidth(), handler.getHeight(), null);
             g.drawImage(Images.Stats, statX, statY, 2*(handler.getWidth()/3), handler.getHeight(), null);
-            g.setFont(new Font("Comic Sans MS", Font.ITALIC, 35));
+            g.setFont(new Font("Ink Free", Font.ITALIC, 35));
             int initialX=(handler.getWidth() / 6) + 327,initialY=241+statY;
             g.drawString(statList[0]+": "+handler.getEntityManager().getPlayer().getLvl(),initialX+175,initialY);
             for (int i = 0; i < 15; i++,initialY+=50) {
