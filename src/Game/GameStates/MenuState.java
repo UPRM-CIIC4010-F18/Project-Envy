@@ -93,7 +93,7 @@ public class MenuState extends State {
 		g.drawString("V", this.titleXPos + 600 + 320, this.VyPos);
 		g.drawString("Y", this.titleXPos + 600 + 475, this.YyPos);
 
-		if(selector.getyPos2() == selector.getSBYpos()) {
+		if(selector.getxPos2() == selector.menuXPositions[0] && selector.getyPos2() == selector.menuYPositions[0]) {
 
 			g.drawImage(Images.butstart[1], handler.getWidth()/2 - 400, handler.getHeight()/2 - 150, 400, 300, null);
 
@@ -105,7 +105,7 @@ public class MenuState extends State {
 
 		}
 
-		if(selector.getyPos2() == selector.getQBYpos2()) {
+		if(selector.getxPos2() == selector.menuXPositions[1] && selector.getyPos2() == selector.menuYPositions[1]) {
 
 			g.drawImage(Images.Quit[1],handler.getWidth()/2 - 425, handler.getHeight()/2 + 100, 450, 300, null);
 
@@ -231,7 +231,7 @@ public class MenuState extends State {
 
 	public void choose() {
 
-		if(selector.getyPos2() == selector.getSBYpos()) {
+		if(selector.getxPos2() == selector.menuXPositions[0] && selector.getyPos2() == selector.menuYPositions[0]) {
 
 			GameSetUp.LOADING=true;
 			State.setState(handler.getGame().mapState);

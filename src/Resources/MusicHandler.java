@@ -15,6 +15,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Game.Entities.Dynamics.Player;
 import Game.Entities.Statics.BaseStaticEntity;
 import Game.GameStates.InWorldState;
 import Game.GameStates.State;
@@ -152,6 +153,7 @@ public class MusicHandler {
 
 				handler.getEntityManager().getPlayer().setWidthAndHeight(25, 25);
                 State.setState(handler.getGame().inWorldState.setArea(InWorldState.SArea));
+                Player.isinArea = true;
 
     			
     		}
