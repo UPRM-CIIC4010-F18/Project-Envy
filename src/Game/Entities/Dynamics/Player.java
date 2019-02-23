@@ -101,7 +101,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 						Images.player_left, Images.player_right),
 				(int) xPosition, (int) yPosition, currentWidth, currentHeight, null);
 
-		player = new Rectangle((int) xPosition, (int) yPosition, currentWidth, currentHeight);
+		player = new Rectangle((int) xPosition, (int) yPosition+(currentHeight/2)+5, currentWidth-3, currentHeight/2);
 
 		if (GameSetUp.DEBUGMODE) {
 			g2.draw(nextArea);
@@ -112,18 +112,18 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	private void UpdateNextMove() {
 		switch (facing) {
 		case "Up":
-			nextArea = new Rectangle((int) xPosition + 10, (int) yPosition - speed, currentWidth/2, currentHeight / 2);
+			nextArea = new Rectangle( player.x, player.y - speed, player.width, speed);
 			break;
 		case "Down":
-			nextArea = new Rectangle((int) xPosition + 10, (int) yPosition + currentHeight, currentWidth/2, speed);
+			nextArea = new Rectangle(player.x , player.y+player.height-20 , player.width, speed);
 
 			break;
 		case "Left":
-			nextArea = new Rectangle((int) xPosition - speed, (int) yPosition, speed, currentHeight);
+			nextArea = new Rectangle(player.x - speed, player.y, speed, player.height);
 
 			break;
 		case "Right":
-			nextArea = new Rectangle((int) xPosition + currentWidth, (int) yPosition, speed, currentHeight);
+			nextArea = new Rectangle(player.x + player.width, player.y, speed, player.height);
 
 			break;
 		}
