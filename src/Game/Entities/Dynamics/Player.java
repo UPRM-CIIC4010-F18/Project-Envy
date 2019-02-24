@@ -112,10 +112,10 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	private void UpdateNextMove() {
 		switch (facing) {
 		case "Up":
-			nextArea = new Rectangle( player.x, player.y - speed, player.width, speed);
+			nextArea = new Rectangle( player.x, player.y - speed, player.width/2, speed);
 			break;
 		case "Down":
-			nextArea = new Rectangle(player.x , player.y+player.height-20 , player.width, speed);
+			nextArea = new Rectangle(player.x , player.y+player.height-20 , player.width/2, speed);
 
 			break;
 		case "Left":

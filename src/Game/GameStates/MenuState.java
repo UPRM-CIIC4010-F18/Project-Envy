@@ -241,12 +241,15 @@ public class MenuState extends State {
 			handler.getGame().getMusicHandler().stopEffect(0);
 		}
 		handler.getGame().getMusicHandler().playEffect("res/music/enterSelect.wav",0);
-
+		
 		if(selector.getxPos2() == selector.menuXPositions[0] && selector.getyPos2() == selector.menuYPositions[0]) {
-
 			GameSetUp.LOADING=true;
+			handler.getGame().getMusicHandler().set_changeMusic("res/music/OverWorld.mp3");
+			handler.getGame().getMusicHandler().play();
+			handler.getGame().getMusicHandler().setVolume(0.2);
+			handler.getGame().getMusicHandler().setLoop(true);
+			
 			State.setState(handler.getGame().mapState);
-
 		}
 
 		else System.exit(0);

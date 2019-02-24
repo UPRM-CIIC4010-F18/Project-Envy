@@ -24,7 +24,7 @@ public class GameSetUp implements Runnable {
     public static boolean LOADING = false;//set to true for a second for all to load
     public static int loadCounter=0;//reaches 60 = loaded
 
-    public static boolean DEBUGMODE = false;
+    public static boolean DEBUGMODE = true;
 
     public static boolean SWITCHING = false;
 
@@ -51,7 +51,6 @@ public class GameSetUp implements Runnable {
     private MusicHandler musicHandler;
 
     public final static String[] resList = {"res/icons/clips/FCTM.wav","res/icons/clips/FFM.wav","res/icons/clips/FIL.wav","res/icons/clips/FITR.wav","res/icons/clips/FLFWDF.wav","res/icons/clips/FWIAS.wav"};
-
 
     private BufferedImage loading;
 

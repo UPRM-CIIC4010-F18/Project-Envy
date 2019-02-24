@@ -66,6 +66,10 @@ public class FightState extends InWorldState{
         entityInfoX[0] = handler.getWidth() * 3/20;
         //enemy info square coordinate
         entityInfoX[1] = handler.getWidth() * 14/20 + 4;
+        
+        handler.getGame().getMusicHandler().set_changeMusic("res/music/BattleMusic.mp3");
+        handler.getGame().getMusicHandler().play();
+        handler.getGame().getMusicHandler().setVolume(0.2);
 
         inStateEnemy=enemy;
 
@@ -127,7 +131,11 @@ public class FightState extends InWorldState{
         else {
             if(!attacking&&!defense&&!skill&&turn>0&&enemy.getHealth()<=0&&!battleOver){
                 battleOver=true;
+                
+                handler.getGame().getMusicHandler().stop();
                 handler.getGame().getMusicHandler().playEffect("res/music/victory.mp3",0);
+                handler.getGame().getMusicHandler().setEffectVolume(0, 0.3);
+                
             }
             if(!Eattacking&&!Edefense&&!Eskill&&turn==0&&handler.getEntityManager().getPlayer().getHealth()<=0&&!battleOver){
                 battleOver=true;
@@ -200,7 +208,7 @@ public class FightState extends InWorldState{
                 g.drawString("DEFEAT!",handler.getWidth()/3 - 50,handler.getHeight()/2);
 
             }else{
-                g.setColor(new Color(255,255,255,alpha+=2));
+                g.setColor(new Color(255,255,255,alpha+=1));
                 g.fillRect(0,0,handler.getWidth(),handler.getHeight());
                 g2.setColor(Color.GREEN);
                 g.drawString("VICTORY!",handler.getWidth()/3 - 50,handler.getHeight()/2);
@@ -217,6 +225,7 @@ public class FightState extends InWorldState{
             }
             if(alpha>=254){
                 if(handler.getEntityManager().getPlayer().getHealth()==0){
+                	
                     handler.getGame().reStart();
                     State.setState(handler.getGame().menuState);
                 }else{
@@ -235,13 +244,17 @@ public class FightState extends InWorldState{
                 		handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMaxMana());
                 	
                     if(prevState.equals("None")){
+
+                    	handler.getGame().getMusicHandler().set_changeMusic("res/music/OverWorld.mp3");
+                        handler.getGame().getMusicHandler().play();
+                        handler.getGame().getMusicHandler().setVolume(0.2);
+                        
                         State.setState(handler.getGame().mapState);
                         handler.setArea("None");
-
                     }else{
+                    	// cave music
                         handler.setArea(InWorldState.currentArea.name);
                         State.setState(handler.getGame().inWorldState);
-
                     }
                 }
             }
@@ -658,8 +671,6 @@ public class FightState extends InWorldState{
             }
         }
     }
-
-
 
     private void enemyTurn() {
 

@@ -23,6 +23,7 @@ public class MusicHandler {
 
 	private Media media;
 	private MediaPlayer player;
+	
 	public boolean isPlaying = false;
 	private String path;
 	public boolean alreadyStarted = false;
@@ -57,14 +58,15 @@ public class MusicHandler {
 
 	}
 
-
+	public void stop() {
+		player.stop();
+	}
+	
 	public void pause(){
-
 		if(isPlaying){
 			player.pause();
 			isPlaying = false;
 		}
-
 	}
 
 	public void set_changeMusic(String Path){
@@ -90,14 +92,14 @@ public class MusicHandler {
 		}
 		playerE.get(index).play();
 
-
 	}
-
+	
 	public void stopEffect(int index){
 
 		playerE.get(index).stop();
 
 	}
+
 	public MediaPlayer getEffect(int index){
 
 		return playerE.get(index);
@@ -105,9 +107,7 @@ public class MusicHandler {
 	}
 
 	public ArrayList<MediaPlayer> getEPlayer(){
-
 		return playerE;
-
 	}
 
 	public MediaPlayer getPlayer() {
@@ -131,10 +131,14 @@ public class MusicHandler {
 		}
 	}
 
+	// Used after you've started playing the music
 	public void setVolume (double volume){
 		player.setVolume(volume);
 	}
 
+	public void setEffectVolume(int index, double volume) {
+		playerE.get(index).setVolume(volume);
+	}
 
 	public class Circle extends BaseStaticEntity{
 
