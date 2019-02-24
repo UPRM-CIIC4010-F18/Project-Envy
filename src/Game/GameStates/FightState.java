@@ -759,7 +759,6 @@ public class FightState extends InWorldState{
 
     private void Edefend(Graphics g) {
 
-
         playerDefenceMode.tick();
         g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
         
