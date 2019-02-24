@@ -225,7 +225,7 @@ public class KeyManager implements KeyListener {
 
 		public void respawnEnemyTick() {
 
-			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter < 1) {
+			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter < 10) {
 
 				this.setxPos( random.nextInt(7000 - 100) + 100);
 				this.setyPos(random.nextInt(5000 - 100) + 100);

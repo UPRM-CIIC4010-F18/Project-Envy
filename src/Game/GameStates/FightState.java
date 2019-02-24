@@ -564,6 +564,14 @@ public class FightState extends InWorldState{
             g.setFont((new Font("IMPACT", Font.ITALIC, 25)));
             g.drawString(dmg , (int)enemy.getXOffset(), (int) enemy.getYOffset() - 20); 
             
+            if(this.enemyRect.x < this.playerRect.x && this.playerRect.x < this.enemyRect.x + 50) {
+
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+					handler.getGame().getMusicHandler().stopEffect(0);
+				}
+
+				handler.getGame().getMusicHandler().playEffect("res/music/slash.wav",0);
+			}
 
             if (playerRect.x <= (handler.getWidth() / 5) - 10 && playerRect.x >= (handler.getWidth() / 5) - 110) {
                 playerRect.x = (handler.getWidth() / 5);
@@ -769,7 +777,6 @@ public class FightState extends InWorldState{
     }
 
     private void Edefend(Graphics g) {
-
 
         playerDefenceMode.tick();
         g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
