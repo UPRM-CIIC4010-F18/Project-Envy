@@ -91,9 +91,9 @@ public class PauseState extends State {
 				g2.drawImage(Images.titleChoose[0], this.TXPos, this.TYPos, this.width - 20, this.height, null);
 			}
 			if (selector.getxPos() == selector.pauseXPositions[1] && selector.getyPos() == selector.pauseYPositions[1]) {
-				g2.drawImage(Images.titleChoose[1], this.TXPos, this.TYPos - 200, this.width - 20, this.height, null);
+				g2.drawImage(Images.StatBut[1], this.TXPos, this.TYPos - 200, this.width - 20, this.height, null);
 			} else {
-				g2.drawImage(Images.titleChoose[0], this.TXPos, this.TYPos - 200, this.width - 20, this.height, null);
+				g2.drawImage(Images.StatBut[0], this.TXPos, this.TYPos - 200, this.width - 20, this.height, null);
 			}
 			uiManager.Render(g);
 			selector.render(g2);
@@ -172,11 +172,9 @@ public class PauseState extends State {
 
 		if(selector.getxPos() == selector.pauseXPositions[0] && selector.getyPos() == selector.pauseYPositions[0]) {
 			returnToGame();
-
 		}
 		else if(selector.getxPos() == selector.pauseXPositions[1] && selector.getyPos() == selector.pauseYPositions[1]) {	
-			showStats=true;
-			
+			showStats=true;			
 		}
 		else if(selector.getxPos() == selector.pauseXPositions[2] && selector.getyPos() == selector.pauseYPositions[2]) {
 			handler.setArea("None");

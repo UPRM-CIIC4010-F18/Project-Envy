@@ -140,14 +140,18 @@ public class MusicHandler {
 
 		private int cWidth = 20;
 		private int cHeight = 20;
+		int[] xPos = {5627, 47, 4331, 4097};
+		int[] yPos = {380, 5058, 5058, 2018};
 		private Handler handler;
 		private Random random = new Random();
+		private int spot;
 
 		public Circle(int x, int y, Handler handler) {
 			super(handler, x, y);
-
-			this.setXOffset(x);
-			this.setYOffset(y);
+			
+			spot = random.nextInt(4);
+			this.setXOffset(xPos[spot]);
+			this.setYOffset(yPos[spot]);
 			this.handler = handler;
 
 		}

@@ -143,7 +143,8 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 1960, -150, 120, 100, "Wall"));
 
 		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Door Cave"));
-		worldWalls.add(new Walls(handler, 5627,380, 20, 20, "Door S"));	
+		worldWalls.add(new Walls(handler, (int) circle.getXOffset(),(int) 
+				circle.getYOffset(), 20, 20, "Door S"));	
 
 		///Left Mountains
 		worldWalls.add(new Walls(handler, 700, 180, 140, 200, "Wall"));
