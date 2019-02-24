@@ -143,7 +143,8 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 1960, -150, 120, 100, "Wall"));
 
 		worldWalls.add(new Walls(handler, 1662, 55, 50, 50, "Door Cave"));
-		worldWalls.add(new Walls(handler, 5627,380, 20, 20, "Door S"));	
+		worldWalls.add(new Walls(handler, (int) circle.getXOffset(),(int) 
+				circle.getYOffset(), 20, 20, "Door S"));	
 
 		///Left Mountains
 		worldWalls.add(new Walls(handler, 700, 180, 140, 200, "Wall"));
@@ -154,11 +155,12 @@ public class WorldManager {
 
 	public void collidedWithWall() {
 		if(this.handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle)) {
-			handler.getEntityManager().getPlayer().setWeaken(true);
+		if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+		handler.getGame().getMusicHandler().stopEffect(0);}    	
+		handler.getGame().getMusicHandler().playEffect("res/music/SSAcquired.wav",1);
+		handler.getEntityManager().getPlayer().setWeaken(true);
 		}
-
 	}
-
 	public void moveString() {
 		if(this.handler.getEntityManager().getPlayer().getWeaken()) {
 			this.xPos += 10;
@@ -166,18 +168,14 @@ public class WorldManager {
 		if(this.xPos > this.handler.getWidth() + 100) {
 			this.xPos = this.handler.getWidth() + 100;
 		}
-
 	}
-
 	public ArrayList<Walls> getWalls() {
 		return worldWalls;
 	}
-
 	public String getString() {  	
 		return "* " + this.getString("xhttgdexsfhpeny"
 				+ "jrefhvznwji", 5) + " *";	    	
 	}
-
 	public String getString(String str, int key) {	
 		String newString = "";	
 		for(int i = 0; i < str.length(); i++) {		

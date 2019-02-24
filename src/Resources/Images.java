@@ -25,6 +25,7 @@ public class Images {
 	public static BufferedImage titleImage;
 	public static BufferedImage Pause;
 	public static BufferedImage Stats;
+	public static BufferedImage[] StatBut;
 	public static BufferedImage[] Resume;
 	public static BufferedImage[] Quit;
 	public static BufferedImage[] BTitle;
@@ -96,6 +97,7 @@ public class Images {
 		butstart = new BufferedImage[3];
 		BTitle = new BufferedImage[3];
 		titleChoose = new BufferedImage[2];
+		StatBut = new BufferedImage[2];
 		Options = new BufferedImage[3];
 		Resume = new BufferedImage[2];
 		Quit = new BufferedImage[2];
@@ -174,6 +176,8 @@ public class Images {
 			Quit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Quit2.png"));
 			titleChoose[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title1.png"));
 			titleChoose[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Title2.png"));
+			StatBut[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Stats.png"));
+			StatBut[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Stats2.png"));
 
 			battleBackground[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/mountain river.jpg"));
 			battleBackground[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/forest.jpg"));
