@@ -244,7 +244,7 @@ public class FightState extends InWorldState{
                 	
                     if(prevState.equals("None")){
 
-                    	handler.getGame().getMusicHandler().set_changeMusic("res/music/UTheme.mp3");
+                    	handler.getGame().getMusicHandler().set_changeMusic("res/music/OverWorld.mp3");
                         handler.getGame().getMusicHandler().play();
                         handler.getGame().getMusicHandler().setVolume(0.2);
                         
