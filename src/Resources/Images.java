@@ -31,8 +31,9 @@ public class Images {
 	public static BufferedImage[] Options;
 	public static ImageIcon icon;
 
-	public static BufferedImage map;
-	public static Image Scaledmap;
+	public static BufferedImage map[];
+	
+	public static Image Scaledmap[];
 
 	public static BufferedImage projectTitle;
 	public static BufferedImage envyTitle;
@@ -99,6 +100,9 @@ public class Images {
 		Options = new BufferedImage[3];
 		Resume = new BufferedImage[2];
 		Quit = new BufferedImage[2];
+		
+		map = new BufferedImage[4];
+		Scaledmap = new Image[3];
 
 		battleBackground = new BufferedImage[4];
 
@@ -131,8 +135,11 @@ public class Images {
 		lightStatue = new BufferedImage[10];
 
 		try {
-			map = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
-
+			
+			map[0] = ImageIO.read(getClass().getResourceAsStream("/Worlds/map.png"));
+			map[1] = ImageIO.read(getClass().getResourceAsStream("/Worlds/map2.png"));
+			map[2] = ImageIO.read(getClass().getResourceAsStream("/Worlds/map3.png"));
+			
 			smokeHouseSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/House.png")));
 			statueSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/statueSheet.png")));
 
@@ -697,12 +704,60 @@ public class Images {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Scaledmap = Images.map.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+		
+		Scaledmap[0] = Images.map[0].getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+		Scaledmap[1] = Images.map[1].getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+		Scaledmap[2] = Images.map[2].getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
+		
+		map[0] = toBufferedImage(Scaledmap[0]); 
+		map[1] = toBufferedImage(Scaledmap[1]);
+		map[2] = toBufferedImage(Scaledmap[2]);
+		map[3] = toBufferedImage(Scaledmap[1]);
+		
 		ScaledCave = Images.CaveMap.getScaledInstance(3680, 4000, Image.SCALE_SMOOTH); // 368x400 pixel image
 		ScaledArea = Images.Area.getScaledInstance(8000, 6000, Image.SCALE_SMOOTH);
 
 	}
 
+	
+	public static BufferedImage toBufferedImage(Image image) {
+		
+        if (image instanceof BufferedImage)
+        return (BufferedImage)image;
+
+        // Create a buffered image with a format that's compatible with the screen
+        BufferedImage bimage = null;
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        try {
+            // Determine the type of transparency of the new buffered image
+            int transparency = Transparency.OPAQUE;
+
+            // Create the buffered image
+            GraphicsDevice gs = ge.getDefaultScreenDevice();
+            GraphicsConfiguration gc = gs.getDefaultConfiguration();
+
+            bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
+        } catch (HeadlessException e) { } //No screen
+
+        if (bimage == null) {
+            // Create a buffered image using the default color model
+            int type = BufferedImage.TYPE_INT_RGB;
+
+        }
+
+        // Copy image to buffered image
+        Graphics g = bimage.createGraphics();
+
+        // Paint the image onto the buffered image
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+
+        return bimage;
+    }
+
+	
 	/*
 	 * Given a File containing a list of crop coordinate systems, this will output in console
 	 * all the crop coordinates in an orderly fashion to copy/paste.

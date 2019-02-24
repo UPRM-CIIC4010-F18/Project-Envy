@@ -2,6 +2,7 @@ package Game.GameStates;
 
 import Main.GameSetUp;
 import Main.Handler;
+import Resources.Animation;
 import Resources.Images;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,6 +21,8 @@ public class MapState extends State {
     //changes the initial spawn of the player
 	int initialXMapDisplacement=1450;
 	int initialYMapDisplacement=500;
+	
+	private Animation map;
 
 
 	Rectangle background = new Rectangle(3000, 3000);
@@ -39,11 +42,14 @@ public class MapState extends State {
 		worldManager = new WorldManager(handler, entityManager);
 		this.handler.setWorldManager(worldManager);
 		this.handler.setEntityManager(entityManager);
+		
+		map = new Animation(300, Images.map);
 
 	}
 
 	@Override
 	public void tick() {
+		map.tick();
 
 	    if(GameSetUp.LOADING){
 	        if(GameSetUp.loadCounter>=60){
@@ -77,7 +83,7 @@ public class MapState extends State {
             g2.fill(background);
 
             // Movement of the Image
-            g2.drawImage(Images.Scaledmap, handler.getXDisplacement() - initialXMapDisplacement, handler.getYDisplacement() - initialYMapDisplacement, null);
+            g2.drawImage(map.getCurrentFrame(), handler.getXDisplacement() - initialXMapDisplacement, handler.getYDisplacement() - initialYMapDisplacement, null);
 
             worldManager.render(g);
             entityManager.render(g);
