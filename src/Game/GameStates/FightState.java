@@ -67,8 +67,9 @@ public class FightState extends InWorldState{
         //enemy info square coordinate
         entityInfoX[1] = handler.getWidth() * 14/20 + 4;
         
-        handler.getGame().getMusicHandler().set_changeMusic("res/music/nature.wav");
+        handler.getGame().getMusicHandler().set_changeMusic("res/music/BattleMusic.mp3");
         handler.getGame().getMusicHandler().play();
+        handler.getGame().getMusicHandler().setVolume(0.2);
 
         inStateEnemy=enemy;
 
