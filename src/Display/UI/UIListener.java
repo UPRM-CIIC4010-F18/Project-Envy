@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 
+@SuppressWarnings("Duplicates")
 public class UIListener extends InWorldState{
 	private UIManager uiManager;
 	private int entityY;

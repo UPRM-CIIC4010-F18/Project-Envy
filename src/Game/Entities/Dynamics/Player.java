@@ -372,7 +372,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	double health = 200, mana = 100, xp = 0l, lvl = 1, defense = 16, str = 10, intl = 25, mr = 12, cons = 20, acc = 12, evs = 4,
 			initiative = 20, maxHealth = 200, maxMana = 100, lvlUpExp = 200;
 
-	String Class = "none", skill = "Ice";
+	String Class = "none", skill = "none";
 	String[] buffs = {}, debuffs = {};
 
 	@Override

@@ -1,20 +1,10 @@
 package Display.UI;
 
-import Main.GameSetUp;
 import Main.Handler;
-import Resources.Animation;
-import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Random;
-
-import Game.Entities.EntityManager;
-import Game.GameStates.State;
-import Game.World.Walls;
-import Game.World.InWorldAreas.BaseArea;
-import Game.World.InWorldAreas.InWorldWalls;
 
 /**
  * Created by AlexVR on 7/1/2018.

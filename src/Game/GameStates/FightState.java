@@ -17,6 +17,7 @@ import Display.UI.UIImageButton;
 import Display.UI.UIManager;
 
 
+@SuppressWarnings("Duplicates")
 public class FightState extends InWorldState{
     private UIManager uiManager;
     private int entityY;

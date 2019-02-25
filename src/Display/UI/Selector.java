@@ -1,9 +1,7 @@
 package Display.UI;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 import Game.Entities.Dynamics.Fighter;
@@ -14,27 +12,27 @@ import Resources.Images;
 
 public class Selector {
 
-	Handler handler;
-	public int xPos;
-	public int xPos2;
-	public int yPos;
-	public int yPos2;
-	public int RBXpos;
-	public int RBYpos;
-	public int QBXpos;
-	public int SBXpos;
-	public int SBYpos;
-	public int QBYpos2;
-	public int TBXpos;
-	public int TBYpos;
-	public int TBY2pos;
+	private Handler handler;
+	private int xPos;
+	private int xPos2;
+	private int yPos;
+	private int yPos2;
+	private int RBXpos;
+	private int RBYpos;
+	private int QBXpos;
+	private int SBXpos;
+	private int SBYpos;
+	private int QBYpos2;
+	private int TBXpos;
+	private int TBYpos;
+	private int TBY2pos;
 	private Animation animSelector;
 	public int[] pauseXPositions;
 	public int[] pauseYPositions;
 	public int[] menuXPositions;
 	public int[] menuYPositions;
-	int pauseSelectorIndex = 0;
-	int menuSelectorIndex = 0;
+	private int pauseSelectorIndex = 0;
+	private int menuSelectorIndex = 0;
 
 	public Selector(Handler handler){
 
@@ -111,7 +109,7 @@ public class Selector {
 		if(State.getState().equals(handler.getGame().pauseState)) {
 
 			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
-				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()) {
 					handler.getGame().getMusicHandler().stopEffect(0);
 				}
 
@@ -124,7 +122,7 @@ public class Selector {
 
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
-				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()) {
 					handler.getGame().getMusicHandler().stopEffect(0);
 				}
 				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
@@ -141,7 +139,7 @@ public class Selector {
 		else if(State.getState().equals(handler.getGame().menuState)) {
 
 			if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
-				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()) {
 					handler.getGame().getMusicHandler().stopEffect(0);
 				}
 				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
@@ -151,7 +149,7 @@ public class Selector {
 			}
 
 			else if(this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)||this.handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
-				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
+				if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()) {
 					handler.getGame().getMusicHandler().stopEffect(0);
 				}
 				handler.getGame().getMusicHandler().playEffect("res/music/selectBeep.wav",0);
@@ -322,7 +320,7 @@ public class Selector {
 		}
 
 		boolean isDead = false;
-		String Class = "none",skill = "none";
+		String Class = "God",skill = "???";
 		String[] buffs = {},debuffs = {};
 
 		@Override

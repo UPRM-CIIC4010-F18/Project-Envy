@@ -1,18 +1,6 @@
 package Game.World;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-
-import javax.print.DocFlavor.STRING;
-
 import Game.Entities.EntityManager;
-import Game.Entities.Dynamics.EnemyOne;
-import Game.Entities.Statics.LightStatue;
 import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
 import Main.GameSetUp;
@@ -20,6 +8,9 @@ import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
 import Resources.MusicHandler.Circle;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class WorldManager {
 

@@ -8,7 +8,6 @@ import Main.Handler;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import Display.UI.UIManager;
 import Resources.Images;
 
 public class InWorldState extends State{

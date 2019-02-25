@@ -8,7 +8,6 @@ import Resources.Images;
 import Resources.MusicHandler;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -85,9 +84,10 @@ public class GameSetUp implements Runnable {
         State.setState(menuState);
 
         musicHandler.set_changeMusic("res/music/Overture.mp3");
+        musicHandler.play();
         musicHandler.setLoop(true);
         musicHandler.setVolume(.10);
-        musicHandler.play();
+
     }
 
 
@@ -146,9 +146,7 @@ public class GameSetUp implements Runnable {
         if(State.getState() != null) {
             State.getState().tick();
         }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F7)){
-            DEBUGMODE=!DEBUGMODE;
-        }
+
     }
 
     private void render(){
