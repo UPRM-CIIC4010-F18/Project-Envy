@@ -85,9 +85,9 @@ public class GameSetUp implements Runnable {
         State.setState(menuState);
 
         musicHandler.set_changeMusic("res/music/Overture.mp3");
-        musicHandler.play();
         musicHandler.setLoop(true);
         musicHandler.setVolume(.10);
+        musicHandler.play();
     }
 
 
