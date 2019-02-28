@@ -209,6 +209,11 @@ public class Player extends BaseDynamicEntity implements Fighter {
 							handler.setYInWorldDisplacement(CaveArea.playerYSpawn);
 							GameSetUp.LOADING = true;
 							handler.setArea("Cave");
+							
+	                        handler.getGame().getMusicHandler().set_changeMusic("res/music/Cave.mp3");
+	                        handler.getGame().getMusicHandler().play();
+	                        handler.getGame().getMusicHandler().setVolume(0.4);
+							
 							State.setState(handler.getGame().inWorldState.setArea(InWorldState.caveArea));
 						}
 
@@ -250,6 +255,11 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	
 							GameSetUp.LOADING = true;
 							handler.setArea("None");
+							
+	                    	handler.getGame().getMusicHandler().set_changeMusic("res/music/OverWorld.mp3");
+	                        handler.getGame().getMusicHandler().play();
+	                        handler.getGame().getMusicHandler().setVolume(0.2);
+							
 							State.setState(handler.getGame().mapState);
 							CaveArea.isInCave = false;
 							checkInWorld = false;

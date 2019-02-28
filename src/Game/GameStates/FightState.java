@@ -56,6 +56,7 @@ public class FightState extends InWorldState{
     private String prevState;
 
     private BaseHostileEntity inStateEnemy;
+	private long eWait = 0;
 
 
     public FightState(Handler handler ,BaseHostileEntity enemy, String prevState) {
@@ -147,7 +148,8 @@ public class FightState extends InWorldState{
                     uiManager.tick();
 
                 }else if(!Eattacking&&!Edefense&&!Eskill&&turn > 0){
-                    enemyTurn();
+                	 if(System.currentTimeMillis() > eWait)
+                		 enemyTurn();
                 }
 
             }
@@ -255,6 +257,11 @@ public class FightState extends InWorldState{
                     }else{
                     	// cave music
                         handler.setArea(InWorldState.currentArea.name);
+                        
+                        handler.getGame().getMusicHandler().set_changeMusic("res/music/Cave.mp3");
+                        handler.getGame().getMusicHandler().play();
+                        handler.getGame().getMusicHandler().setVolume(0.4);
+                        
                         State.setState(handler.getGame().inWorldState);
                     }
                 }
@@ -463,7 +470,7 @@ public class FightState extends InWorldState{
     		handler.getGame().getMusicHandler().playEffect("res/music/enterSelect.wav",0);
             uiManager.getObjects().get(optionSelect).onClick();}
 
-
+        eWait = System.currentTimeMillis() + 3500;
     }
 
     private void setUiManager() {
@@ -681,8 +688,8 @@ public class FightState extends InWorldState{
         }
     }
 
-    private void enemyTurn() {
-
+    private void enemyTurn() {  
+    	
         if(!Eskill&&!Edefense&&!Eattacking && enemy.getMana()>=25) {
             int choice = new Random().nextInt(5);
             switch (choice) {
