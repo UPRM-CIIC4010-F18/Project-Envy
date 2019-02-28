@@ -159,8 +159,6 @@ public class KeyManager implements KeyListener {
 
 			Graphics2D g2 = (Graphics2D) g;
 
-			g2.drawImage(Images.ScaledArea, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
-
 			rectangle = new Rectangle(this.getxPos() + 425 + handler.getXInWorldDisplacement(), this.getyPos()  + 478 + handler.getYInWorldDisplacement(), 100, 100);
 			rectangle2 = new Rectangle( this.getxPos() + 290 - 50 + handler.getXInWorldDisplacement(), this.getyPos() + 330 - 50 + handler.getYInWorldDisplacement(), 450, 450);
 
