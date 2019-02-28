@@ -3,11 +3,11 @@ package Game.World;
 import Game.Entities.EntityManager;
 import Game.Entities.Statics.SmokeHouse;
 import Game.Entities.Statics.Tree;
+import Input.MouseManager.Circle;
 import Main.GameSetUp;
 import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
-import Resources.MusicHandler.Circle;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class WorldManager {
 		this.yPos = this.handler.getHeight() - 100;
 
 		rectangle = new Rectangle();
-		circle = handler.getGame().getMusicHandler().new Circle(5627,380, this.handler);
+		circle = handler.getGame().getMouseManager().new Circle(5627,380, this.handler);
 		this.entityManager.AddEntity(new Tree(handler, 600, 600));
 		this.entityManager.AddEntity(new SmokeHouse(handler, 1153, 335));
 
@@ -114,7 +114,7 @@ public class WorldManager {
 		worldWalls.add(new Walls(handler, 3000, -400, 5, 450, "Wall"));
 		worldWalls.add(new Walls(handler, 1365, -380, 1650, 5, "Wall"));
 		///Top of the Island
-		worldWalls.add(new Walls(handler,1365,-290,5,160,"Wall"));
+		worldWalls.add(new Walls(handler,1365,-390,5,260,"Wall"));
 		worldWalls.add(new Walls(handler, 670, -130, 700, 5, "Wall"));
 		///Top right of the Island
 		worldWalls.add(new Walls(handler, 670, -130, 5, 250, "Wall"));
