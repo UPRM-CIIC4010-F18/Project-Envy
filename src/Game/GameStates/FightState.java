@@ -240,11 +240,10 @@ public class FightState extends InWorldState{
                 	//Restores an amount of mp
                 	handler.getEntityManager().getPlayer().setMana((int)(handler.getEntityManager().getPlayer().getMana()+ ((handler.getEntityManager().getPlayer().getMaxMana() - 
                 			handler.getEntityManager().getPlayer().getMana())* handler.getEntityManager().getPlayer().getIntl()/100)));
-                	//Gives XP to the player
-                	handler.getEntityManager().getPlayer().addXp(enemy.getXp());
-                	
                 	if(handler.getEntityManager().getPlayer().getMana() > handler.getEntityManager().getPlayer().getMaxMana())
                 		handler.getEntityManager().getPlayer().setMana(handler.getEntityManager().getPlayer().getMaxMana());
+                	//Gives XP to the player
+                	handler.getEntityManager().getPlayer().addXp(enemy.getXp());
                 	
                     if(prevState.equals("None")){
 
@@ -790,7 +789,7 @@ public class FightState extends InWorldState{
         g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
         
         EisDefense = true;
-        
+        enemy.setMana(enemy.getMana()+1);
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             enemy.setDefense(enemy.getDefense()+15);
             enemy.setMr(enemy.getMr()+4);
