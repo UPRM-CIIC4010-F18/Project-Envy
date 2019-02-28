@@ -653,7 +653,7 @@ public class FightState extends InWorldState{
         
         skillAtk = (int) (skillAtk*(1-(enemy.getMr()/100)));
         
-        if(100>ev &&!attacked && enemy.getHealth()-skillAtk>=0) {
+        if(evade>ev &&!attacked && enemy.getHealth()-skillAtk>=0) {
             enemy.setHealth(enemy.getHealth() - skillAtk);
             attacked=true;
             dmg = String.valueOf(skillAtk);
