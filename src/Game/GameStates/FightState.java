@@ -255,6 +255,11 @@ public class FightState extends InWorldState{
                     }else{
                     	// cave music
                         handler.setArea(InWorldState.currentArea.name);
+                        
+                        handler.getGame().getMusicHandler().set_changeMusic("res/music/Cave.mp3");
+                        handler.getGame().getMusicHandler().play();
+                        handler.getGame().getMusicHandler().setVolume(0.4);
+                        
                         State.setState(handler.getGame().inWorldState);
                     }
                 }
