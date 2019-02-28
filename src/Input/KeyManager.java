@@ -159,8 +159,6 @@ public class KeyManager implements KeyListener {
 
 			Graphics2D g2 = (Graphics2D) g;
 
-			g2.drawImage(Images.ScaledArea, handler.getXInWorldDisplacement(), handler.getYInWorldDisplacement(), null);
-
 			rectangle = new Rectangle(this.getxPos() + 425 + handler.getXInWorldDisplacement(), this.getyPos()  + 478 + handler.getYInWorldDisplacement(), 100, 100);
 			rectangle2 = new Rectangle( this.getxPos() + 290 - 50 + handler.getXInWorldDisplacement(), this.getyPos() + 330 - 50 + handler.getYInWorldDisplacement(), 450, 450);
 
@@ -225,7 +223,7 @@ public class KeyManager implements KeyListener {
 
 		public void respawnEnemyTick() {
 
-			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter < 10) {
+			if(handler.getEntityManager().getPlayer().getCollision().intersects(this.rectangle2) && this.counter != 0) {
 
 				this.setxPos( random.nextInt(7000 - 100) + 100);
 				this.setyPos(random.nextInt(5000 - 100) + 100);
