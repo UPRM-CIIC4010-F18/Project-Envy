@@ -30,7 +30,7 @@ public class InWorldState extends State{
     @Override
     public void tick() {
         if(GameSetUp.LOADING){
-            if(GameSetUp.loadCounter>=60){
+            if(GameSetUp.loadCounter>=90){
                 GameSetUp.loadCounter=0;
                 GameSetUp.LOADING=false;
                 return;

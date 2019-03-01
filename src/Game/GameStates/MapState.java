@@ -52,7 +52,7 @@ public class MapState extends State {
 		map.tick();
 
 	    if(GameSetUp.LOADING){
-	        if(GameSetUp.loadCounter>=60){
+	        if(GameSetUp.loadCounter>=90){
 	            GameSetUp.loadCounter=0;
 	            GameSetUp.LOADING=false;
 	            return;
