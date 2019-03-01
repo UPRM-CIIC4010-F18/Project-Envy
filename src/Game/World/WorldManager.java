@@ -98,27 +98,27 @@ public class WorldManager {
 
 		//Walls of the Island
 		///Left Bottom Border of the Island
-		worldWalls.add(new Walls(handler, 360, 950, 480, 5, "Wall" ));
-		worldWalls.add(new Walls(handler, 845, 950, 5, 250, "Wall"));
+		worldWalls.add(new Walls(handler, 360, 950, 480, 10, "Wall" ));
+		worldWalls.add(new Walls(handler, 845, 950, 10, 250, "Wall"));
 		///Bottom of the Island
 		worldWalls.add(new Walls(handler, 850, 1200, 670, 5, "Wall"));
 		///Bottom of the Island (right-ish)
-		worldWalls.add(new Walls(handler, 1500, 830, 5, 370, "Wall"));
-		worldWalls.add(new Walls(handler, 1500, 820, 500, 5, "Wall"));
-		worldWalls.add(new Walls(handler, 2000, 440, 5, 390, "Wall"));
+		worldWalls.add(new Walls(handler, 1500, 830, 10, 370, "Wall"));
+		worldWalls.add(new Walls(handler, 1500, 820, 500, 10, "Wall"));
+		worldWalls.add(new Walls(handler, 2000, 440, 10, 390, "Wall"));
 		///Right Side of the Island
-		worldWalls.add(new Walls(handler, 2020, 440, 400, 5, "Wall"));
-		worldWalls.add(new Walls(handler, 2400, 50, 5, 400, "Wall"));
+		worldWalls.add(new Walls(handler, 2020, 440, 400, 10, "Wall"));
+		worldWalls.add(new Walls(handler, 2400, 50, 10, 400, "Wall"));
 		////Top right of the Island
-		worldWalls.add(new Walls(handler, 2420, 40, 600, 5, "Wall"));
-		worldWalls.add(new Walls(handler, 3000, -400, 5, 450, "Wall"));
-		worldWalls.add(new Walls(handler, 1365, -380, 1650, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 2420, 40, 600, 10, "Wall"));
+		worldWalls.add(new Walls(handler, 3000, -400, 10, 450, "Wall"));
+		worldWalls.add(new Walls(handler, 1365, -380, 1650, 10, "Wall"));
 		///Top of the Island
-		worldWalls.add(new Walls(handler,1365,-390,5,260,"Wall"));
-		worldWalls.add(new Walls(handler, 670, -130, 700, 5, "Wall"));
+		worldWalls.add(new Walls(handler,1365,-390,10,260,"Wall"));
+		worldWalls.add(new Walls(handler, 670, -130, 700, 10, "Wall"));
 		///Top right of the Island
-		worldWalls.add(new Walls(handler, 670, -130, 5, 250, "Wall"));
-		worldWalls.add(new Walls(handler, 360, 120, 310, 5, "Wall"));
+		worldWalls.add(new Walls(handler, 670, -130, 10, 250, "Wall"));
+		worldWalls.add(new Walls(handler, 360, 120, 310, 10, "Wall"));
 		///Right Mountains
 		worldWalls.add(new Walls(handler, 1860, -320, 50, 50 , "Wall"));
 		worldWalls.add(new Walls(handler, 1830, -270, 120, 50 , "Wall"));
