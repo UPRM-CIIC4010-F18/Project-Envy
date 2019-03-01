@@ -200,10 +200,10 @@ public class UIListener extends InWorldState{
 
 				}
 				State.setState(handler.getGame().menuState);
+				handler.getGame().reStart();
 				handler.getGame().getMusicHandler().set_changeMusic("res/music/Overture.mp3");
 				handler.getGame().getMusicHandler().play();
 				handler.getGame().getMusicHandler().setVolume(0.1);
-				Player.isinArea = false;
 			}
 		}
 	}
