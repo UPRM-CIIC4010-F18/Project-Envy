@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import Game.GameStates.FightState;
 import Game.GameStates.State;
 import Main.Handler;
+import Resources.Images;
 
 public class EnemyOne extends BaseHostileEntity implements Fighter{
 
@@ -45,7 +46,7 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
         if(handler.getArea().equals(this.Area)) {
             if (!Player.checkInWorld) {
                 enemyOne = new Rectangle((int) (handler.getXDisplacement() + getXOffset()),
-                        (int) (handler.getYDisplacement() + getYOffset()), 30, 30);
+                        (int) (handler.getYDisplacement() + getYOffset()), 45, 45);
 
             } else {
                 enemyOne = new Rectangle((int) (handler.getXInWorldDisplacement() + getXOffset()),
@@ -55,7 +56,7 @@ public class EnemyOne extends BaseHostileEntity implements Fighter{
 
             g2.setColor(Color.black);
 
-            g2.fill(enemyOne);
+            g.drawImage(Images.ghost,enemyOne.x,enemyOne.y,enemyOne.width,enemyOne.height,null);
 
             if (enemyOne.intersects(handler.getEntityManager().getPlayer().getCollision())) {
                 handler.getEntityManager().getPlayer().facing = "Left";

@@ -38,6 +38,7 @@ public class Images {
 
 	public static BufferedImage projectTitle;
 	public static BufferedImage envyTitle;
+	public static BufferedImage ghost;
 
 
 	public static SpriteSheet playerSheet;
@@ -153,6 +154,7 @@ public class Images {
 			WEnemySheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/W-enemy.png")));
 
 			projectTitle = ImageIO.read(getClass().getResourceAsStream("/Buttons/ProjectWord.png"));
+			ghost = ImageIO.read(getClass().getResourceAsStream("/Sheets/ghost.png"));
 
 
 			CaveMap = ImageIO.read(getClass().getResourceAsStream("/Worlds/CaveMap.png"));
