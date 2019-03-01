@@ -236,10 +236,7 @@ public class MenuState extends State {
 	}
 
 	public void choose() {
-		
-		if(!handler.getGame().getMusicHandler().getEPlayer().isEmpty()&&!handler.getGame().getMusicHandler().getEffect(0).equals(null)) {
-			handler.getGame().getMusicHandler().stopEffect(0);
-		}
+
 		handler.getGame().getMusicHandler().playEffect("res/music/enterSelect.wav",0);
 		
 		if(selector.getxPos2() == selector.menuXPositions[0] && selector.getyPos2() == selector.menuYPositions[0]) {
