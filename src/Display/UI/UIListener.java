@@ -178,9 +178,9 @@ public class UIListener extends InWorldState{
 			}else{
 				g.setColor(new Color(255,255,255,alpha++));
 				g.fillRect(0,0,handler.getWidth(),handler.getHeight());
-				g2.setColor(Color.GREEN);
-				g.drawString("Winner is: Player",handler.getWidth()/4,handler.getHeight()/2);
-				enemy.kill();
+				g2.setColor(Color.BLUE);
+				g.drawString("Congatulations!",handler.getWidth()/4,handler.getHeight()/2);
+				g.drawString("~JJMP",handler.getWidth()/4,handler.getHeight()/2 + this.wordHeight + 20);
 			}
 			if(alpha==255){
 				if(handler.getEntityManager().getPlayer().getHealth()==0){
@@ -283,16 +283,6 @@ public class UIListener extends InWorldState{
 				g2.drawString("Health: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 40);
 				g2.drawString(" ??? ", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 60);
 
-				//Draws MP Information
-				g2.setColor(Color.BLUE);
-				g2.fillRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, (int)((handler.getWidth() * 2 / 20)*(enemy.getMana()/enemy.getMaxMana())), 17);
-				g2.setColor(Color.WHITE);
-				g2.drawRect(entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 86, handler.getWidth() * 2 / 20, 17);
-				g2.drawString("Mana: ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 80);
-				g2.drawString(" ??? ", entityInfoX[i] + 16, (handler.getHeight() * 4 / 5) + 100);
-
-				g2.drawString("Skill: ??? ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 120);
-				g2.drawString("Mana Cost: -- ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 140);
 			}else{//player
 				g2.drawString("Name: "+"Player ", entityInfoX[i] + 15, (handler.getHeight() * 4 / 5) + 20);
 

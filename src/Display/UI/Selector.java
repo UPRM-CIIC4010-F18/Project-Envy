@@ -296,7 +296,7 @@ public class Selector {
 
 			if(this.handler.getEntityManager().getPlayer().getWeaken()) {
 
-				health=100;mana=100;xp=0l;lvl=1;defense=50;str=20;intl=50;cons=15;acc=100;mr= 50;evs=30;initiative=30; maxHealth = 100;		    
+				health=100;mana=100;xp=0l;lvl=1;defense=50;str=30;intl=50;cons=15;acc=100;mr= 50;evs=30;initiative=30; maxHealth = 100;		    
 
 			}
 
