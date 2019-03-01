@@ -789,7 +789,7 @@ public class FightState extends InWorldState{
         g.drawImage(Images.tint(playerDefenceMode.getCurrentFrame(),0,0,2),enemyRect.x-15,enemyRect.y-5,enemyRect.width+10,enemyRect.height+10,null);
         
         EisDefense = true;
-        enemy.setMana(enemy.getMana()+1);
+        enemy.setMana(enemy.getMana()+1 );
         if(playerDefenceMode.getIndex()>=Images.DefenceMode.length-1){
             enemy.setDefense(enemy.getDefense()+15);
             enemy.setMr(enemy.getMr()+4);

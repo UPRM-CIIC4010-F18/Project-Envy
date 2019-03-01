@@ -573,7 +573,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	private void levelUP() {
 		if(xp >= lvlUpExp) {
 			xp-= lvlUpExp;
-			lvlUpExp *= 1.4;
+			lvlUpExp *= 1.2;
 			maxHealth += 15 + 5*(lvl-1);
 			maxMana += 5 + 5*(lvl-1);
 			str += 1 + 1 *(int)((lvl - 1)/2);
