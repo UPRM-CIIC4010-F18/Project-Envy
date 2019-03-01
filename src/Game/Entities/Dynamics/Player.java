@@ -377,8 +377,8 @@ public class Player extends BaseDynamicEntity implements Fighter {
 
 	// GETTERS AND SETTERS FOR FIGHT STATS
 
-	double health = 200, mana = 100, xp = 0l, lvl = 1, defense = 16, str = 10, intl = 25, mr = 12, cons = 20, acc = 12, evs = 4,
-			initiative = 20, maxHealth = 200, maxMana = 100, lvlUpExp = 200;
+	double health = 200, mana = 100, xp = 0, lvl = 1, defense = 16, str = 10, intl = 25, mr = 12, cons = 20, acc = 12, evs = 4,
+			initiative = 13, maxHealth = 200, maxMana = 100, lvlUpExp = 200;
 
 	String Class = "none", skill = "none";
 	String[] buffs = {}, debuffs = {};
@@ -573,7 +573,7 @@ public class Player extends BaseDynamicEntity implements Fighter {
 	private void levelUP() {
 		if(xp >= lvlUpExp) {
 			xp-= lvlUpExp;
-			lvlUpExp *= 1.4;
+			lvlUpExp *= 1.2;
 			maxHealth += 15 + 5*(lvl-1);
 			maxMana += 5 + 5*(lvl-1);
 			str += 1 + 1 *(int)((lvl - 1)/2);
